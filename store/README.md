@@ -67,15 +67,15 @@ Reusable classes live next to the tokens: `.btn`, `.btn-primary`, `.btn-dark`,
 
 ### Type
 
-| Role | Family | Token |
-| --- | --- | --- |
-| Body, buttons, forms, navigation | **Outfit** | `--font-sans` |
-| Headings and section titles | **Fraunces** | `--font-display` |
+**Outfit**, everywhere — body, buttons, forms, navigation and headings. It is
+self-hosted from `@fontsource-variable/outfit` and imported once in
+`app/layout.tsx`, so nothing is fetched from a font CDN at build time or at
+runtime.
 
-Both are self-hosted from the `@fontsource-variable/*` packages and imported
-once in `app/layout.tsx`, so nothing is fetched from a font CDN at build time or
-at runtime. To change the site's voice, swap those two imports and update the
-two `--font-*` tokens in `app/globals.css`.
+`--font-display` deliberately mirrors `--font-sans`: headings earn their
+hierarchy from size and weight rather than from a second typeface. To change
+the site's voice, swap that one import and the two `--font-*` tokens in
+`app/globals.css`.
 
 ### One page container, three widths
 

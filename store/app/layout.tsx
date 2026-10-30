@@ -2,11 +2,10 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 
-// Self-hosted brand typefaces (bundled at build time — no external font CDN).
-// UI / body: Outfit. Headings: Fraunces. Swap these two imports to re-skin the
-// whole site's typography.
+// Self-hosted brand typeface (bundled at build time — no external font CDN).
+// Outfit is used for everything: body, UI and headings. Swap this import and
+// the two --font-* tokens in app/globals.css to re-skin the whole site.
 import '@fontsource-variable/outfit';
-import '@fontsource-variable/fraunces';
 
 import './globals.css';
 
