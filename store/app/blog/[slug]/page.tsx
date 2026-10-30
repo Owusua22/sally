@@ -72,7 +72,7 @@ export default async function BlogPostPage({ params }: Props) {
         </Link>
       </div>
 
-      <article className="container-page max-w-3xl py-8">
+      <article className="container-page is-reading py-8">
         <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-brand">
           <span>{post.category ?? 'Journal'}</span>
           <span className="text-line-strong">•</span>

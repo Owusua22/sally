@@ -32,38 +32,6 @@ export function ValueStrip() {
   );
 }
 
-/* ── Scrolling reassurance marquee ─────────────────────────── */
-export function MarqueeStrip() {
-  const words = [
-    'Free delivery over GH₵300',
-    '100% authentic products',
-    'Pay on delivery',
-    'Mum & baby safe',
-    'WhatsApp support',
-    'Same-day dispatch in Nsawam',
-  ];
-
-  return (
-    <div className="overflow-hidden border-y border-line bg-card py-3">
-      <div className="marquee-track items-center gap-10">
-        {[0, 1].map((copy) => (
-          <div key={copy} className="flex items-center gap-10 pr-10" aria-hidden={copy === 1}>
-            {words.map((word) => (
-              <span
-                key={`${copy}-${word}`}
-                className="flex items-center gap-10 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.18em] text-accent-deep"
-              >
-                {word}
-                <span className="h-1 w-1 rounded-full bg-primary" />
-              </span>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 /* ── Two editorial promo cards ─────────────────────────────── */
 export function PromoBands() {
   const bands = [
@@ -72,7 +40,7 @@ export function PromoBands() {
       image: '/images/products/body-lotion.jpg',
       eyebrow: 'Save up to 35%',
       title: 'Body care for soft, glowing skin',
-      copy: 'Shea lotions, body oils and shower creams for every skin type.',
+      copy: 'Shea lotions, body oils and shower creams.',
       cta: 'Shop body care',
       tint: 'from-ink/85 via-ink/55 to-transparent',
     },
@@ -81,7 +49,7 @@ export function PromoBands() {
       image: '/images/products/baby-diapers.jpg',
       eyebrow: 'Mum favourites',
       title: 'Gentle care for little ones',
-      copy: 'Jumbo diapers, lotions and tear-free washes for delicate skin.',
+      copy: 'Jumbo diapers, lotions and tear-free washes.',
       cta: 'Shop baby care',
       tint: 'from-accent/90 via-accent/55 to-transparent',
     },
@@ -142,9 +110,6 @@ export function DealBanner() {
             <h2 className="mt-2 max-w-[20ch] font-display text-[26px] font-bold leading-tight text-ink sm:text-[34px]">
               Up to 40% off skincare &amp; mother care
             </h2>
-            <p className="mt-2 max-w-[48ch] text-[13px] text-ink/70">
-              Stock up on lotions, serums and baby care before the offer ends.
-            </p>
           </div>
           <Link href="/products?deals=1" className="btn btn-primary btn-lg shrink-0">
             Shop the deals <ArrowRight className="h-4 w-4" />
@@ -190,9 +155,6 @@ export function ShopByStage() {
         <div>
           <p className="eyebrow">Shop by stage</p>
           <h2 className="section-title mt-1.5">Care that changes with you</h2>
-          <p className="section-subtitle">
-            From pregnancy to the toddler years — pick the shelf that fits today.
-          </p>
         </div>
       </div>
 

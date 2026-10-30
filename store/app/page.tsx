@@ -7,19 +7,16 @@ import { ProductSection } from '@/components/home/ProductSection';
 import { ProductRail } from '@/components/home/ProductRail';
 import {
   DealBanner,
-  MarqueeStrip,
   PromoBands,
   ShopByStage,
   ValueStrip,
 } from '@/components/home/PromoBands';
 import {
-  JournalPreview,
   NewsletterBand,
   PromiseBand,
   Testimonials,
 } from '@/components/home/HomeSections';
 import { getHomeData } from '@/lib/data/store';
-import { getBlogPosts } from '@/lib/data/blog';
 import { StoreSetupNotice } from '@/components/layout/StoreSetupNotice';
 import { isSupabaseConfigured } from '@/lib/supabase/config';
 import { checkDatabaseHealth } from '@/lib/supabase/health';
@@ -55,7 +52,6 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   const { banners, categories, hotArrivals, topPicks, hotSellers, showrooms } =
     await getHomeData();
-  const posts = await getBlogPosts({ limit: 3 }).catch(() => []);
 
   const deals = showrooms[0]?.products ?? [];
 
@@ -81,16 +77,20 @@ export default async function HomePage() {
 
       {awaitingCatalogue ? <StoreSetupNotice /> : null}
 
+      {/* The hero is artwork only, so the page's single h1 carries the
+          storefront's name and what it sells. */}
+      <h1 className="sr-only">
+        {site.nameFull} — skincare, body care, hair care and mother &amp; baby
+        essentials in Nsawam
+      </h1>
+
       <HeroBanner banners={banners} />
       <ValueStrip />
-      <MarqueeStrip />
       <CategoryStrip categories={categories} />
       <ShopByStage />
 
       <ProductSection
-        eyebrow="Just landed"
         title="Hot arrivals"
-        subtitle="Fresh stock, loved by our customers"
         href="/products?sort=newest"
         hrefLabel="View more"
         products={hotArrivals.slice(0, 10)}
@@ -100,9 +100,7 @@ export default async function HomePage() {
       <PromoBands />
 
       <ProductSection
-        eyebrow="Save more"
         title="Mega deals"
-        subtitle="More shopping, less spending"
         href="/products?deals=1"
         hrefLabel="All deals"
         products={deals.slice(0, 8)}
@@ -112,9 +110,7 @@ export default async function HomePage() {
       <DealBanner />
 
       <ProductSection
-        eyebrow="Hand-picked"
         title="Our top picks"
-        subtitle="Tried, loved and highly rated"
         href="/products?sort=popular"
         hrefLabel="View more"
         products={topPicks.slice(0, 8)}
@@ -123,16 +119,13 @@ export default async function HomePage() {
       />
 
       <ProductRail
-        eyebrow="Trending now"
         title="Hot sellers"
-        subtitle="The items everyone is buying"
         href="/products?sort=popular"
         products={hotSellers.slice(0, 10)}
       />
 
       <PromiseBand />
       <Testimonials />
-      <JournalPreview posts={posts} />
       <NewsletterBand />
     </>
   );

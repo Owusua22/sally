@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ChevronRight, PackageSearch, SlidersHorizontal, X } from 'lucide-react';
 import { ProductCard } from '@/components/products/ProductCard';
 import type { Category, Product } from '@/types';

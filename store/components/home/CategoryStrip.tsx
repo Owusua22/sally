@@ -17,9 +17,6 @@ export function CategoryStrip({ categories }: CategoryStripProps) {
         <div>
           <p className="eyebrow">Shop by category</p>
           <h2 className="section-title mt-1.5">Find your routine</h2>
-          <p className="section-subtitle">
-            Face, body, hair, baby and mother care — all under one roof.
-          </p>
         </div>
         <Link href="/products" className="section-link">
           All products <ChevronRight className="h-3.5 w-3.5" />

@@ -1,6 +1,13 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+
+// Self-hosted brand typefaces (bundled at build time — no external font CDN).
+// UI / body: Outfit. Headings: Fraunces. Swap these two imports to re-skin the
+// whole site's typography.
+import '@fontsource-variable/outfit';
+import '@fontsource-variable/fraunces';
+
 import './globals.css';
 
 import { AppShell } from '@/components/layout/AppShell';

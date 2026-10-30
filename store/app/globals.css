@@ -81,10 +81,10 @@
   --color-brand-soft: var(--card);
   --color-gold: var(--accent);
 
-  --font-sans: "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
-    "Times New Roman", serif;
+  --font-sans: "Outfit Variable", "Outfit", ui-sans-serif, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Fraunces Variable", "Fraunces", "Iowan Old Style",
+    "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
 
   --radius-4xl: 28px;
 }
@@ -178,6 +178,296 @@ p {
   text-wrap: pretty;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Admin palette.
+
+   The dashboard was written with Tailwind's default scales (slate, gray, red,
+   blue, emerald, amber …). Instead of rewriting ~1,000 utility classes across
+   40 files, `.admin-theme` re-points those scales at the brand palette: every
+   utility still resolves through `var(--color-*)` at the point of use, so
+   redefining the variables inside this scope re-skins the whole dashboard.
+
+   Neutrals → warm paper tones · blue/indigo → primary pink
+   red → danger · amber/orange → warning · green/emerald → success
+   ───────────────────────────────────────────────────────────── */
+.admin-theme {
+  /* neutrals — slate / gray / zinc / neutral / stone */
+  --color-slate-50: #fff8f5;
+  --color-slate-100: #fff2ee;
+  --color-slate-200: #fbe7e1;
+  --color-slate-300: #f2dad4;
+  --color-slate-400: #dfb9b2;
+  --color-slate-500: #a66b78;
+  --color-slate-600: #8a5561;
+  --color-slate-700: #6e4450;
+  --color-slate-800: #5a3a43;
+  --color-slate-900: #49383d;
+  --color-slate-950: #33272b;
+
+  --color-gray-50: var(--color-slate-50);
+  --color-gray-100: var(--color-slate-100);
+  --color-gray-200: var(--color-slate-200);
+  --color-gray-300: var(--color-slate-300);
+  --color-gray-400: var(--color-slate-400);
+  --color-gray-500: var(--color-slate-500);
+  --color-gray-600: var(--color-slate-600);
+  --color-gray-700: var(--color-slate-700);
+  --color-gray-800: var(--color-slate-800);
+  --color-gray-900: var(--color-slate-900);
+  --color-gray-950: var(--color-slate-950);
+
+  --color-zinc-50: var(--color-slate-50);
+  --color-zinc-100: var(--color-slate-100);
+  --color-zinc-200: var(--color-slate-200);
+  --color-zinc-300: var(--color-slate-300);
+  --color-zinc-400: var(--color-slate-400);
+  --color-zinc-500: var(--color-slate-500);
+  --color-zinc-600: var(--color-slate-600);
+  --color-zinc-700: var(--color-slate-700);
+  --color-zinc-800: var(--color-slate-800);
+  --color-zinc-900: var(--color-slate-900);
+  --color-zinc-950: var(--color-slate-950);
+
+  --color-neutral-50: var(--color-slate-50);
+  --color-neutral-100: var(--color-slate-100);
+  --color-neutral-200: var(--color-slate-200);
+  --color-neutral-300: var(--color-slate-300);
+  --color-neutral-400: var(--color-slate-400);
+  --color-neutral-500: var(--color-slate-500);
+  --color-neutral-600: var(--color-slate-600);
+  --color-neutral-700: var(--color-slate-700);
+  --color-neutral-800: var(--color-slate-800);
+  --color-neutral-900: var(--color-slate-900);
+  --color-neutral-950: var(--color-slate-950);
+
+  --color-stone-50: var(--color-slate-50);
+  --color-stone-100: var(--color-slate-100);
+  --color-stone-200: var(--color-slate-200);
+  --color-stone-300: var(--color-slate-300);
+  --color-stone-400: var(--color-slate-400);
+  --color-stone-500: var(--color-slate-500);
+  --color-stone-600: var(--color-slate-600);
+  --color-stone-700: var(--color-slate-700);
+  --color-stone-800: var(--color-slate-800);
+  --color-stone-900: var(--color-slate-900);
+  --color-stone-950: var(--color-slate-950);
+
+  /* danger — red */
+  --color-red-50: #fdeceb;
+  --color-red-100: #f9dad7;
+  --color-red-200: #f2b4ae;
+  --color-red-300: #e88c84;
+  --color-red-400: #d9695f;
+  --color-red-500: #c4483f;
+  --color-red-600: #b3261e;
+  --color-red-700: #98201a;
+  --color-red-800: #7e1a15;
+  --color-red-900: #621410;
+  --color-red-950: #3f0c08;
+
+  /* warning — amber / orange / yellow */
+  --color-amber-50: #fdf1de;
+  --color-amber-100: #fae3c4;
+  --color-amber-200: #f5cb90;
+  --color-amber-300: #edb05c;
+  --color-amber-400: #dda33c;
+  --color-amber-500: #c98a17;
+  --color-amber-600: #a86a12;
+  --color-amber-700: #87540e;
+  --color-amber-800: #6b430b;
+  --color-amber-900: #563509;
+  --color-amber-950: #3b2406;
+
+  --color-orange-50: var(--color-amber-50);
+  --color-orange-100: var(--color-amber-100);
+  --color-orange-200: var(--color-amber-200);
+  --color-orange-300: var(--color-amber-300);
+  --color-orange-400: var(--color-amber-400);
+  --color-orange-500: var(--color-amber-500);
+  --color-orange-600: var(--color-amber-600);
+  --color-orange-700: var(--color-amber-700);
+  --color-orange-800: var(--color-amber-800);
+  --color-orange-900: var(--color-amber-900);
+  --color-orange-950: var(--color-amber-950);
+
+  --color-yellow-50: var(--color-amber-50);
+  --color-yellow-100: var(--color-amber-100);
+  --color-yellow-200: var(--color-amber-200);
+  --color-yellow-300: var(--color-amber-300);
+  --color-yellow-400: var(--color-amber-400);
+  --color-yellow-500: var(--color-amber-500);
+  --color-yellow-600: var(--color-amber-600);
+  --color-yellow-700: var(--color-amber-700);
+  --color-yellow-800: var(--color-amber-800);
+  --color-yellow-900: var(--color-amber-900);
+  --color-yellow-950: var(--color-amber-950);
+
+  /* success — emerald / green / lime / teal */
+  --color-emerald-50: #e6f4ec;
+  --color-emerald-100: #cbe8d8;
+  --color-emerald-200: #a2d4b9;
+  --color-emerald-300: #7fc2a1;
+  --color-emerald-400: #4f9e77;
+  --color-emerald-500: #3b8b64;
+  --color-emerald-600: #2f7a5a;
+  --color-emerald-700: #256348;
+  --color-emerald-800: #1f4f3a;
+  --color-emerald-900: #1b4130;
+  --color-emerald-950: #12291f;
+
+  --color-green-50: var(--color-emerald-50);
+  --color-green-100: var(--color-emerald-100);
+  --color-green-200: var(--color-emerald-200);
+  --color-green-300: var(--color-emerald-300);
+  --color-green-400: var(--color-emerald-400);
+  --color-green-500: var(--color-emerald-500);
+  --color-green-600: var(--color-emerald-600);
+  --color-green-700: var(--color-emerald-700);
+  --color-green-800: var(--color-emerald-800);
+  --color-green-900: var(--color-emerald-900);
+  --color-green-950: var(--color-emerald-950);
+
+  --color-lime-50: var(--color-emerald-50);
+  --color-lime-100: var(--color-emerald-100);
+  --color-lime-200: var(--color-emerald-200);
+  --color-lime-300: var(--color-emerald-300);
+  --color-lime-400: var(--color-emerald-400);
+  --color-lime-500: var(--color-emerald-500);
+  --color-lime-600: var(--color-emerald-600);
+  --color-lime-700: var(--color-emerald-700);
+  --color-lime-800: var(--color-emerald-800);
+  --color-lime-900: var(--color-emerald-900);
+  --color-lime-950: var(--color-emerald-950);
+
+  --color-teal-50: var(--color-emerald-50);
+  --color-teal-100: var(--color-emerald-100);
+  --color-teal-200: var(--color-emerald-200);
+  --color-teal-300: var(--color-emerald-300);
+  --color-teal-400: var(--color-emerald-400);
+  --color-teal-500: var(--color-emerald-500);
+  --color-teal-600: var(--color-emerald-600);
+  --color-teal-700: var(--color-emerald-700);
+  --color-teal-800: var(--color-emerald-800);
+  --color-teal-900: var(--color-emerald-900);
+  --color-teal-950: var(--color-emerald-950);
+
+  /* primary action — blue / indigo / sky / cyan */
+  --color-blue-50: #fff6f8;
+  --color-blue-100: #ffedf0;
+  --color-blue-200: #ffd9e1;
+  --color-blue-300: #ffb7c7;
+  --color-blue-400: #ff9fb2;
+  --color-blue-500: #e8738d;
+  --color-blue-600: #a66b78;
+  --color-blue-700: #8a5561;
+  --color-blue-800: #6e4450;
+  --color-blue-900: #5a3a43;
+  --color-blue-950: #33272b;
+
+  --color-indigo-50: var(--color-blue-50);
+  --color-indigo-100: var(--color-blue-100);
+  --color-indigo-200: var(--color-blue-200);
+  --color-indigo-300: var(--color-blue-300);
+  --color-indigo-400: var(--color-blue-400);
+  --color-indigo-500: var(--color-blue-500);
+  --color-indigo-600: var(--color-blue-600);
+  --color-indigo-700: var(--color-blue-700);
+  --color-indigo-800: var(--color-blue-800);
+  --color-indigo-900: var(--color-blue-900);
+  --color-indigo-950: var(--color-blue-950);
+
+  --color-sky-50: var(--color-blue-50);
+  --color-sky-100: var(--color-blue-100);
+  --color-sky-200: var(--color-blue-200);
+  --color-sky-300: var(--color-blue-300);
+  --color-sky-400: var(--color-blue-400);
+  --color-sky-500: var(--color-blue-500);
+  --color-sky-600: var(--color-blue-600);
+  --color-sky-700: var(--color-blue-700);
+  --color-sky-800: var(--color-blue-800);
+  --color-sky-900: var(--color-blue-900);
+  --color-sky-950: var(--color-blue-950);
+
+  --color-cyan-50: var(--color-blue-50);
+  --color-cyan-100: var(--color-blue-100);
+  --color-cyan-200: var(--color-blue-200);
+  --color-cyan-300: var(--color-blue-300);
+  --color-cyan-400: var(--color-blue-400);
+  --color-cyan-500: var(--color-blue-500);
+  --color-cyan-600: var(--color-blue-600);
+  --color-cyan-700: var(--color-blue-700);
+  --color-cyan-800: var(--color-blue-800);
+  --color-cyan-900: var(--color-blue-900);
+  --color-cyan-950: var(--color-blue-950);
+
+  /* brand pink — violet / purple / fuchsia / pink / rose */
+  --color-pink-50: #fff6f8;
+  --color-pink-100: #ffedf0;
+  --color-pink-200: #ffd3dd;
+  --color-pink-300: #ffb7c7;
+  --color-pink-400: #ff9fb2;
+  --color-pink-500: #ff8ba5;
+  --color-pink-600: #e8738d;
+  --color-pink-700: #c25a72;
+  --color-pink-800: #9e4759;
+  --color-pink-900: #7e3b48;
+  --color-pink-950: #4a222b;
+
+  --color-rose-50: var(--color-pink-50);
+  --color-rose-100: var(--color-pink-100);
+  --color-rose-200: var(--color-pink-200);
+  --color-rose-300: var(--color-pink-300);
+  --color-rose-400: var(--color-pink-400);
+  --color-rose-500: var(--color-pink-500);
+  --color-rose-600: var(--color-pink-600);
+  --color-rose-700: var(--color-pink-700);
+  --color-rose-800: var(--color-pink-800);
+  --color-rose-900: var(--color-pink-900);
+  --color-rose-950: var(--color-pink-950);
+
+  --color-violet-50: var(--color-pink-50);
+  --color-violet-100: var(--color-pink-100);
+  --color-violet-200: var(--color-pink-200);
+  --color-violet-300: var(--color-pink-300);
+  --color-violet-400: var(--color-pink-400);
+  --color-violet-500: var(--color-pink-500);
+  --color-violet-600: var(--color-pink-600);
+  --color-violet-700: var(--color-pink-700);
+  --color-violet-800: var(--color-pink-800);
+  --color-violet-900: var(--color-pink-900);
+  --color-violet-950: var(--color-pink-950);
+
+  --color-purple-50: var(--color-pink-50);
+  --color-purple-100: var(--color-pink-100);
+  --color-purple-200: var(--color-pink-200);
+  --color-purple-300: var(--color-pink-300);
+  --color-purple-400: var(--color-pink-400);
+  --color-purple-500: var(--color-pink-500);
+  --color-purple-600: var(--color-pink-600);
+  --color-purple-700: var(--color-pink-700);
+  --color-purple-800: var(--color-pink-800);
+  --color-purple-900: var(--color-pink-900);
+  --color-purple-950: var(--color-pink-950);
+
+  --color-fuchsia-50: var(--color-pink-50);
+  --color-fuchsia-100: var(--color-pink-100);
+  --color-fuchsia-200: var(--color-pink-200);
+  --color-fuchsia-300: var(--color-pink-300);
+  --color-fuchsia-400: var(--color-pink-400);
+  --color-fuchsia-500: var(--color-pink-500);
+  --color-fuchsia-600: var(--color-pink-600);
+  --color-fuchsia-700: var(--color-pink-700);
+  --color-fuchsia-800: var(--color-pink-800);
+  --color-fuchsia-900: var(--color-pink-900);
+  --color-fuchsia-950: var(--color-pink-950);
+}
+
+/* Admin surfaces read softer than the storefront: card-white on warm paper. */
+.admin-theme {
+  background-color: var(--blush);
+  color: var(--ink);
+}
+
 /* ── Layout helpers ───────────────────────────────────────── */
 .container-page {
   width: 100%;
@@ -196,6 +486,18 @@ p {
   .container-page {
     padding-inline: 40px;
   }
+}
+
+/* One page container everywhere: same gutters, three measures.
+   `container-page`            → shop grids (1280px)
+   `container-page is-narrow`  → dashboard-style pages (1024px)
+   `container-page is-reading` → articles, policy and account pages (768px) */
+.container-page.is-narrow {
+  max-width: 1024px;
+}
+
+.container-page.is-reading {
+  max-width: 768px;
 }
 
 .hide-scrollbar {
@@ -553,21 +855,6 @@ p {
 
 .float-soft {
   animation: floatSoft 6s ease-in-out infinite;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 32s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

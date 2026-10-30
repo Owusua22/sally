@@ -101,7 +101,7 @@ export default async function OrderDetailsPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-red-50 via-white to-rose-50">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <div className="container-page is-narrow py-10 sm:py-14">
         <Link
           href="/orders"
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-ink mb-6 transition-colors"

@@ -3,7 +3,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Check, Loader2, ShoppingBag, Star, Truck } from 'lucide-react';
+import { Check, Loader2, ShoppingBag, Star } from 'lucide-react';
 import { useState } from 'react';
 import { formatCedis, metaNumber, metaString } from '@/lib/utils';
 import { useGuardedCart } from '@/hooks/useGuardedCart';
@@ -135,26 +135,22 @@ export function ProductCard({ product, compact = false }: ProductCardProps) {
           {product.name}
         </h3>
 
-        <div className="mt-1.5 flex items-center gap-1 text-[11px] text-muted">
-          <span className="flex items-center gap-0.5 text-warning">
-            <Star className="h-3 w-3 fill-current" />
-            <span className="font-bold text-ink">{rating.toFixed(1)}</span>
-          </span>
-          {reviews > 0 && <span>({reviews})</span>}
-          {sold > 0 && (
-            <>
-              <span className="text-accent/50">·</span>
-              <span>{sold >= 1000 ? `${(sold / 1000).toFixed(1)}k` : sold} sold</span>
-            </>
-          )}
-        </div>
-
-        {!compact && (
-          <div className="mt-1.5 flex items-center gap-1 text-[10.5px] font-semibold text-success">
-            <Truck className="h-3 w-3" />
-            Nationwide delivery
+        {/* The rail passes `compact`: keep those cards to name + price only. */}
+        {!compact ? (
+          <div className="mt-1.5 flex items-center gap-1 text-[11px] text-muted">
+            <span className="flex items-center gap-0.5 text-warning">
+              <Star className="h-3 w-3 fill-current" />
+              <span className="font-bold text-ink">{rating.toFixed(1)}</span>
+            </span>
+            {reviews > 0 && <span>({reviews})</span>}
+            {sold > 0 && (
+              <>
+                <span className="text-accent/50">·</span>
+                <span>{sold >= 1000 ? `${(sold / 1000).toFixed(1)}k` : sold} sold</span>
+              </>
+            )}
           </div>
-        )}
+        ) : null}
 
         <div className="mt-auto flex items-baseline gap-2 pt-3">
           <span className="text-[16px] font-extrabold tracking-tight text-ink">

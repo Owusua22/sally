@@ -28,7 +28,7 @@ export default function AboutPage() {
         <div className="absolute top-0 -left-40 w-96 h-96 bg-danger-soft/40 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 -right-40 w-96 h-96 bg-danger-soft/40 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+        <div className="container-page is-narrow relative py-16 sm:py-20">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-danger-soft border border-danger/25/60 mb-6">

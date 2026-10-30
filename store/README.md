@@ -65,8 +65,36 @@ Reusable classes live next to the tokens: `.btn`, `.btn-primary`, `.btn-dark`,
 `.field-error`, `.panel`, `.section-title`, `.eyebrow`, `.container-page`,
 `.product-card`. Use them instead of re-inventing padding and radii.
 
-Headings use a serif display stack (`--font-display`) and body copy uses
-`--font-sans`. Both are system fonts, so nothing is downloaded at build time.
+### Type
+
+| Role | Family | Token |
+| --- | --- | --- |
+| Body, buttons, forms, navigation | **Outfit** | `--font-sans` |
+| Headings and section titles | **Fraunces** | `--font-display` |
+
+Both are self-hosted from the `@fontsource-variable/*` packages and imported
+once in `app/layout.tsx`, so nothing is fetched from a font CDN at build time or
+at runtime. To change the site's voice, swap those two imports and update the
+two `--font-*` tokens in `app/globals.css`.
+
+### One page container, three widths
+
+Every page — navbar, footer, shop grids, articles, account screens — uses
+`.container-page`, so the left and right gutters line up all the way down.
+
+| Class | Max width | Used by |
+| --- | --- | --- |
+| `.container-page` | 1280px | shop grids, product and category pages |
+| `.container-page.is-narrow` | 1024px | about, order detail |
+| `.container-page.is-reading` | 768px | journal posts, policies, profile |
+
+### The dashboard wears the same palette
+
+`/admin` was written against Tailwind's default scales. `.admin-theme` (same
+file) re-points those scales at the brand colours — slate and gray become warm
+paper tones, blue becomes the primary pink, red the danger tone, amber the
+warning tone and emerald the success tone — so the dashboard matches the
+storefront without rewriting its markup.
 
 ---
 

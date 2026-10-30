@@ -1,21 +1,18 @@
 // components/home/HomeSections.tsx
-// Supporting homepage sections: brand promise, customer reviews, journal
-// preview and the newsletter band.
+// Supporting homepage sections: brand promise, customer reviews and the
+// newsletter/WhatsApp band.
 
-import Image from 'next/image';
 import Link from 'next/link';
 import {
   ArrowRight,
   BadgeCheck,
   Clock,
-  Flower2,
   Leaf,
   ShieldCheck,
   Sparkles,
 } from 'lucide-react';
 import { NewsletterForm } from '@/components/layout/NewsletterForm';
 import { site } from '@/lib/site';
-import type { BlogPost } from '@/types';
 
 /* ── Why shop with us ──────────────────────────────────────── */
 export function PromiseBand() {
@@ -23,22 +20,22 @@ export function PromiseBand() {
     {
       icon: BadgeCheck,
       title: 'Genuine, always',
-      copy: 'Every item is sourced from the brand or its authorised distributor. No fakes, no repackaging.',
+      copy: 'Sourced from the brand or its authorised distributor.',
     },
     {
       icon: Leaf,
       title: 'Mum & baby safe',
-      copy: 'We read the label so you do not have to — no harsh bleach, no unlisted hydroquinone.',
+      copy: 'No harsh bleach, no unlisted hydroquinone.',
     },
     {
       icon: Clock,
-      title: 'Fast, honest delivery',
-      copy: `Order before ${site.policy.sameDayCutoff} for same-day dispatch around Nsawam, 2–4 days nationwide.`,
+      title: 'Fast delivery',
+      copy: `Order before ${site.policy.sameDayCutoff} for same-day dispatch in Nsawam.`,
     },
     {
       icon: ShieldCheck,
       title: 'Help after the sale',
-      copy: 'WhatsApp a real person about a reaction, a swap or a delivery — we answer within minutes.',
+      copy: 'WhatsApp a real person about any order.',
     },
   ];
 
@@ -49,12 +46,11 @@ export function PromiseBand() {
           <div>
             <p className="eyebrow">Why {site.name}</p>
             <h2 className="section-title mt-2">
-              Skincare advice, not just skincare shelves
+              Skincare advice, not just shelves
             </h2>
-            <p className="mt-3 max-w-[46ch] text-[13.5px] leading-relaxed text-ink/70">
-              We are a mother-and-baby shop in East Doboro, Nsawam. Every product on
-              this site is one we stock on our own shelf and would use on our own
-              family — and we will tell you when something is not right for your skin.
+            <p className="mt-3 max-w-[42ch] text-[13.5px] leading-relaxed text-ink/70">
+              A mother-and-baby shop in East Doboro, Nsawam. We stock what we
+              would use on our own family.
             </p>
             <Link href="/about" className="btn btn-outline mt-6">
               Our story <ArrowRight className="h-4 w-4" />
@@ -114,7 +110,6 @@ export function Testimonials() {
           <div>
             <p className="eyebrow">Loved by mums</p>
             <h2 className="section-title mt-1.5">Reviews from our shelves</h2>
-            <p className="section-subtitle">4.9 out of 5 from 2,100+ verified orders.</p>
           </div>
           <Link href="/products?sort=popular" className="section-link">
             Shop best sellers <ArrowRight className="h-3.5 w-3.5" />
@@ -152,71 +147,6 @@ export function Testimonials() {
   );
 }
 
-/* ── Journal preview ───────────────────────────────────────── */
-export function JournalPreview({ posts }: { posts: BlogPost[] }) {
-  if (posts.length === 0) return null;
-
-  return (
-    <section className="pt-12 sm:pt-16" aria-label="From the journal">
-      <div className="container-page">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">The {site.name} journal</p>
-            <h2 className="section-title mt-1.5">Skincare notes that actually help</h2>
-            <p className="section-subtitle">
-              Routines, ingredient guides and mother-care tips from our counter.
-            </p>
-          </div>
-          <Link href="/blog" className="section-link">
-            Read the journal <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-3">
-          {posts.slice(0, 3).map((post) => (
-            <Link
-              key={post.id}
-              href={`/blog/${post.slug}`}
-              className="group flex flex-col overflow-hidden rounded-3xl border border-line bg-surface transition-shadow hover:shadow-[0_18px_40px_-26px_rgba(73,56,61,0.55)]"
-            >
-              <div className="relative aspect-[16/10] overflow-hidden bg-card">
-                {post.cover_image ? (
-                  <Image
-                    src={post.cover_image}
-                    alt={post.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center text-accent/40">
-                    <Flower2 className="h-10 w-10" />
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-1 flex-col p-5">
-                <div className="flex items-center gap-2 text-[10.5px] font-bold uppercase tracking-wide text-accent-deep">
-                  {post.category ?? 'Skincare'}
-                  <span className="text-accent/50">·</span>
-                  <span className="text-muted">{post.read_minutes} min read</span>
-                </div>
-                <h3 className="mt-2 font-display text-[18px] font-bold leading-snug text-ink">
-                  {post.title}
-                </h3>
-                {post.excerpt && (
-                  <p className="mt-2 line-clamp-3 text-[12.5px] leading-relaxed text-muted">
-                    {post.excerpt}
-                  </p>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ── Newsletter / WhatsApp band ────────────────────────────── */
 export function NewsletterBand() {
   return (
@@ -233,12 +163,11 @@ export function NewsletterBand() {
                 <Sparkles className="h-3.5 w-3.5 text-accent" />
                 Members only
               </span>
-              <h2 className="mt-4 max-w-[20ch] font-display text-[26px] font-bold leading-tight text-ink sm:text-[32px]">
-                Restock alerts and 30% off drops
+              <h2 className="mt-4 max-w-[18ch] font-display text-[26px] font-bold leading-tight text-ink sm:text-[32px]">
+                Restock alerts and member drops
               </h2>
-              <p className="mt-2.5 max-w-[46ch] text-[13px] text-ink/70">
-                Join our list for skincare tips, mother-care guides and first access to
-                our weekly markdowns. No spam, unsubscribe any time.
+              <p className="mt-2.5 max-w-[44ch] text-[13px] text-ink/70">
+                Skincare tips and first access to our weekly markdowns. No spam.
               </p>
             </div>
 

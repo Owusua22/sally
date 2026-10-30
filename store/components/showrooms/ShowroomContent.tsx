@@ -11,10 +11,8 @@ import {
   Star,
   Package,
 } from 'lucide-react';
-import { useCart } from '@/hooks/useCart';
-import { useAuth } from '@/hooks/useAuth';
+import { useGuardedCart } from '@/hooks/useGuardedCart';
 import { formatCedis } from '@/lib/utils';
-import { toast } from 'react-toastify';
 
 interface ShowroomProduct {
   id: string;
@@ -96,7 +94,7 @@ export function ShowroomContent({ showroom, products, allShowrooms }: ShowroomCo
 
       {/* ── Compact sticky header ── */}
       <header className="sticky top-0 z-30 backdrop-blur-xl bg-white/85 border-b border-line/70">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="container-page">
 
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1 text-[11px] sm:text-xs text-muted/70 pt-2 sm:pt-2.5 overflow-x-auto whitespace-nowrap scrollbar-hide">
@@ -190,7 +188,7 @@ export function ShowroomContent({ showroom, products, allShowrooms }: ShowroomCo
       </header>
 
       {/* ── Main ── */}
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+      <main className="container-page py-4 sm:py-6 lg:py-8">
         <div className="flex gap-6 lg:gap-8">
           <div className="flex-1 min-w-0">
             {sortedProducts.length === 0 ? (
@@ -247,8 +245,7 @@ function ProductCard({
   gradient: string;
   viewMode: ViewMode;
 }) {
-  const { addToCart } = useCart();
-  const { isAuthenticated } = useAuth();
+  const { add } = useGuardedCart();
 
   const discount = product.compare_at_price
     ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
@@ -259,9 +256,10 @@ function ProductCard({
   const handleAdd = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!isAuthenticated) { toast.error('Please sign in'); return; }
     if (isOutOfStock) return;
-    await addToCart(product.id, 1);
+    // useGuardedCart opens the sign-in dialog for guests and only calls the
+    // basket API once a session exists — the same gate used everywhere else.
+    await add(product.id, 1);
   };
 
   if (isLarge) {
