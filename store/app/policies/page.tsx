@@ -81,7 +81,7 @@ export default function PoliciesPage() {
         ]}
       />
 
-      <div className="container-page py-8 sm:py-12">
+      <div className="container-page section-y">
         <header className="max-w-3xl">
           <p className="eyebrow">Good to know</p>
           <h1 className="mt-2 font-display text-[30px] font-bold leading-tight text-ink sm:text-[40px]">

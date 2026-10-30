@@ -40,7 +40,7 @@ export function PromiseBand() {
   ];
 
   return (
-    <section className="bg-surface-soft py-12 sm:py-16" aria-label="Why shop with us">
+    <section className="section-y bg-surface-soft" aria-label="Why shop with us">
       <div className="container-page">
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           <div>
@@ -104,7 +104,7 @@ const REVIEWS = [
 
 export function Testimonials() {
   return (
-    <section className="pt-12 sm:pt-16" aria-label="Customer reviews">
+    <section className="section-y" aria-label="Customer reviews">
       <div className="container-page">
         <div className="section-head">
           <div>
@@ -150,7 +150,7 @@ export function Testimonials() {
 /* ── Newsletter / WhatsApp band ────────────────────────────── */
 export function NewsletterBand() {
   return (
-    <section className="pt-12 sm:pt-16" aria-label="Newsletter">
+    <section className="section-y" aria-label="Newsletter">
       <div className="container-page">
         <div className="relative overflow-hidden rounded-[28px] bg-card p-7 sm:p-10">
           <div

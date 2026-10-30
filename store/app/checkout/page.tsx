@@ -59,7 +59,7 @@ export default function CheckoutPage() {
     <div className="min-h-screen bg-blush pb-32 lg:pb-14">
       <CheckoutTopBar />
 
-      <main className="container-page grid gap-8 py-8 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-10 lg:py-12">
+      <main className="container-page section-y grid gap-8 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-10">
         {/* ── Steps ─────────────────────────────────────────── */}
         <div className="space-y-6">
           <header>

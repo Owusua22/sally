@@ -58,7 +58,7 @@ export default function AccountPage() {
     .toUpperCase();
 
   return (
-    <div className="container-page py-6 sm:py-8">
+    <div className="container-page section-y">
       <h1 className="text-[22px] font-extrabold tracking-tight text-ink sm:text-[26px]">
         My account
       </h1>

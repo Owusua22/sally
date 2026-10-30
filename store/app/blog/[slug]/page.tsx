@@ -72,7 +72,7 @@ export default async function BlogPostPage({ params }: Props) {
         </Link>
       </div>
 
-      <article className="container-page is-reading py-8">
+      <article className="container-page is-reading section-y">
         <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-brand">
           <span>{post.category ?? 'Journal'}</span>
           <span className="text-line-strong">•</span>
@@ -159,7 +159,7 @@ export default async function BlogPostPage({ params }: Props) {
       </article>
 
       {related.length > 0 ? (
-        <section className="border-t border-line bg-surface-soft py-10">
+        <section className="section-y border-t border-line bg-surface-soft">
           <div className="container-page">
             <h2 className="text-[20px] font-black text-ink">Keep reading</h2>
             <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

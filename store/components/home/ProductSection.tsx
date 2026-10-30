@@ -36,7 +36,7 @@ export function ProductSection({
 
   return (
     <section
-      className={`${tone === 'soft' ? 'bg-surface-soft py-12 sm:py-16' : 'pt-12 sm:pt-16'}`}
+      className={`${tone === 'soft' ? 'section-y bg-surface-soft' : 'section-y'}`}
       aria-label={title}
     >
       <div className="container-page">

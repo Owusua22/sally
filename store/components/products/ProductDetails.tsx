@@ -170,7 +170,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
         </div>
       </div>
 
-      <div className="container-page pt-4">
+      <div className="container-page section-y">
         <div className="grid gap-6 lg:grid-cols-12 lg:gap-8">
           {/* Gallery */}
           <div className="lg:col-span-5">
@@ -527,7 +527,11 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
             <div className="section-head">
               <div>
                 <h2 className="section-title">You may also like</h2>
-                <p className="section-subtitle">Complete your routine</p>
+                <p className="section-subtitle">
+                  {product.category
+                    ? `More ${product.category.name} picked to go with it`
+                    : 'Complete your routine'}
+                </p>
               </div>
               <Link href={categoryHref} className="section-link">
                 View category <ChevronRight className="h-3.5 w-3.5" />

@@ -14,7 +14,7 @@ export function ValueStrip() {
   ];
 
   return (
-    <section className="container-page pt-8">
+    <section className="container-page section-y">
       <div className="grid grid-cols-2 gap-3 rounded-3xl border border-line bg-surface p-4 sm:grid-cols-4 sm:gap-4 sm:p-5">
         {items.map(({ icon: Icon, title, copy }) => (
           <div key={title} className="flex items-center gap-3">
@@ -56,7 +56,7 @@ export function PromoBands() {
   ];
 
   return (
-    <section className="container-page grid gap-4 pt-12 sm:grid-cols-2 sm:pt-16" aria-label="Promotions">
+    <section className="container-page section-y grid gap-4 sm:grid-cols-2" aria-label="Promotions">
       {bands.map((band) => (
         <Link
           key={band.href}
@@ -93,7 +93,7 @@ export function PromoBands() {
 /* ── Full-width deal banner ────────────────────────────────── */
 export function DealBanner() {
   return (
-    <section className="container-page pt-12 sm:pt-16">
+    <section className="container-page section-y">
       <div className="relative overflow-hidden rounded-[26px] bg-card">
         <Image
           src="/images/hero-skincare.jpg"
@@ -150,7 +150,7 @@ export function ShopByStage() {
   ];
 
   return (
-    <section className="container-page pt-12 sm:pt-16" aria-label="Shop by life stage">
+    <section className="container-page section-y" aria-label="Shop by life stage">
       <div className="section-head">
         <div>
           <p className="eyebrow">Shop by stage</p>

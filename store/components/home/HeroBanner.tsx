@@ -64,7 +64,7 @@ export function HeroBanner({ banners }: HeroBannerProps) {
   }, [go]);
 
   return (
-    <section className="container-page pt-5 sm:pt-7" aria-label="Featured offers">
+    <section className="container-page section-y" aria-label="Featured offers">
       <div
         className="relative"
         onMouseEnter={() => setPaused(true)}

@@ -2,7 +2,11 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { ProductDetails } from '@/components/products/ProductDetails';
-import { getProductBySlug, getRelatedProducts } from '@/lib/data/store';
+import {
+  getCategories,
+  getProductBySlug,
+  getRelatedProducts,
+} from '@/lib/data/store';
 import { JsonLd } from '@/components/seo/JsonLd';
 import {
   breadcrumbSchema,
@@ -79,7 +83,23 @@ export default async function ProductPage({ params }: Props) {
 
   if (!product) notFound();
 
-  const relatedProducts = await getRelatedProducts(product, 4);
+  /**
+   * Some catalogue rows carry a category_id without a joined category row (or
+   * no category at all). Resolve the shelf from the categories list before
+   * rendering, so the breadcrumb, the chip and "you may also like" always agree
+   * with the product instead of silently disappearing.
+   */
+  const categories = await getCategories();
+  const category =
+    product.category ??
+    categories.find((entry) => entry.id === product.category_id) ??
+    null;
+
+  const productWithCategory: typeof product = category
+    ? { ...product, category }
+    : product;
+
+  const relatedProducts = await getRelatedProducts(productWithCategory, 4);
 
   const steps = howToSteps(product.how_to_use);
 
@@ -88,7 +108,7 @@ export default async function ProductPage({ params }: Props) {
       <JsonLd
         id="product"
         data={[
-          productSchema(product),
+          productSchema(productWithCategory),
           ...(steps.length > 0
             ? [
                 howToSchema({
@@ -102,14 +122,17 @@ export default async function ProductPage({ params }: Props) {
           breadcrumbSchema([
             { name: 'Home', href: '/' },
             { name: 'Shop', href: '/products' },
-            ...(product.category
-              ? [{ name: product.category.name, href: `/categories/${product.category.slug}` }]
+            ...(category
+              ? [{ name: category.name, href: `/categories/${category.slug}` }]
               : []),
             { name: product.name, href: `/products/${product.slug}` },
           ]),
         ]}
       />
-      <ProductDetails product={product} relatedProducts={relatedProducts} />
+      <ProductDetails
+        product={productWithCategory}
+        relatedProducts={relatedProducts}
+      />
     </>
   );
 }

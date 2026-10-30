@@ -117,7 +117,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const listingUrl = `/products${categorySlug ? `?category=${categorySlug}` : ''}`;
 
   return (
-    <div className="container-page pb-10 pt-3 sm:pt-4">
+    <div className="container-page section-y">
       <JsonLd
         id="products"
         data={[

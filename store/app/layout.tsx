@@ -118,7 +118,13 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GH" data-scroll-behavior="smooth">
-      <body className="antialiased bg-blush text-ink font-sans">
+      {/* suppressHydrationWarning: browser extensions (ColourZilla and friends)
+          inject attributes such as cz-shortcut-listen onto <body> before React
+          hydrates. That is outside our control and harmless. */}
+      <body
+        className="antialiased bg-blush text-ink font-sans"
+        suppressHydrationWarning
+      >
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-5 focus:py-2.5 focus:text-sm focus:font-bold focus:text-blush"

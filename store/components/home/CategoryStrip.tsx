@@ -12,7 +12,7 @@ export function CategoryStrip({ categories }: CategoryStripProps) {
   if (categories.length === 0) return null;
 
   return (
-    <section className="container-page pt-10 sm:pt-14" aria-label="Shop by category">
+    <section className="container-page section-y" aria-label="Shop by category">
       <div className="section-head">
         <div>
           <p className="eyebrow">Shop by category</p>

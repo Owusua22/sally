@@ -475,8 +475,6 @@ p {
 /* ── Layout helpers ───────────────────────────────────────── */
 .container-page {
   width: 100%;
-  max-width: 1280px;
-  margin-inline: auto;
   padding-inline: 16px;
 }
 
@@ -492,16 +490,36 @@ p {
   }
 }
 
-/* One page container everywhere: same gutters, three measures.
-   `container-page`            → shop grids (1280px)
-   `container-page is-narrow`  → dashboard-style pages (1024px)
-   `container-page is-reading` → articles, policy and account pages (768px) */
+/* Fluid by default: content runs the full width of the viewport with one set of
+   gutters, so a full-bleed rail (hot sellers) starts at exactly the same x as
+   every grid, heading and card above it. Add `is-narrow`/`is-reading` only for
+   pages that are mostly prose, where a centred measure reads better. */
 .container-page.is-narrow {
   max-width: 1024px;
+  margin-inline: auto;
 }
 
 .container-page.is-reading {
   max-width: 768px;
+  margin-inline: auto;
+}
+
+/* One vertical rhythm for every section. Sections sit directly on top of each
+   other, so `padding-block` on all of them yields the same gap everywhere. */
+.section-y {
+  padding-block: 28px;
+}
+
+@media (min-width: 640px) {
+  .section-y {
+    padding-block: 36px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-y {
+    padding-block: 44px;
+  }
 }
 
 .hide-scrollbar {

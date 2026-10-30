@@ -67,7 +67,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="container-page py-8 sm:py-10">
+    <div className="container-page section-y">
       <header>
         <p className="eyebrow">Your basket</p>
         <h1 className="mt-2 font-display text-[28px] font-bold leading-tight text-ink sm:text-[34px]">

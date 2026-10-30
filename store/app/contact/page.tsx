@@ -49,7 +49,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="container-page py-6 sm:py-8">
+    <div className="container-page section-y">
       <JsonLd
         id="contact"
         data={[

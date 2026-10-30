@@ -38,7 +38,7 @@ export default function ProfilePage() {
   // Show loading while auth is initializing
   if (authLoading || !isAuthenticated) {
     return (
-      <div className="container-page is-reading py-16">
+      <div className="container-page is-reading section-y">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-card rounded w-1/3" />
           <div className="h-32 bg-card rounded" />
@@ -107,7 +107,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="container-page is-reading py-10">
+    <div className="container-page is-reading section-y">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>

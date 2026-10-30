@@ -196,7 +196,7 @@ function OrdersShell({
     <main className="min-h-screen bg-blush">
       {/* ── Hero / header strip ── */}
       <div className="border-b border-line bg-white">
-        <div className="container-page is-reading py-6 sm:py-8">
+        <div className="container-page is-reading section-y">
           <div className="flex items-center gap-3 mb-1">
             <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-brand-soft text-brand shrink-0">
               <ShoppingBag className="w-5 h-5" />
@@ -236,7 +236,7 @@ function OrdersShell({
       </div>
 
       {/* ── Content ── */}
-      <div className="container-page is-reading py-8">
+      <div className="container-page is-reading section-y">
         {safeOrders.length === 0 ? (
           /* Empty state */
           <div className="bg-white rounded-2xl border border-line p-10 sm:p-14 text-center">

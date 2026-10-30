@@ -50,7 +50,7 @@ export default async function BlogIndexPage({ searchParams }: Props) {
         ]}
       />
       <section className="border-b border-line bg-surface-soft">
-        <div className="container-page py-10 sm:py-14">
+        <div className="container-page section-y">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand">
             <Sparkles className="h-3.5 w-3.5" />
             The GlowMom Journal
@@ -107,7 +107,7 @@ export default async function BlogIndexPage({ searchParams }: Props) {
         </div>
       </section>
 
-      <div className="container-page py-10">
+      <div className="container-page section-y">
         {posts.length === 0 ? (
           <div className="panel p-12 text-center">
             <p className="text-sm font-semibold text-ink">No articles yet.</p>

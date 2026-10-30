@@ -33,7 +33,7 @@ export function ProductRail({
   };
 
   return (
-    <section className="pt-12 sm:pt-16" aria-label={title}>
+    <section className="section-y" aria-label={title}>
       <div className="container-page">
         <div className="section-head">
           <div>

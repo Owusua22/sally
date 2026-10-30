@@ -61,7 +61,7 @@ export default async function LocationPage() {
         ]}
       />
 
-      <div className="container-page py-8 sm:py-12">
+      <div className="container-page section-y">
         <header className="max-w-3xl">
           <p className="eyebrow">Find us</p>
           <h1 className="mt-2 font-display text-[30px] font-bold leading-tight text-ink sm:text-[40px]">
