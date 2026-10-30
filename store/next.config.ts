@@ -33,14 +33,45 @@ const staticHosts = [
 
 const envHosts = hostsFromEnv();
 
+/**
+ * Category slugs that changed when the catalogue was reorganised. Old links
+ * (and any backlinks pointing at them) 308 to the live category instead of
+ * 404-ing, so no link equity is lost. Mirrors LEGACY_CATEGORY_SLUGS in
+ * lib/site.ts — Next.js cannot read path aliases from this file.
+ */
+const LEGACY_CATEGORY_REDIRECTS: Record<string, string> = {
+  'body-lotions': 'bath-body-care',
+  'shower-gels': 'bath-body-care',
+  'face-care': 'facial-skincare',
+  'face-wash': 'facial-skincare',
+  'serums-oils': 'facial-skincare',
+  'sun-care': 'facial-skincare',
+  shampoos: 'haircare',
+  conditioners: 'haircare',
+  'hair-care': 'haircare',
+  'mother-care': 'mothercare-pregnancy',
+  'baby-care': 'baby-care-essentials',
+  deals: 'bundles-offers',
+  offers: 'bundles-offers',
+};
+
 const nextConfig: NextConfig = {
   images: {
     // Remote hosts used by the admin (Cloudflare R2 public URL, Supabase storage)
-    remotePatterns: [
-      ...new Set([...staticHosts, ...envHosts]),
-    ].map((hostname) => ({ protocol: 'https' as const, hostname })),
+    remotePatterns: [...new Set([...staticHosts, ...envHosts])].map((hostname) => ({
+      protocol: 'https' as const,
+      hostname,
+    })),
     // Local dev over http://localhost still needs to serve public/images
     formats: ['image/avif', 'image/webp'],
+  },
+  poweredByHeader: false,
+  async redirects() {
+    return Object.entries(LEGACY_CATEGORY_REDIRECTS).map(([from, to]) => ({
+      source: `/categories/${from}`,
+      destination: `/categories/${to}`,
+      permanent: true,
+    }));
   },
 };
 

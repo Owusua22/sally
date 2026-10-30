@@ -1,33 +1,141 @@
-/* app/globals.css */
+/* app/globals.css
+   GlowMom design system — every colour, radius and elevation token lives here.
+
+   Brand palette (fixed, do not change without asking):
+     Main background   #FFF8F5
+     Navigation        #FBDCE2
+     Primary buttons   #FF9FB2
+     Product cards     #FBDCE2
+     Headings          #49383D
+     Body text         #49383D
+     Accent elements   #A66B78
+*/
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
 :root {
-  --brand: #e11b22;
-  --brand-dark: #b01118;
-  --brand-soft: #fdecee;
-  --ink: #14161a;
-  --muted: #6b7280;
-  --line: #ececef;
+  /* ── The seven brand colours ─────────────────────────────── */
+  --blush: #fff8f5; /* main background                  */
+  --nav: #fbdce2; /* navigation + soft surfaces       */
+  --primary: #ff9fb2; /* primary buttons                  */
+  --card: #fbdce2; /* product cards                     */
+  --ink: #49383d; /* headings + body text               */
+  --accent: #a66b78; /* accent elements                   */
+
+  /* ── Contrast-safe shades derived from the palette ──────── */
+  --primary-strong: #ff8ba5; /* button hover                     */
+  --primary-soft: #ffe6ec; /* tinted primary background        */
+  --accent-deep: #8a5561; /* accent text on light backgrounds */
+  --accent-soft: #f6e7ea; /* tinted accent background         */
   --surface: #ffffff;
-  --surface-soft: #f7f7f8;
-  --gold: #f5a623;
+  --surface-soft: #fff2ee;
+  --line: #f2dad4;
+  --line-strong: #e8c6c1;
+  --muted: #7c646a; /* muted body copy, 5.1:1 on blush    */
+
+  /* ── Feedback colours, tuned to sit inside the palette ──── */
+  --success: #2f7a5a;
+  --success-soft: #e6f4ec;
+  --warning: #a86a12;
+  --warning-soft: #fdf1de;
+  --danger: #b3261e;
+  --danger-soft: #fdeceb;
+
+  /* ── Shape ───────────────────────────────────────────────── */
+  --radius-card: 18px;
+  --radius-panel: 24px;
+  --shadow-card: 0 1px 2px rgba(73, 56, 61, 0.04);
+  --shadow-lift: 0 14px 34px rgba(73, 56, 61, 0.1);
+  --shadow-pop: 0 22px 55px rgba(166, 107, 120, 0.22);
 }
 
 @theme inline {
-  --color-brand: var(--brand);
-  --color-brand-dark: var(--brand-dark);
-  --color-brand-soft: var(--brand-soft);
+  --color-blush: var(--blush);
+  --color-nav: var(--nav);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-soft: var(--primary-soft);
+  --color-card: var(--card);
   --color-ink: var(--ink);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
   --color-surface: var(--surface);
   --color-surface-soft: var(--surface-soft);
-  --color-gold: var(--gold);
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-muted: var(--muted);
+  --color-paper: var(--blush);
+
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  /* Legacy aliases kept so existing components re-skin automatically. */
+  --color-brand: var(--primary);
+  --color-brand-dark: var(--accent);
+  --color-brand-soft: var(--card);
+  --color-gold: var(--accent);
+
+  --font-sans: "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+    "Times New Roman", serif;
+
+  --radius-4xl: 28px;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Contrast guards.
+   The brand pink (#FF9FB2) and the card pink (#FBDCE2) are light, so any
+   element painted with them must carry the deep-ink text colour — even when a
+   utility class such as `text-white` is present. These rules are unlayered on
+   purpose so they win over Tailwind's utility layer.
+   ───────────────────────────────────────────────────────────── */
+.bg-brand,
+.bg-primary,
+.bg-card,
+.bg-nav,
+.bg-primary-soft,
+.bg-brand-soft,
+.bg-blush,
+.hover\:bg-brand:hover,
+.hover\:bg-primary:hover,
+.hover\:bg-card:hover,
+.hover\:bg-nav:hover,
+.hover\:bg-brand-soft:hover {
+  color: var(--ink);
+}
+
+/* Deep accent and ink surfaces are dark — they keep light text. */
+.bg-accent,
+.bg-brand-dark,
+.bg-ink,
+.hover\:bg-accent:hover,
+.hover\:bg-brand-dark:hover,
+.hover\:bg-ink:hover {
+  color: var(--blush);
+}
+
+/* Pink is unreadable at body size on light backgrounds, so text-level brand
+   and gold utilities fall back to the deeper accent shade. */
+.text-brand,
+.text-gold,
+.hover\:text-brand:hover,
+.hover\:text-gold:hover {
+  color: var(--accent-deep);
+}
+
+.text-ink,
+.text-accent {
+  color: var(--ink);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
 * {
   border-color: var(--line);
 }
@@ -35,27 +143,47 @@
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: var(--surface);
+  background: var(--blush);
   color: var(--ink);
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--brand);
-  color: #fff;
+  background: var(--primary);
+  color: var(--ink);
 }
 
-/* ── Layout helpers ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* ── Layout helpers ───────────────────────────────────────── */
 .container-page {
   width: 100%;
   max-width: 1280px;
   margin-inline: auto;
-  padding-inline: 14px;
+  padding-inline: 16px;
 }
 
 @media (min-width: 640px) {
@@ -66,7 +194,7 @@ body {
 
 @media (min-width: 1024px) {
   .container-page {
-    padding-inline: 32px;
+    padding-inline: 40px;
   }
 }
 
@@ -79,129 +207,329 @@ body {
   display: none;
 }
 
-/* ── Product card ───────────────────────────────────────────── */
+/* ── Eyebrow / kicker ─────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+@media (min-width: 640px) {
+  .eyebrow {
+    font-size: 11.5px;
+  }
+}
+
+/* ── Surfaces ─────────────────────────────────────────────── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-card);
+}
+
+.panel-soft {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1;
+  padding: 12px 20px;
+  white-space: nowrap;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--ink);
+  box-shadow: 0 8px 20px rgba(255, 159, 178, 0.4);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(255, 159, 178, 0.5);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
+}
+
+.btn-dark {
+  background: var(--ink);
+  color: var(--blush);
+}
+
+.btn-dark:hover:not(:disabled) {
+  background: #5d474d;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: var(--surface);
+  border-color: var(--primary);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-soft);
+}
+
+.btn-soft {
+  background: var(--nav);
+  color: var(--ink);
+}
+
+.btn-soft:hover:not(:disabled) {
+  background: var(--primary);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-lg {
+  padding: 15px 26px;
+  font-size: 14px;
+}
+
+.btn-sm {
+  padding: 9px 14px;
+  font-size: 12px;
+}
+
+/* Legacy class used by older components. */
+.btn-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--primary);
+  color: var(--ink);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 12px 20px;
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.btn-brand:hover {
+  background: var(--primary-strong);
+  box-shadow: 0 10px 24px rgba(255, 159, 178, 0.45);
+}
+
+/* ── Form fields ──────────────────────────────────────────── */
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.field-input {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    background-color 0.16s ease;
+}
+
+.field-input::placeholder {
+  color: #b7a4a8;
+}
+
+.field-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-soft);
+}
+
+.field-input[aria-invalid="true"] {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 4px var(--danger-soft);
+}
+
+.field-error {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--danger);
+}
+
+/* ── Chips & badges ───────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.chip:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.chip-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--blush);
+}
+
+.chip-active:hover {
+  background: var(--ink);
+  color: var(--blush);
+}
+
+/* ── Product card ─────────────────────────────────────────── */
 .product-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   overflow: hidden;
-  transition: box-shadow 0.2s ease, transform 0.2s ease,
-    border-color 0.2s ease;
+  transition:
+    box-shadow 0.22s ease,
+    transform 0.22s ease,
+    border-color 0.22s ease;
 }
 
 .product-card:hover {
-  border-color: #f3c6c8;
-  box-shadow: 0 10px 28px rgba(17, 17, 17, 0.09);
-  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-3px);
 }
 
 .product-card__media {
   position: relative;
   aspect-ratio: 1 / 1;
-  background: var(--surface-soft);
+  background: var(--surface);
   overflow: hidden;
 }
 
 .product-card__media img {
-  transition: transform 0.4s ease;
+  transition: transform 0.45s ease;
 }
 
 .product-card:hover .product-card__media img {
-  transform: scale(1.045);
+  transform: scale(1.05);
 }
 
-/* ── Section headings (ishtari style) ───────────────────────── */
+/* ── Section headings ─────────────────────────────────────── */
 .section-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 16px;
+  margin-bottom: 18px;
 }
 
 .section-title {
-  font-size: 20px;
-  line-height: 1.2;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   color: var(--ink);
 }
 
 @media (min-width: 768px) {
   .section-title {
-    font-size: 24px;
+    font-size: 30px;
   }
 }
 
 .section-subtitle {
-  margin-top: 3px;
-  font-size: 12px;
+  margin-top: 5px;
+  font-size: 13px;
   color: var(--muted);
 }
 
 .section-link {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 12.5px;
+  gap: 5px;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--brand);
+  color: var(--accent-deep);
   white-space: nowrap;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
 }
 
 .section-link:hover {
-  color: var(--brand-dark);
-  text-decoration: underline;
+  border-bottom-color: var(--primary);
 }
 
-/* ── Buttons ────────────────────────────────────────────────── */
-.btn-brand {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--brand);
-  color: #fff;
-  font-weight: 700;
-  border-radius: 8px;
-  transition: background 0.18s ease, transform 0.18s ease,
-    box-shadow 0.18s ease;
-}
-
-.btn-brand:hover {
-  background: var(--brand-dark);
-  box-shadow: 0 8px 20px rgba(225, 27, 34, 0.24);
-}
-
-.btn-brand:active {
-  transform: scale(0.98);
-}
-
-/* ── Content sections ────────────────────────────────────────── */
-.panel {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-
-/* ── Rich text ──────────────────────────────────────────────── */
+/* ── Rich text ────────────────────────────────────────────── */
 .prose-soft p {
   margin-bottom: 0.75rem;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .prose-soft p:last-child {
   margin-bottom: 0;
 }
 
-/* ── Animations ─────────────────────────────────────────────── */
+/* ── Animations ───────────────────────────────────────────── */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -210,7 +538,21 @@ body {
 }
 
 .fade-up {
-  animation: fadeUp 0.5s ease both;
+  animation: fadeUp 0.55s ease both;
+}
+
+@keyframes floatSoft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float-soft {
+  animation: floatSoft 6s ease-in-out infinite;
 }
 
 @keyframes marquee {
@@ -225,12 +567,25 @@ body {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 26s linear infinite;
+  animation: marquee 32s linear infinite;
 }
 
-/* react-toastify tweaks */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* react-toastify, matched to the palette */
 .Toastify__toast {
-  border-radius: 10px;
+  border-radius: 14px;
   font-size: 13px;
   font-weight: 600;
+  font-family: var(--font-sans);
+  box-shadow: var(--shadow-lift);
 }

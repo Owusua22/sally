@@ -40,9 +40,9 @@ export default function ProfilePage() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-16">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-gray-200 rounded w-1/3" />
-          <div className="h-32 bg-gray-200 rounded" />
-          <div className="h-48 bg-gray-200 rounded" />
+          <div className="h-8 bg-card rounded w-1/3" />
+          <div className="h-32 bg-card rounded" />
+          <div className="h-48 bg-card rounded" />
         </div>
       </div>
     );
@@ -111,15 +111,15 @@ export default function ProfilePage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-3xl font-bold text-ink">My Profile</h1>
+          <p className="text-muted mt-1">
             Manage your account information and preferences.
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Link
             href="/"
-            className="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
+            className="px-3 py-2 rounded-lg border border-line-strong text-ink/80 hover:bg-surface-soft"
           >
             ← Back to Home
           </Link>
@@ -127,7 +127,7 @@ export default function ProfilePage() {
             onClick={async () => {
               await signOut();
             }}
-            className="px-3 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700"
+            className="px-3 py-2 rounded-lg bg-danger text-white hover:bg-danger"
           >
             Sign out
           </button>
@@ -135,7 +135,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Card: User summary */}
-      <div className="bg-white rounded-2xl shadow border border-gray-200 p-6 md:p-8">
+      <div className="bg-white rounded-2xl shadow border border-line p-6 md:p-8">
         <div className="flex flex-col md:flex-row md:items-center gap-6">
           {/* Avatar */}
           <div className="flex-shrink-0">
@@ -144,10 +144,10 @@ export default function ProfilePage() {
               <img
                 src={profile.avatar_url}
                 alt={profile.full_name ?? 'User avatar'}
-                className="w-24 h-24 rounded-full object-cover border-2 border-red-100"
+                className="w-24 h-24 rounded-full object-cover border-2 border-danger/25"
               />
             ) : (
-              <div className="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center text-red-700 text-2xl font-bold">
+              <div className="w-24 h-24 rounded-full bg-danger-soft flex items-center justify-center text-danger text-2xl font-bold">
                 {(profile?.full_name?.[0] ?? user?.email?.[0] ?? 'U').toUpperCase()}
               </div>
             )}
@@ -156,30 +156,30 @@ export default function ProfilePage() {
           {/* Basic info */}
           <div className="flex-1">
             <div className="flex items-center gap-3 flex-wrap">
-              <h2 className="text-2xl font-semibold text-gray-900">
+              <h2 className="text-2xl font-semibold text-ink">
                 {profile?.full_name ?? 'Unnamed user'}
               </h2>
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-danger-soft text-danger">
                 {profile?.role ?? 'customer'}
               </span>
             </div>
 
             <dl className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
               <div>
-                <dt className="text-gray-500">Email</dt>
-                <dd className="text-gray-900 font-medium">{user?.email ?? '—'}</dd>
+                <dt className="text-muted">Email</dt>
+                <dd className="text-ink font-medium">{user?.email ?? '—'}</dd>
               </div>
               <div>
-                <dt className="text-gray-500">Phone</dt>
-                <dd className="text-gray-900">{profile?.phone ?? '—'}</dd>
+                <dt className="text-muted">Phone</dt>
+                <dd className="text-ink">{profile?.phone ?? '—'}</dd>
               </div>
               <div>
-                <dt className="text-gray-500">User ID</dt>
-                <dd className="text-gray-900 font-mono text-xs break-all">{user?.id ?? '—'}</dd>
+                <dt className="text-muted">User ID</dt>
+                <dd className="text-ink font-mono text-xs break-all">{user?.id ?? '—'}</dd>
               </div>
               <div>
-                <dt className="text-gray-500">Joined</dt>
-                <dd className="text-gray-900">{formatDate(profile?.created_at)}</dd>
+                <dt className="text-muted">Joined</dt>
+                <dd className="text-ink">{formatDate(profile?.created_at)}</dd>
               </div>
             </dl>
 
@@ -195,13 +195,13 @@ export default function ProfilePage() {
                   setForm(getProfileForm(profile));
                   setIsEditing(true);
                 }}
-                className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700"
+                className="px-4 py-2 rounded-lg bg-danger text-white hover:bg-danger"
               >
                 {isEditing ? 'Cancel edit' : 'Edit profile'}
               </button>
               <Link
                 href="/auth?mode=reset"
-                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
+                className="px-4 py-2 rounded-lg border border-line-strong text-ink/80 hover:bg-surface-soft"
               >
                 Change password
               </Link>
@@ -211,21 +211,21 @@ export default function ProfilePage() {
 
         {/* Edit form */}
         {isEditing && (
-          <form onSubmit={handleSave} className="mt-8 border-t border-gray-200 pt-6">
-            <h3 className="text-lg font-semibold text-gray-900">Edit your information</h3>
-            <p className="text-sm text-gray-600 mb-4">
+          <form onSubmit={handleSave} className="mt-8 border-t border-line pt-6">
+            <h3 className="text-lg font-semibold text-ink">Edit your information</h3>
+            <p className="text-sm text-muted mb-4">
               Update your name, phone number, and avatar URL. Changes are saved to your account.
             </p>
 
             {error && (
-              <div className="mb-4 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800">
+              <div className="mb-4 rounded-lg border border-danger/50 bg-danger-soft px-3 py-2 text-sm text-danger">
                 {error}
               </div>
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="md:col-span-2">
-                <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="full_name" className="block text-sm font-medium text-ink/80 mb-1">
                   Full name
                 </label>
                 <input
@@ -234,12 +234,12 @@ export default function ProfilePage() {
                   value={form.full_name}
                   onChange={(e) => setForm((f) => ({ ...f, full_name: e.target.value }))}
                   placeholder="Jane Doe"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full px-3 py-2 border border-line-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="phone" className="block text-sm font-medium text-ink/80 mb-1">
                   Phone number
                 </label>
                 <input
@@ -248,12 +248,12 @@ export default function ProfilePage() {
                   value={form.phone}
                   onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
                   placeholder="+233 50 123 4567"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full px-3 py-2 border border-line-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </div>
 
               <div>
-                <label htmlFor="avatar_url" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="avatar_url" className="block text-sm font-medium text-ink/80 mb-1">
                   Avatar URL
                 </label>
                 <input
@@ -262,9 +262,9 @@ export default function ProfilePage() {
                   value={form.avatar_url}
                   onChange={(e) => setForm((f) => ({ ...f, avatar_url: e.target.value }))}
                   placeholder="https://.../avatar.png"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full px-3 py-2 border border-line-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-muted">
                   Paste a direct image URL (https). You can use Gravatar, Cloudinary, Supabase Storage, etc.
                 </p>
               </div>
@@ -274,7 +274,7 @@ export default function ProfilePage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="px-5 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 disabled:opacity-50"
+                className="px-5 py-2 rounded-lg bg-danger text-white hover:bg-danger disabled:opacity-50"
               >
                 {saving ? 'Saving...' : 'Save changes'}
               </button>
@@ -285,7 +285,7 @@ export default function ProfilePage() {
                   setIsEditing(false);
                   setError(null);
                 }}
-                className="px-5 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
+                className="px-5 py-2 rounded-lg border border-line-strong text-ink/80 hover:bg-surface-soft"
               >
                 Discard
               </button>
@@ -295,33 +295,33 @@ export default function ProfilePage() {
       </div>
 
       {/* Optional: Security / account section */}
-      <div className="mt-8 bg-white rounded-2xl shadow border border-gray-200 p-6 md:p-8">
-        <h3 className="text-lg font-semibold text-gray-900">Account & security</h3>
-        <p className="text-sm text-gray-600 mt-1">
+      <div className="mt-8 bg-white rounded-2xl shadow border border-line p-6 md:p-8">
+        <h3 className="text-lg font-semibold text-ink">Account & security</h3>
+        <p className="text-sm text-muted mt-1">
           Manage your authentication and account security settings.
         </p>
 
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-gray-200 p-4">
+          <div className="rounded-xl border border-line p-4">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="font-medium text-gray-900">Email</h4>
-                <p className="text-sm text-gray-600">{user?.email ?? '—'}</p>
+                <h4 className="font-medium text-ink">Email</h4>
+                <p className="text-sm text-muted">{user?.email ?? '—'}</p>
               </div>
-              <span className="text-xs px-2 py-1 rounded bg-green-100 text-green-800">Verified</span>
+              <span className="text-xs px-2 py-1 rounded bg-success-soft text-success">Verified</span>
             </div>
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-muted mt-2">
               Email verification is handled by Supabase (via confirmation link). If you need to change it, contact support or update via your auth provider.
             </p>
           </div>
 
-          <div className="rounded-xl border border-gray-200 p-4">
-            <h4 className="font-medium text-gray-900">Password</h4>
-            <p className="text-sm text-gray-600 mt-1">Reset your password anytime.</p>
+          <div className="rounded-xl border border-line p-4">
+            <h4 className="font-medium text-ink">Password</h4>
+            <p className="text-sm text-muted mt-1">Reset your password anytime.</p>
             <div className="mt-3">
               <Link
                 href="/auth?mode=reset"
-                className="inline-block px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
+                className="inline-block px-3 py-2 rounded-lg border border-line-strong text-ink/80 hover:bg-surface-soft"
               >
                 Reset password
               </Link>
@@ -330,7 +330,7 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <p className="mt-8 text-xs text-gray-500">
+      <p className="mt-8 text-xs text-muted">
         Tip: If you can’t update your profile, check your <span className="font-medium">Row Level Security (RLS)</span> policies on <span className="font-mono">public.profiles</span> (only the owner should be able to UPDATE their own row).
       </p>
     </div>

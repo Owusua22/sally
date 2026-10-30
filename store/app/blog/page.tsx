@@ -11,7 +11,7 @@ import { blogSchema, breadcrumbSchema } from '@/lib/seo/jsonld';
 export const metadata: Metadata = {
   title: 'Journal — skin care tips & routines',
   description:
-    'Routines, ingredient guides and baby skin advice from the Glow-Up Skincare team in Ghana.',
+    'Routines, ingredient guides and baby skin advice from the GlowMom Skincare & Mother Care team in Ghana.',
 };
 
 export const dynamic = 'force-dynamic';
@@ -53,12 +53,12 @@ export default async function BlogIndexPage({ searchParams }: Props) {
         <div className="container-page py-10 sm:py-14">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand">
             <Sparkles className="h-3.5 w-3.5" />
-            The Glow-Up Journal
+            The GlowMom Journal
           </div>
           <h1 className="mt-4 text-3xl font-black tracking-tight text-ink sm:text-[42px]">
             Skin care advice that actually applies to Ghana
           </h1>
-          <p className="mt-3 max-w-2xl text-[14px] leading-relaxed text-gray-600">
+          <p className="mt-3 max-w-2xl text-[14px] leading-relaxed text-muted">
             Harmattan routines, dark spot guides, ingredient explainers and gentle baby
             care — written by our team for real skin in real weather.
           </p>
@@ -69,7 +69,7 @@ export default async function BlogIndexPage({ searchParams }: Props) {
               className={`rounded-full border px-3 py-1.5 text-[12px] font-bold transition-colors ${
                 !category && !skinType
                   ? 'border-brand bg-brand text-white'
-                  : 'border-line bg-white text-gray-600 hover:border-brand/60'
+                  : 'border-line bg-white text-muted hover:border-brand/60'
               }`}
             >
               All articles
@@ -81,7 +81,7 @@ export default async function BlogIndexPage({ searchParams }: Props) {
                 className={`rounded-full border px-3 py-1.5 text-[12px] font-bold transition-colors ${
                   category === item
                     ? 'border-brand bg-brand text-white'
-                    : 'border-line bg-white text-gray-600 hover:border-brand/60'
+                    : 'border-line bg-white text-muted hover:border-brand/60'
                 }`}
               >
                 {item}
@@ -97,10 +97,10 @@ export default async function BlogIndexPage({ searchParams }: Props) {
                 className={`rounded-full border px-3 py-1.5 text-[12px] font-bold transition-colors ${
                   skinType === type.value
                     ? 'border-brand bg-brand text-white'
-                    : 'border-line bg-white text-gray-600 hover:border-brand/60'
+                    : 'border-line bg-white text-muted hover:border-brand/60'
                 }`}
               >
-                {type.emoji} {type.label} skin
+                {type.label} skin
               </Link>
             ))}
           </div>
@@ -134,7 +134,7 @@ export default async function BlogIndexPage({ searchParams }: Props) {
                 <div className="flex flex-col justify-center p-6 sm:p-10">
                   <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-brand">
                     <span>{featured.category ?? 'Journal'}</span>
-                    <span className="text-gray-300">•</span>
+                    <span className="text-line-strong">•</span>
                     <span className="inline-flex items-center gap-1 text-muted">
                       <Clock className="h-3 w-3" /> {featured.read_minutes} min read
                     </span>
@@ -142,7 +142,7 @@ export default async function BlogIndexPage({ searchParams }: Props) {
                   <h2 className="mt-3 text-2xl font-black leading-tight text-ink group-hover:text-brand sm:text-[30px]">
                     {featured.title}
                   </h2>
-                  <p className="mt-3 text-[14px] leading-relaxed text-gray-600">
+                  <p className="mt-3 text-[14px] leading-relaxed text-muted">
                     {featured.excerpt}
                   </p>
                   <div className="mt-5 flex items-center justify-between text-[12px] text-muted">
@@ -175,13 +175,13 @@ export default async function BlogIndexPage({ searchParams }: Props) {
                     <div className="flex flex-1 flex-col p-5">
                       <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-brand">
                         <span>{post.category ?? 'Journal'}</span>
-                        <span className="text-gray-300">•</span>
+                        <span className="text-line-strong">•</span>
                         <span className="text-muted">{post.read_minutes} min</span>
                       </div>
                       <h3 className="mt-2 text-[16px] font-extrabold leading-snug text-ink group-hover:text-brand">
                         {post.title}
                       </h3>
-                      <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-gray-600">
+                      <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-muted">
                         {post.excerpt}
                       </p>
                       <div className="mt-auto pt-4 text-[11.5px] text-muted">

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'react-toastify';
-import { Loader2, MailCheck } from 'lucide-react';
+import { Loader2, MailCheck, Sparkles } from 'lucide-react';
 
 import { useAuth } from '@/hooks/useAuth';
 import { describeAuthError } from '@/lib/auth-errors';
@@ -85,15 +85,18 @@ export function LoginForm({ onSuccess, onSwitchToRegister, defaultEmail = '' }: 
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900">Sign in</h2>
-        <p className="mt-2 text-sm text-gray-600">
+        <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-card text-accent-deep">
+          <Sparkles className="h-6 w-6" />
+        </span>
+        <h2 className="mt-3 font-display text-[24px] font-bold text-ink">Welcome back</h2>
+        <p className="mt-1.5 text-[13px] text-muted">
           New to {site.name}?{' '}
           <button
             type="button"
             onClick={onSwitchToRegister}
-            className="font-medium text-red-600 hover:text-red-500"
+            className="font-bold text-accent-deep underline underline-offset-2"
           >
             Create an account
           </button>
@@ -103,7 +106,7 @@ export function LoginForm({ onSuccess, onSwitchToRegister, defaultEmail = '' }: 
       {formError ? (
         <p
           role="alert"
-          className="rounded-lg border border-red-200 bg-red-50 px-3.5 py-2.5 text-[12.5px] leading-relaxed text-red-800"
+          className="rounded-2xl border border-danger/30 bg-danger-soft px-4 py-3 text-[12.5px] leading-relaxed text-danger"
         >
           {formError}
         </p>
@@ -111,7 +114,7 @@ export function LoginForm({ onSuccess, onSwitchToRegister, defaultEmail = '' }: 
 
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="auth-email" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="auth-email" className="field-label">
             Email address
           </label>
           <input
@@ -120,14 +123,14 @@ export function LoginForm({ onSuccess, onSwitchToRegister, defaultEmail = '' }: 
             type="email"
             autoComplete="email"
             autoFocus
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="field-input"
             placeholder="you@example.com"
           />
-          {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
+          {errors.email && <p className="field-error">{errors.email.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="auth-password" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="auth-password" className="field-label">
             Password
           </label>
           <input
@@ -135,18 +138,18 @@ export function LoginForm({ onSuccess, onSwitchToRegister, defaultEmail = '' }: 
             id="auth-password"
             type="password"
             autoComplete="current-password"
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="field-input"
             placeholder="••••••••"
           />
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+            <p className="field-error">{errors.password.message}</p>
           )}
         </div>
 
         <button
           type="submit"
           disabled={isLoading}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-red-700 disabled:opacity-50"
+          className="btn btn-primary btn-lg btn-block"
         >
           {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
           {isLoading ? 'Signing in…' : 'Sign in'}
@@ -158,7 +161,7 @@ export function LoginForm({ onSuccess, onSwitchToRegister, defaultEmail = '' }: 
           type="button"
           onClick={resend}
           disabled={resending}
-          className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-[12.5px] font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+          className="btn btn-outline btn-block"
         >
           {resending ? (
             <Loader2 className="h-4 w-4 animate-spin" />

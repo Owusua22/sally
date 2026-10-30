@@ -74,7 +74,7 @@ export function ShopFilters({
           className={`w-full rounded-md px-2.5 py-1.5 text-left text-[12.5px] font-semibold transition-colors ${
             !activeCategory
               ? 'bg-brand-soft text-brand'
-              : 'text-gray-600 hover:bg-surface-soft hover:text-ink'
+              : 'text-muted hover:bg-surface-soft hover:text-ink'
           }`}
         >
           All products
@@ -88,7 +88,7 @@ export function ShopFilters({
             className={`flex w-full items-center justify-between rounded-md px-2.5 py-1.5 text-left text-[12.5px] font-semibold transition-colors ${
               activeCategory === category.slug
                 ? 'bg-brand-soft text-brand'
-                : 'text-gray-600 hover:bg-surface-soft hover:text-ink'
+                : 'text-muted hover:bg-surface-soft hover:text-ink'
             }`}
           >
             <span className="flex items-center gap-2">
@@ -127,7 +127,7 @@ export function ShopFilters({
               className={`w-full rounded-md px-2.5 py-1.5 text-left text-[12.5px] font-semibold transition-colors ${
                 active
                   ? 'bg-brand-soft text-brand'
-                  : 'text-gray-600 hover:bg-surface-soft hover:text-ink'
+                  : 'text-muted hover:bg-surface-soft hover:text-ink'
               }`}
             >
               {bucket.label}
@@ -139,7 +139,7 @@ export function ShopFilters({
   );
 
   const dealToggle = (
-    <label className="flex cursor-pointer items-center gap-2 rounded-md px-2.5 py-1.5 text-[12.5px] font-semibold text-gray-600 hover:bg-surface-soft">
+    <label className="flex cursor-pointer items-center gap-2 rounded-md px-2.5 py-1.5 text-[12.5px] font-semibold text-muted hover:bg-surface-soft">
       <input
         type="checkbox"
         checked={Boolean(deals)}
@@ -177,7 +177,7 @@ export function ShopFilters({
                 className={`flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-left text-[12.5px] font-semibold transition-colors ${
                   activeSkinType === type.slug
                     ? 'bg-brand-soft text-brand'
-                    : 'text-gray-600 hover:bg-surface-soft hover:text-ink'
+                    : 'text-muted hover:bg-surface-soft hover:text-ink'
                 }`}
               >
                 <span aria-hidden="true">{type.emoji}</span>

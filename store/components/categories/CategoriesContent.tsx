@@ -103,7 +103,7 @@ export function CategoryContent({
             <h1 className="mt-2 text-[24px] font-extrabold tracking-tight text-ink sm:text-[30px]">
               {category.name}
             </h1>
-            <p className="mt-1 max-w-lg text-[12.5px] leading-relaxed text-gray-600">
+            <p className="mt-1 max-w-lg text-[12.5px] leading-relaxed text-muted">
               {category.description ??
                 `Shop authentic ${category.name.toLowerCase()} with fast delivery across Ghana.`}
             </p>
@@ -131,7 +131,7 @@ export function CategoryContent({
             className={`shrink-0 rounded-full px-3 py-1.5 text-[12px] font-bold ${
               !selectedSub
                 ? 'bg-brand text-white'
-                : 'border border-line bg-white text-gray-600'
+                : 'border border-line bg-white text-muted'
             }`}
           >
             All
@@ -144,7 +144,7 @@ export function CategoryContent({
               className={`shrink-0 rounded-full px-3 py-1.5 text-[12px] font-bold ${
                 selectedSub === sub.id
                   ? 'bg-brand text-white'
-                  : 'border border-line bg-white text-gray-600'
+                  : 'border border-line bg-white text-muted'
               }`}
             >
               {sub.name}
@@ -211,7 +211,7 @@ export function CategoryContent({
                       className={`w-full rounded-md px-2.5 py-1.5 text-left text-[12.5px] font-semibold ${
                         priceBucket === index
                           ? 'bg-brand-soft text-brand'
-                          : 'text-gray-600 hover:bg-surface-soft'
+                          : 'text-muted hover:bg-surface-soft'
                       }`}
                     >
                       {bucket.label}
@@ -223,7 +223,7 @@ export function CategoryContent({
               <h2 className="mb-2 mt-5 text-[11px] font-extrabold uppercase tracking-[0.14em] text-ink">
                 Offers
               </h2>
-              <label className="flex cursor-pointer items-center gap-2 rounded-md px-2.5 py-1.5 text-[12.5px] font-semibold text-gray-600 hover:bg-surface-soft">
+              <label className="flex cursor-pointer items-center gap-2 rounded-md px-2.5 py-1.5 text-[12.5px] font-semibold text-muted hover:bg-surface-soft">
                 <input
                   type="checkbox"
                   checked={offersOnly}
@@ -241,10 +241,10 @@ export function CategoryContent({
                   <li key={sibling.id}>
                     <Link
                       href={`/categories/${sibling.slug}`}
-                      className="flex items-center justify-between rounded-md px-2.5 py-1.5 text-[12.5px] font-semibold text-gray-600 hover:bg-surface-soft hover:text-brand"
+                      className="flex items-center justify-between rounded-md px-2.5 py-1.5 text-[12.5px] font-semibold text-muted hover:bg-surface-soft hover:text-brand"
                     >
                       {sibling.name}
-                      <ChevronRight className="h-3 w-3 text-gray-300" />
+                      <ChevronRight className="h-3 w-3 text-line-strong" />
                     </Link>
                   </li>
                 ))}
@@ -256,7 +256,7 @@ export function CategoryContent({
           <div className="min-w-0 flex-1">
             {filtered.length === 0 ? (
               <div className="panel flex flex-col items-center justify-center px-6 py-16 text-center">
-                <PackageSearch className="h-10 w-10 text-gray-300" />
+                <PackageSearch className="h-10 w-10 text-line-strong" />
                 <h2 className="mt-3 text-[15px] font-bold text-ink">
                   Nothing matches those filters
                 </h2>
@@ -316,7 +316,7 @@ export function CategoryContent({
                   className={`rounded-full border px-3 py-1.5 text-[12px] font-semibold ${
                     priceBucket === index
                       ? 'border-brand bg-brand-soft text-brand'
-                      : 'border-line text-gray-600'
+                      : 'border-line text-muted'
                   }`}
                 >
                   {bucket.label}
@@ -324,7 +324,7 @@ export function CategoryContent({
               ))}
             </div>
 
-            <label className="mt-4 flex cursor-pointer items-center gap-2 text-[12.5px] font-semibold text-gray-600">
+            <label className="mt-4 flex cursor-pointer items-center gap-2 text-[12.5px] font-semibold text-muted">
               <input
                 type="checkbox"
                 checked={offersOnly}

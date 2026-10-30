@@ -95,16 +95,16 @@ export function ShowroomContent({ showroom, products, allShowrooms }: ShowroomCo
     <div className="min-h-screen bg-gradient-to-b from-slate-50/50 to-white">
 
       {/* ── Compact sticky header ── */}
-      <header className="sticky top-0 z-30 backdrop-blur-xl bg-white/85 border-b border-slate-200/70">
+      <header className="sticky top-0 z-30 backdrop-blur-xl bg-white/85 border-b border-line/70">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-1 text-[11px] sm:text-xs text-slate-400 pt-2 sm:pt-2.5 overflow-x-auto whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-red-600 transition">Home</Link>
+          <nav className="flex items-center gap-1 text-[11px] sm:text-xs text-muted/70 pt-2 sm:pt-2.5 overflow-x-auto whitespace-nowrap scrollbar-hide">
+            <Link href="/" className="hover:text-danger transition">Home</Link>
             <ChevronRight className="w-3 h-3 shrink-0" />
-            <Link href="/products" className="hover:text-red-600 transition">Shop</Link>
+            <Link href="/products" className="hover:text-danger transition">Shop</Link>
             <ChevronRight className="w-3 h-3 shrink-0" />
-            <span className="text-slate-700 font-medium truncate">{showroom.name}</span>
+            <span className="text-muted font-medium truncate">{showroom.name}</span>
           </nav>
 
           {/* Title + view toggle */}
@@ -114,7 +114,7 @@ export function ShowroomContent({ showroom, products, allShowrooms }: ShowroomCo
                 <span className="text-2xl sm:text-[28px] leading-none shrink-0">{showroom.icon}</span>
               )}
               <div className="min-w-0">
-                <h1 className="flex items-center gap-2 text-base sm:text-xl font-bold tracking-tight text-slate-900 truncate">
+                <h1 className="flex items-center gap-2 text-base sm:text-xl font-bold tracking-tight text-ink truncate">
                   <span className="bg-clip-text text-transparent" style={{ backgroundImage: gradient }}>
                     {showroom.name}
                   </span>
@@ -125,8 +125,8 @@ export function ShowroomContent({ showroom, products, allShowrooms }: ShowroomCo
                     {typeLabel}
                   </span>
                 </h1>
-                <p className="text-[11px] sm:text-xs text-slate-500 truncate -mt-0.5">
-                  <span className="font-semibold text-slate-700">{sortedProducts.length}</span>{' '}
+                <p className="text-[11px] sm:text-xs text-muted truncate -mt-0.5">
+                  <span className="font-semibold text-muted">{sortedProducts.length}</span>{' '}
                   {sortedProducts.length === 1 ? 'item' : 'items'}
                   {showroom.description && (
                     <span className="hidden sm:inline"> • {showroom.description}</span>
@@ -135,16 +135,16 @@ export function ShowroomContent({ showroom, products, allShowrooms }: ShowroomCo
               </div>
             </div>
 
-            <div className="hidden sm:flex items-center gap-0.5 p-0.5 rounded-lg bg-slate-100 border border-slate-200/60 shrink-0">
+            <div className="hidden sm:flex items-center gap-0.5 p-0.5 rounded-lg bg-card border border-line/60 shrink-0">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-1.5 rounded-md transition ${viewMode === 'grid' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                className={`p-1.5 rounded-md transition ${viewMode === 'grid' ? 'bg-white text-ink shadow-sm' : 'text-muted/70 hover:text-muted'}`}
               >
                 <Grid3X3 className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setViewMode('large')}
-                className={`p-1.5 rounded-md transition ${viewMode === 'large' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                className={`p-1.5 rounded-md transition ${viewMode === 'large' ? 'bg-white text-ink shadow-sm' : 'text-muted/70 hover:text-muted'}`}
               >
                 <LayoutGrid className="w-4 h-4" />
               </button>
@@ -156,7 +156,7 @@ export function ShowroomContent({ showroom, products, allShowrooms }: ShowroomCo
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="h-9 flex-1 lg:flex-none lg:ml-auto px-3 text-xs sm:text-sm rounded-lg bg-slate-100/80 border border-slate-200/60 text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-red-500/20"
+              className="h-9 flex-1 lg:flex-none lg:ml-auto px-3 text-xs sm:text-sm rounded-lg bg-card/80 border border-line/60 text-muted font-medium focus:outline-none focus:ring-2 focus:ring-primary/30"
             >
               <option value="default">✨ Featured</option>
               <option value="price_asc">↑ Price: Low to High</option>
@@ -179,7 +179,7 @@ export function ShowroomContent({ showroom, products, allShowrooms }: ShowroomCo
                 <Link
                   key={s.id}
                   href={`/showrooms/${s.slug}`}
-                  className="shrink-0 h-7 px-3 text-xs font-semibold rounded-full border bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:text-slate-900 transition flex items-center gap-1.5"
+                  className="shrink-0 h-7 px-3 text-xs font-semibold rounded-full border bg-white text-muted border-line hover:border-line-strong hover:text-ink transition flex items-center gap-1.5"
                 >
                   {s.icon && <span>{s.icon}</span>}{s.name}
                 </Link>
@@ -195,11 +195,11 @@ export function ShowroomContent({ showroom, products, allShowrooms }: ShowroomCo
           <div className="flex-1 min-w-0">
             {sortedProducts.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-50 to-rose-50 flex items-center justify-center mb-4 border border-red-100">
-                  <Package className="w-7 h-7 text-red-400" />
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-50 to-rose-50 flex items-center justify-center mb-4 border border-danger/25">
+                  <Package className="w-7 h-7 text-accent" />
                 </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-1.5">No products yet</h3>
-                <p className="text-sm text-slate-500 mb-5 max-w-sm">
+                <h3 className="text-lg font-semibold text-ink mb-1.5">No products yet</h3>
+                <p className="text-sm text-muted mb-5 max-w-sm">
                   This collection is being curated. Check back soon!
                 </p>
                 <Link
@@ -272,10 +272,10 @@ function ProductCard({
       ─────────────────────────────────────────────────────────────────── */
     return (
       <Link href={`/products/${product.slug}`} className="group block">
-        <div className="bg-white rounded-xl border border-slate-200/70 hover:border-slate-300 hover:shadow-lg hover:shadow-slate-900/6 transition-all duration-200 overflow-hidden flex gap-0">
+        <div className="bg-white rounded-xl border border-line/70 hover:border-line-strong hover:shadow-lg hover:shadow-slate-900/6 transition-all duration-200 overflow-hidden flex gap-0">
 
           {/* Square thumbnail — fixed size, no giant portrait */}
-          <div className="relative shrink-0 w-24 h-24 sm:w-28 sm:h-28 bg-slate-50 overflow-hidden rounded-l-xl">
+          <div className="relative shrink-0 w-24 h-24 sm:w-28 sm:h-28 bg-surface-soft overflow-hidden rounded-l-xl">
             {product.thumbnail ? (
               <Image
                 src={product.thumbnail}
@@ -293,7 +293,7 @@ function ProductCard({
             {/* Badges */}
             <div className="absolute top-1.5 left-1.5 flex flex-col gap-1">
               {discount && (
-                <span className="px-1.5 py-0.5 bg-red-500 text-white text-[10px] font-bold rounded shadow-sm leading-none">
+                <span className="px-1.5 py-0.5 bg-danger text-white text-[10px] font-bold rounded shadow-sm leading-none">
                   -{discount}%
                 </span>
               )}
@@ -303,7 +303,7 @@ function ProductCard({
                 </span>
               )}
               {showroomType === 'auto_bestselling' && (
-                <span className="px-1.5 py-0.5 bg-amber-500 text-white text-[10px] font-bold rounded shadow-sm flex items-center gap-0.5 leading-none">
+                <span className="px-1.5 py-0.5 bg-warning-soft0 text-white text-[10px] font-bold rounded shadow-sm flex items-center gap-0.5 leading-none">
                   <Star className="w-2.5 h-2.5 fill-white" /> Hot
                 </span>
               )}
@@ -316,7 +316,7 @@ function ProductCard({
 
             {isOutOfStock && (
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[1px]">
-                <span className="bg-white text-slate-900 text-[10px] font-bold px-2 py-1 rounded-full">Sold Out</span>
+                <span className="bg-white text-ink text-[10px] font-bold px-2 py-1 rounded-full">Sold Out</span>
               </div>
             )}
           </div>
@@ -324,11 +324,11 @@ function ProductCard({
           {/* Details */}
           <div className="flex-1 min-w-0 p-3 sm:p-3.5 flex flex-col justify-between">
             <div className="min-w-0">
-              <h3 className="text-sm font-semibold text-slate-900 group-hover:text-red-600 transition-colors line-clamp-1 leading-snug">
+              <h3 className="text-sm font-semibold text-ink group-hover:text-danger transition-colors line-clamp-1 leading-snug">
                 {product.name}
               </h3>
               {product.description && (
-                <p className="text-xs text-slate-400 mt-0.5 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-muted/70 mt-0.5 line-clamp-2 leading-relaxed">
                   {product.description}
                 </p>
               )}
@@ -336,9 +336,9 @@ function ProductCard({
 
             <div className="flex items-center justify-between mt-2 gap-2">
               <div className="flex items-baseline gap-1.5">
-                <span className="text-sm font-bold text-slate-900">{formatCedis(product.price)}</span>
+                <span className="text-sm font-bold text-ink">{formatCedis(product.price)}</span>
                 {product.compare_at_price && (
-                  <span className="text-xs text-slate-400 line-through">{formatCedis(product.compare_at_price)}</span>
+                  <span className="text-xs text-muted/70 line-through">{formatCedis(product.compare_at_price)}</span>
                 )}
               </div>
 
@@ -364,8 +364,8 @@ function ProductCard({
     ─────────────────────────────────────────────────────────────────── */
   return (
     <Link href={`/products/${product.slug}`} className="group block">
-      <div className="bg-white rounded-2xl border border-slate-200/70 hover:border-slate-300 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300 overflow-hidden h-full flex flex-col">
-        <div className="relative overflow-hidden bg-slate-50 aspect-[3/4]">
+      <div className="bg-white rounded-2xl border border-line/70 hover:border-line-strong hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300 overflow-hidden h-full flex flex-col">
+        <div className="relative overflow-hidden bg-surface-soft aspect-[3/4]">
           {product.thumbnail ? (
             <Image
               src={product.thumbnail}
@@ -382,7 +382,7 @@ function ProductCard({
 
           <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
             {discount && (
-              <span className="px-2 py-0.5 bg-red-500 text-white text-[11px] font-bold rounded-md shadow-md">
+              <span className="px-2 py-0.5 bg-danger text-white text-[11px] font-bold rounded-md shadow-md">
                 -{discount}%
               </span>
             )}
@@ -392,7 +392,7 @@ function ProductCard({
               </span>
             )}
             {showroomType === 'auto_bestselling' && (
-              <span className="px-2 py-0.5 bg-amber-500 text-white text-[11px] font-bold rounded-md shadow-md flex items-center gap-1">
+              <span className="px-2 py-0.5 bg-warning-soft0 text-white text-[11px] font-bold rounded-md shadow-md flex items-center gap-1">
                 <Star className="w-3 h-3 fill-white" /> Hot
               </span>
             )}
@@ -405,19 +405,19 @@ function ProductCard({
 
           {isOutOfStock && (
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[1px]">
-              <span className="bg-white text-slate-900 text-xs font-bold px-3 py-1.5 rounded-full">Sold Out</span>
+              <span className="bg-white text-ink text-xs font-bold px-3 py-1.5 rounded-full">Sold Out</span>
             </div>
           )}
         </div>
 
         <div className="flex-1 flex flex-col p-3 sm:p-4">
-          <h3 className="font-semibold text-slate-900 group-hover:text-red-600 transition-colors line-clamp-1 text-[13px] sm:text-sm">
+          <h3 className="font-semibold text-ink group-hover:text-danger transition-colors line-clamp-1 text-[13px] sm:text-sm">
             {product.name}
           </h3>
           <div className="flex items-baseline gap-2 mt-1.5">
-            <span className="font-bold text-slate-900 text-[15px] sm:text-base">{formatCedis(product.price)}</span>
+            <span className="font-bold text-ink text-[15px] sm:text-base">{formatCedis(product.price)}</span>
             {product.compare_at_price && (
-              <span className="text-xs sm:text-sm text-slate-400 line-through">{formatCedis(product.compare_at_price)}</span>
+              <span className="text-xs sm:text-sm text-muted/70 line-through">{formatCedis(product.compare_at_price)}</span>
             )}
           </div>
         </div>

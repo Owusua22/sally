@@ -19,11 +19,12 @@ import {
   ZoomIn,
 } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { useCart } from '@/hooks/useCart';
+import { useGuardedCart } from '@/hooks/useGuardedCart';
 import { formatCedis, metaNumber } from '@/lib/utils';
 import { skinTypeLabel } from '@/lib/skin-types';
 import { brandHref } from '@/lib/brands';
 import { ProductCard } from '@/components/products/ProductCard';
+import { site } from '@/lib/site';
 import type { Product, ProductVariant } from '@/types';
 
 interface ProductDetailsProps {
@@ -32,7 +33,7 @@ interface ProductDetailsProps {
 }
 
 export function ProductDetails({ product, relatedProducts }: ProductDetailsProps) {
-  const { addToCart } = useCart();
+  const { add } = useGuardedCart();
 
   const allImages = useMemo(() => {
     const images = [
@@ -95,7 +96,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
   const rating = metaNumber(product.metadata, 'rating', 4.8);
   const reviews = metaNumber(product.metadata, 'reviews', 0);
   const sold = metaNumber(product.metadata, 'sold', 0);
-  const brand = product.brand ?? 'Glow-Up';
+  const brand = product.brand ?? site.name;
   const brandLink = brandHref(product.brand);
 
   const isOutOfStock = stock <= 0;
@@ -111,14 +112,14 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
 
     setAdding(true);
     try {
-      await addToCart(
+      const result = await add(
         product.id,
         quantity,
         selectedOption || options[0] || null,
         null
       );
 
-      if (redirectToCheckout) {
+      if (result === 'added' && redirectToCheckout) {
         window.location.href = '/checkout';
       }
     } finally {
@@ -173,7 +174,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
         <div className="grid gap-6 lg:grid-cols-12 lg:gap-8">
           {/* Gallery */}
           <div className="lg:col-span-5">
-            <div className="relative aspect-square overflow-hidden rounded-xl border border-line bg-surface-soft">
+            <div className="relative aspect-square overflow-hidden rounded-[26px] border border-line bg-surface">
               <Image
                 src={selectedImage}
                 alt={product.name}
@@ -184,8 +185,8 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
                 onClick={() => setLightbox(true)}
               />
               {discount && (
-                <span className="absolute left-0 top-0 rounded-br-lg bg-brand px-2.5 py-1 text-[12px] font-extrabold text-white">
-                  -{discount}%
+                <span className="absolute left-3 top-3 rounded-full bg-ink px-3 py-1 text-[12px] font-extrabold text-blush">
+                  −{discount}%
                 </span>
               )}
               <span className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full bg-black/55 px-2 py-1 text-[10.5px] font-semibold text-white backdrop-blur-sm">
@@ -200,7 +201,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
                     key={`${image}-${index}`}
                     type="button"
                     onClick={() => setSelectedImage(image)}
-                    className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 bg-white ${
+                    className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 bg-surface ${
                       selectedImage === image ? 'border-brand' : 'border-line'
                     }`}
                     aria-label={`View image ${index + 1}`}
@@ -219,7 +220,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
               ].map(({ icon: Icon, title, copy }) => (
                 <div
                   key={title}
-                  className="rounded-lg border border-line bg-white p-2.5 text-center"
+                  className="rounded-xl border border-line bg-surface p-2.5 text-center"
                 >
                   <Icon className="mx-auto h-4 w-4 text-brand" />
                   <p className="mt-1 text-[10.5px] font-bold text-ink">{title}</p>
@@ -243,17 +244,17 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
               {brandLink ? (
                 <Link
                   href={brandLink}
-                  className="rounded-full bg-surface-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-gray-500 transition-colors hover:bg-brand-soft hover:text-brand"
+                  className="rounded-full bg-surface-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-muted transition-colors hover:bg-brand-soft hover:text-brand"
                 >
                   {brand}
                 </Link>
               ) : (
-                <span className="rounded-full bg-surface-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-gray-500">
+                <span className="rounded-full bg-surface-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-muted">
                   {brand}
                 </span>
               )}
               {isLowStock && (
-                <span className="rounded-full bg-amber-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-amber-600">
+                <span className="rounded-full bg-warning-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-warning">
                   Only {stock} left
                 </span>
               )}
@@ -264,7 +265,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
             </h1>
 
             <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11.5px] text-muted">
-              <span className="flex items-center gap-0.5 text-amber-500">
+              <span className="flex items-center gap-0.5 text-warning">
                 {Array.from({ length: 5 }).map((_, index) => (
                   <Star key={index} className="h-3.5 w-3.5 fill-current" />
                 ))}
@@ -272,7 +273,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
               </span>
               {reviews > 0 && <span>{reviews} reviews</span>}
               {sold > 0 && <span>{sold} sold</span>}
-              <span className="text-emerald-600">In stock</span>
+              <span className="text-success">In stock</span>
             </div>
 
             <div className="mt-4 flex flex-wrap items-baseline gap-2">
@@ -281,7 +282,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
               </span>
               {compareAt && compareAt > price && (
                 <>
-                  <span className="text-[15px] text-gray-400 line-through">
+                  <span className="text-[15px] text-muted/70 line-through">
                     {formatCedis(compareAt)}
                   </span>
                   <span className="rounded bg-brand-soft px-2 py-0.5 text-[11px] font-extrabold text-brand">
@@ -291,7 +292,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
               )}
             </div>
 
-            <p className="mt-3 max-w-xl text-[13px] leading-relaxed text-gray-600">
+            <p className="mt-3 max-w-xl text-[13px] leading-relaxed text-muted">
               {product.description}
             </p>
 
@@ -314,10 +315,10 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
                       key={option}
                       type="button"
                       onClick={() => setSelectedOption(option)}
-                      className={`h-9 rounded-md border px-3 text-[12.5px] font-semibold transition-colors ${
+                      className={`h-10 rounded-full border px-4 text-[12.5px] font-semibold transition-colors ${
                         selectedOption === option
-                          ? 'border-brand bg-brand text-white'
-                          : 'border-line bg-white text-gray-700 hover:border-brand/60'
+                          ? 'border-ink bg-ink text-blush'
+                          : 'border-line-strong bg-surface text-ink/80 hover:border-primary'
                       }`}
                     >
                       {option}
@@ -329,48 +330,50 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
 
             {/* Quantity + CTA */}
             <div ref={ctaRef} className="mt-5 space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 items-center overflow-hidden rounded-md border border-line">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex h-12 items-center overflow-hidden rounded-full border border-line-strong bg-surface">
                   <button
                     type="button"
                     onClick={() => setQuantity((value) => Math.max(1, value - 1))}
-                    className="flex h-full w-10 items-center justify-center text-gray-600 hover:bg-surface-soft"
+                    className="flex h-full w-11 items-center justify-center text-ink transition-colors hover:bg-card"
                     aria-label="Decrease quantity"
                   >
-                    <Minus className="h-3.5 w-3.5" />
+                    <Minus className="h-4 w-4" />
                   </button>
-                  <span className="w-10 text-center text-[13px] font-bold">{quantity}</span>
+                  <span className="w-10 text-center text-[14px] font-extrabold text-ink">
+                    {quantity}
+                  </span>
                   <button
                     type="button"
                     onClick={() =>
                       setQuantity((value) => Math.min(Math.max(stock, 1), value + 1))
                     }
-                    className="flex h-full w-10 items-center justify-center text-gray-600 hover:bg-surface-soft"
+                    className="flex h-full w-11 items-center justify-center text-ink transition-colors hover:bg-card"
                     aria-label="Increase quantity"
                   >
-                    <Plus className="h-3.5 w-3.5" />
+                    <Plus className="h-4 w-4" />
                   </button>
                 </div>
-                <span className="text-[11.5px] text-muted">
+                <span className="text-[12px] text-muted">
                   {stock} unit{stock === 1 ? '' : 's'} available
                 </span>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2.5 sm:flex-row">
                 <button
                   type="button"
                   onClick={() => handleAddToCart(false)}
                   disabled={adding || isOutOfStock}
-                  className="btn-brand h-11 flex-1 text-[13px] disabled:cursor-not-allowed disabled:opacity-60"
+                  className="btn btn-primary btn-lg flex-1"
                 >
                   <ShoppingBag className="h-4 w-4" />
-                  {adding ? 'Adding…' : isOutOfStock ? 'Sold out' : 'Add to cart'}
+                  {adding ? 'Adding…' : isOutOfStock ? 'Sold out' : 'Add to basket'}
                 </button>
                 <button
                   type="button"
                   onClick={() => handleAddToCart(true)}
                   disabled={adding || isOutOfStock}
-                  className="h-11 flex-1 rounded-md border-2 border-brand bg-white text-[13px] font-extrabold text-brand transition-colors hover:bg-brand-soft disabled:cursor-not-allowed disabled:opacity-60"
+                  className="btn btn-dark btn-lg flex-1"
                 >
                   Buy now
                 </button>
@@ -386,7 +389,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
                     );
                   }}
                   className={`inline-flex items-center gap-1.5 text-[11.5px] font-semibold ${
-                    wishlisted ? 'text-brand' : 'text-gray-500 hover:text-brand'
+                    wishlisted ? 'text-brand' : 'text-muted hover:text-brand'
                   }`}
                 >
                   <Heart
@@ -398,7 +401,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
                 <button
                   type="button"
                   onClick={handleShare}
-                  className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-gray-500 hover:text-brand"
+                  className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-muted hover:text-brand"
                 >
                   <Share2 className="h-3.5 w-3.5" /> Share
                 </button>
@@ -455,7 +458,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
             <h2 className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-ink">
               Product details
             </h2>
-            <ul className="mt-2 space-y-1.5 text-[12px] text-gray-600">
+            <ul className="mt-2 space-y-1.5 text-[12px] text-muted">
               <li className="flex justify-between gap-3">
                 <span className="text-muted">Brand</span>
                 <span className="font-semibold text-ink">{brand}</span>
@@ -493,7 +496,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
             <h2 className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-ink">
               How to use
             </h2>
-            <p className="prose-soft mt-2 whitespace-pre-line text-[12px] leading-relaxed text-gray-600">
+            <p className="prose-soft mt-2 whitespace-pre-line text-[12px] leading-relaxed text-muted">
               {product.how_to_use ??
                 'Apply to clean, dry skin morning and night. For best results use daily and follow with sunscreen in the morning. Patch test before first use.'}
             </p>
@@ -511,7 +514,7 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
             <h2 className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-ink">
               Delivery & returns
             </h2>
-            <p className="prose-soft mt-2 text-[12px] leading-relaxed text-gray-600">
+            <p className="prose-soft mt-2 text-[12px] leading-relaxed text-muted">
               Orders placed before 3pm are dispatched the same working day. Free delivery
               on orders over GH₵300. Unopened products can be returned within 7 days.
             </p>
@@ -572,25 +575,27 @@ export function ProductDetails({ product, relatedProducts }: ProductDetailsProps
 
       {/* Sticky mobile CTA */}
       <div
-        className={`fixed inset-x-0 bottom-16 z-40 border-t border-line bg-white/95 backdrop-blur md:bottom-0 md:hidden ${
+        className={`fixed inset-x-0 bottom-16 z-40 border-t border-line bg-surface/95 backdrop-blur md:bottom-0 md:hidden ${
           showStickyBar ? 'translate-y-0' : 'translate-y-[150%]'
         } transition-transform duration-300`}
       >
-        <div className="flex items-center gap-2 px-3 py-2">
-          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md bg-surface-soft">
-            <Image src={selectedImage} alt="" fill sizes="40px" className="object-cover" />
+        <div className="flex items-center gap-2.5 px-3 py-2.5">
+          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-card">
+            <Image src={selectedImage} alt="" fill sizes="44px" className="object-cover" />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-[11px] font-semibold text-gray-500">
+            <p className="truncate text-[11px] font-semibold text-muted">
               {product.name}
             </p>
-            <p className="text-[14px] font-extrabold text-brand">{formatCedis(price)}</p>
+            <p className="font-display text-[18px] font-bold text-ink">
+              {formatCedis(price)}
+            </p>
           </div>
           <button
             type="button"
             onClick={() => handleAddToCart(false)}
             disabled={adding || isOutOfStock}
-            className="btn-brand h-10 px-4 text-[12.5px]"
+            className="btn btn-primary shrink-0 px-5"
           >
             <ShoppingBag className="h-4 w-4" /> Add
           </button>

@@ -60,7 +60,7 @@ interface BrandOption {
 
 export const emptyProductValues: ProductFormValues = {
   name: '',
-  brand: 'Glow-Up',
+  brand: 'GlowMom',
   category_id: '',
   short_description: '',
   description: '',
@@ -500,7 +500,7 @@ export default function ProductForm({
             <h2 className="mb-4 text-[15px] font-extrabold text-gray-900">SEO</h2>
             <div className="grid gap-4">
               <Field label="SEO title">
-                <Input {...register('seo_title')} placeholder="Shea Butter Body Lotion | Glow-Up" />
+                <Input {...register('seo_title')} placeholder="Shea Butter Body Lotion | GlowMom" />
               </Field>
               <Field label="SEO description">
                 <Textarea {...register('seo_description')} rows={2} />

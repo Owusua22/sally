@@ -210,7 +210,7 @@ export function ReviewFeed({ initialReviews, products }: ReviewFeedProps) {
                     )}
                   </div>
 
-                  <p className="mt-1.5 max-w-[62ch] text-[13px] leading-[1.65] text-gray-700">
+                  <p className="mt-1.5 max-w-[62ch] text-[13px] leading-[1.65] text-ink/80">
                     {review.body}
                   </p>
 
@@ -382,7 +382,7 @@ function ReviewComposer({
       </div>
 
       {error && (
-        <p className="mt-2 text-[12px] font-semibold text-red-600" role="alert">
+        <p className="mt-2 text-[12px] font-semibold text-danger" role="alert">
           {error}
         </p>
       )}

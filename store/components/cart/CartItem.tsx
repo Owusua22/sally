@@ -88,12 +88,12 @@ export function CartItem({ item }: CartItemProps) {
       className={[
         'flex gap-3 rounded-lg border p-2.5 transition-colors',
         hasCheckoutIssue
-          ? 'border-red-200 bg-red-50/70'
-          : 'border-gray-200 bg-gray-50',
+          ? 'border-danger/30 bg-danger-soft/70'
+          : 'border-line bg-surface-soft',
       ].join(' ')}
     >
       {/* Image */}
-      <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-white">
+      <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border border-line bg-white">
         {item.product.thumbnail ? (
           <Image
             src={item.product.thumbnail}
@@ -106,7 +106,7 @@ export function CartItem({ item }: CartItemProps) {
             sizes="64px"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-gray-300">
+          <div className="absolute inset-0 flex items-center justify-center text-line-strong">
             <svg
               className="h-8 w-8"
               fill="none"
@@ -135,7 +135,7 @@ export function CartItem({ item }: CartItemProps) {
             <p
               className={[
                 'line-clamp-1 text-sm font-medium',
-                hasCheckoutIssue ? 'text-gray-700' : 'text-gray-900',
+                hasCheckoutIssue ? 'text-ink/80' : 'text-ink',
               ].join(' ')}
             >
               {item.product.name}
@@ -144,25 +144,25 @@ export function CartItem({ item }: CartItemProps) {
             {/* Status badges */}
             <div className="mt-0.5 flex flex-wrap items-center gap-2">
               {isInactive && (
-                <span className="rounded bg-red-100 px-1.5 py-0.5 text-[10px] font-semibold text-red-700">
+                <span className="rounded bg-danger-soft px-1.5 py-0.5 text-[10px] font-semibold text-danger">
                   Unavailable
                 </span>
               )}
 
               {isOutOfStock && !isInactive && (
-                <span className="rounded bg-red-100 px-1.5 py-0.5 text-[10px] font-semibold text-red-700">
+                <span className="rounded bg-danger-soft px-1.5 py-0.5 text-[10px] font-semibold text-danger">
                   Out of stock
                 </span>
               )}
 
               {isOverStock && !isInactive && (
-                <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold text-amber-800">
+                <span className="rounded bg-warning-soft px-1.5 py-0.5 text-[10px] font-semibold text-warning">
                   Only {maxQty} available
                 </span>
               )}
 
               {isLowStock && (
-                <span className="rounded bg-orange-100 px-1.5 py-0.5 text-[10px] font-semibold text-orange-800">
+                <span className="rounded bg-warning-soft px-1.5 py-0.5 text-[10px] font-semibold text-warning">
                   Only {maxQty} left
                 </span>
               )}
@@ -171,15 +171,15 @@ export function CartItem({ item }: CartItemProps) {
               {(item.selected_size || item.selected_color) && (
                 <div className="flex items-center gap-2">
                   {item.selected_size && (
-                    <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-600">
+                    <span className="rounded bg-surface-soft px-1.5 py-0.5 text-[10px] text-muted">
                       {item.selected_size}
                     </span>
                   )}
 
                   {item.selected_color && (
-                    <span className="flex items-center gap-1 text-[10px] text-gray-500">
+                    <span className="flex items-center gap-1 text-[10px] text-muted">
                       <span
-                        className="h-3 w-3 rounded-full border border-gray-200"
+                        className="h-3 w-3 rounded-full border border-line"
                         style={{
                           backgroundColor: item.selected_color.toLowerCase(),
                         }}
@@ -193,12 +193,12 @@ export function CartItem({ item }: CartItemProps) {
 
             {/* Price row */}
             <div className="mt-0.5 flex items-baseline gap-2">
-              <p className="text-sm font-medium text-red-600">
+              <p className="text-sm font-medium text-danger">
                 {formatCedis(item.product.price)}
               </p>
 
               {hasCompareAtPrice && compareAtPrice != null && (
-                <p className="text-xs text-gray-400 line-through">
+                <p className="text-xs text-muted/70 line-through">
                   {formatCedis(compareAtPrice)}
                 </p>
               )}
@@ -209,7 +209,7 @@ export function CartItem({ item }: CartItemProps) {
             type="button"
             onClick={handleRemove}
             disabled={isLoading}
-            className="flex-shrink-0 p-1 text-gray-400 transition-colors hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-shrink-0 p-1 text-muted/70 transition-colors hover:text-danger disabled:cursor-not-allowed disabled:opacity-50"
             aria-label={`Remove ${item.product.name}`}
           >
             <Trash2 className="h-4 w-4" />
@@ -223,7 +223,7 @@ export function CartItem({ item }: CartItemProps) {
               type="button"
               onClick={handleDecrease}
               disabled={!canDecrease}
-              className="flex h-7 w-7 items-center justify-center rounded-lg border border-gray-300 bg-white transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-7 w-7 items-center justify-center rounded-lg border border-line-strong bg-white transition-colors hover:bg-surface-soft disabled:cursor-not-allowed disabled:opacity-50"
               aria-label={
                 quantity === 1
                   ? `Remove ${item.product.name}`
@@ -231,7 +231,7 @@ export function CartItem({ item }: CartItemProps) {
               }
             >
               {quantity === 1 ? (
-                <Trash2 className="h-3 w-3 text-red-500" />
+                <Trash2 className="h-3 w-3 text-danger" />
               ) : (
                 <Minus className="h-3 w-3" />
               )}
@@ -240,7 +240,7 @@ export function CartItem({ item }: CartItemProps) {
             <span
               className={[
                 'w-8 text-center text-sm font-semibold tabular-nums',
-                isOverStock ? 'text-red-700' : 'text-gray-900',
+                isOverStock ? 'text-danger' : 'text-ink',
               ].join(' ')}
             >
               {quantity}
@@ -250,7 +250,7 @@ export function CartItem({ item }: CartItemProps) {
               type="button"
               onClick={handleIncrease}
               disabled={!canIncrease}
-              className="flex h-7 w-7 items-center justify-center rounded-lg border border-gray-300 bg-white transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-7 w-7 items-center justify-center rounded-lg border border-line-strong bg-white transition-colors hover:bg-surface-soft disabled:cursor-not-allowed disabled:opacity-50"
               aria-label={`Increase quantity of ${item.product.name}`}
             >
               <Plus className="h-3 w-3" />
@@ -260,7 +260,7 @@ export function CartItem({ item }: CartItemProps) {
           <span
             className={[
               'text-sm font-bold',
-              hasCheckoutIssue ? 'text-gray-700' : 'text-gray-900',
+              hasCheckoutIssue ? 'text-ink/80' : 'text-ink',
             ].join(' ')}
           >
             {formatCedis(item.product.price * quantity)}
@@ -269,13 +269,13 @@ export function CartItem({ item }: CartItemProps) {
 
         {/* Checkout-blocking message */}
         {hasCheckoutIssue && issueMessage && (
-          <div className="mt-2 flex gap-2 rounded-lg border border-red-200 bg-white/80 px-2 py-2 text-xs text-red-700">
+          <div className="mt-2 flex gap-2 rounded-lg border border-danger/30 bg-white/80 px-2 py-2 text-xs text-danger">
             <AlertTriangle className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
 
             <div>
               <p className="font-semibold">{issueMessage}</p>
 
-              <p className="mt-0.5 text-red-600">
+              <p className="mt-0.5 text-danger">
                 {isOverStock
                   ? `Reduce the quantity to ${maxQty} or remove this item to continue checkout.`
                   : 'Remove this item to continue checkout.'}
@@ -286,7 +286,7 @@ export function CartItem({ item }: CartItemProps) {
 
         {/* Non-blocking max quantity message */}
         {!hasCheckoutIssue && !canIncrease && maxQty > 0 && (
-          <p className="mt-1 text-xs text-amber-700">
+          <p className="mt-1 text-xs text-warning">
             Maximum available: {maxQty}.
           </p>
         )}

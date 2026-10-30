@@ -3,13 +3,13 @@ import { cn } from '@/lib/utils';
 import type { OrderStatus as OrderStatusType } from '@/types';
 
 const STATUS_CONFIG: Record<OrderStatusType, { label: string; className: string; step: number }> = {
-  pending: { label: 'Pending', className: 'bg-yellow-100 text-yellow-800', step: 1 },
-  confirmed: { label: 'Confirmed', className: 'bg-blue-100 text-blue-800', step: 2 },
-  processing: { label: 'Processing', className: 'bg-red-100 text-red-800', step: 3 },
-  shipped: { label: 'Shipped', className: 'bg-red-100 text-amber-800', step: 4 },
-  delivered: { label: 'Delivered', className: 'bg-green-100 text-green-800', step: 5 },
-  cancelled: { label: 'Cancelled', className: 'bg-red-100 text-red-800', step: 0 },
-  refunded: { label: 'Refunded', className: 'bg-gray-100 text-gray-800', step: 0 },
+  pending: { label: 'Pending', className: 'bg-warning-soft text-warning', step: 1 },
+  confirmed: { label: 'Confirmed', className: 'bg-card text-ink', step: 2 },
+  processing: { label: 'Processing', className: 'bg-danger-soft text-danger', step: 3 },
+  shipped: { label: 'Shipped', className: 'bg-danger-soft text-warning', step: 4 },
+  delivered: { label: 'Delivered', className: 'bg-success-soft text-success', step: 5 },
+  cancelled: { label: 'Cancelled', className: 'bg-danger-soft text-danger', step: 0 },
+  refunded: { label: 'Refunded', className: 'bg-surface-soft text-ink', step: 0 },
 };
 
 interface OrderStatusProps {
@@ -45,7 +45,7 @@ export function OrderStatus({ status, showBadge = true, showTimeline = false }: 
                       <div
                         className={cn(
                           'absolute left-0 right-1/2 top-1/2 h-0.5 -translate-y-1/2',
-                          isCompleted || isCurrent ? 'bg-red-600' : 'bg-gray-200'
+                          isCompleted || isCurrent ? 'bg-danger' : 'bg-card'
                         )}
                       />
                     )}
@@ -53,16 +53,16 @@ export function OrderStatus({ status, showBadge = true, showTimeline = false }: 
                       <div
                         className={cn(
                           'absolute left-1/2 right-0 top-1/2 h-0.5 -translate-y-1/2',
-                          isCompleted ? 'bg-red-600' : 'bg-gray-200'
+                          isCompleted ? 'bg-danger' : 'bg-card'
                         )}
                       />
                     )}
                     <div
                       className={cn(
                         'relative z-10 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold',
-                        isCompleted ? 'bg-red-600 text-white' :
-                        isCurrent ? 'bg-red-600 text-white ring-4 ring-red-100' :
-                        'bg-gray-200 text-gray-500'
+                        isCompleted ? 'bg-danger text-white' :
+                        isCurrent ? 'bg-danger text-white ring-4 ring-primary-soft' :
+                        'bg-card text-muted'
                       )}
                     >
                       {isCompleted ? '✓' : i + 1}
@@ -70,7 +70,7 @@ export function OrderStatus({ status, showBadge = true, showTimeline = false }: 
                   </div>
                   <p className={cn(
                     'mt-2 text-xs text-center',
-                    isCurrent ? 'text-red-600 font-medium' : 'text-gray-500'
+                    isCurrent ? 'text-danger font-medium' : 'text-muted'
                   )}>
                     {sConfig.label}
                   </p>

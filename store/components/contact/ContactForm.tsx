@@ -19,7 +19,7 @@ export function ContactForm() {
           <Check className="h-6 w-6" />
         </span>
         <h3 className="mt-3 text-[16px] font-extrabold text-ink">Message sent</h3>
-        <p className="mt-1 max-w-sm text-[12.5px] text-gray-600">
+        <p className="mt-1 max-w-sm text-[12.5px] text-muted">
           Thanks for reaching out. Our team replies within a few hours during business
           hours — usually much faster on WhatsApp.
         </p>
@@ -38,7 +38,7 @@ export function ContactForm() {
     <form onSubmit={submit} className="space-y-4">
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1 block text-[12px] font-semibold text-gray-700">
+          <span className="mb-1 block text-[12px] font-semibold text-ink/80">
             First name
           </span>
           <input
@@ -49,7 +49,7 @@ export function ContactForm() {
           />
         </label>
         <label className="block">
-          <span className="mb-1 block text-[12px] font-semibold text-gray-700">
+          <span className="mb-1 block text-[12px] font-semibold text-ink/80">
             Last name
           </span>
           <input
@@ -61,7 +61,7 @@ export function ContactForm() {
       </div>
 
       <label className="block">
-        <span className="mb-1 block text-[12px] font-semibold text-gray-700">
+        <span className="mb-1 block text-[12px] font-semibold text-ink/80">
           Email address
         </span>
         <input
@@ -73,7 +73,7 @@ export function ContactForm() {
       </label>
 
       <label className="block">
-        <span className="mb-1 block text-[12px] font-semibold text-gray-700">Subject</span>
+        <span className="mb-1 block text-[12px] font-semibold text-ink/80">Subject</span>
         <input
           type="text"
           placeholder="Order, delivery, product question…"
@@ -82,7 +82,7 @@ export function ContactForm() {
       </label>
 
       <label className="block">
-        <span className="mb-1 block text-[12px] font-semibold text-gray-700">Message</span>
+        <span className="mb-1 block text-[12px] font-semibold text-ink/80">Message</span>
         <textarea
           required
           rows={5}

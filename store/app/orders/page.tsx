@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { ArrowRight, Package, ShoppingBag, Clock, CheckCircle2, XCircle, Truck, RefreshCcw, Loader2 } from 'lucide-react';
@@ -8,22 +9,29 @@ import { formatCedis } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
+export const metadata: Metadata = {
+  title: 'My orders',
+  description: 'Track every order you have placed with GlowMom Skincare & Mother Care.',
+  robots: { index: false, follow: false },
+  alternates: { canonical: '/orders' },
+};
+
 /* ─── Status config ──────────────────────────────────────────────── */
 const ORDER_STATUS: Record<string, { label: string; color: string; bg: string; icon: React.ReactNode }> = {
-  pending:    { label: 'Pending',    color: 'text-amber-700',   bg: 'bg-amber-50 border-amber-200',   icon: <Clock className="w-3 h-3" /> },
-  confirmed:  { label: 'Confirmed',  color: 'text-sky-700',     bg: 'bg-sky-50 border-sky-200',       icon: <CheckCircle2 className="w-3 h-3" /> },
-  processing: { label: 'Processing', color: 'text-rose-700',    bg: 'bg-rose-50 border-rose-200', icon: <Loader2 className="w-3 h-3" /> },
-  shipped:    { label: 'Shipped',    color: 'text-blue-700',    bg: 'bg-blue-50 border-blue-200',     icon: <Truck className="w-3 h-3" /> },
-  delivered:  { label: 'Delivered',  color: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-200', icon: <CheckCircle2 className="w-3 h-3" /> },
-  cancelled:  { label: 'Cancelled',  color: 'text-rose-700',    bg: 'bg-rose-50 border-rose-200',     icon: <XCircle className="w-3 h-3" /> },
-  refunded:   { label: 'Refunded',   color: 'text-slate-600',   bg: 'bg-slate-50 border-slate-200',   icon: <RefreshCcw className="w-3 h-3" /> },
+  pending:    { label: 'Pending',    color: 'text-warning',   bg: 'bg-warning-soft border-warning/30',   icon: <Clock className="w-3 h-3" /> },
+  confirmed:  { label: 'Confirmed',  color: 'text-ink',     bg: 'bg-card border-line',       icon: <CheckCircle2 className="w-3 h-3" /> },
+  processing: { label: 'Processing', color: 'text-danger',    bg: 'bg-danger-soft border-danger/30', icon: <Loader2 className="w-3 h-3" /> },
+  shipped:    { label: 'Shipped',    color: 'text-ink',    bg: 'bg-card border-line',     icon: <Truck className="w-3 h-3" /> },
+  delivered:  { label: 'Delivered',  color: 'text-success', bg: 'bg-success-soft border-success/30', icon: <CheckCircle2 className="w-3 h-3" /> },
+  cancelled:  { label: 'Cancelled',  color: 'text-danger',    bg: 'bg-danger-soft border-danger/30',     icon: <XCircle className="w-3 h-3" /> },
+  refunded:   { label: 'Refunded',   color: 'text-muted',   bg: 'bg-surface-soft border-line',   icon: <RefreshCcw className="w-3 h-3" /> },
 };
 
 const PAYMENT_STATUS: Record<string, { label: string; dot: string }> = {
-  pending:  { label: 'Payment pending', dot: 'bg-amber-400' },
-  paid:     { label: 'Paid',            dot: 'bg-emerald-500' },
-  failed:   { label: 'Payment failed',  dot: 'bg-rose-500' },
-  refunded: { label: 'Refunded',        dot: 'bg-slate-400' },
+  pending:  { label: 'Payment pending', dot: 'bg-warning' },
+  paid:     { label: 'Paid',            dot: 'bg-success' },
+  failed:   { label: 'Payment failed',  dot: 'bg-danger' },
+  refunded: { label: 'Refunded',        dot: 'bg-line-strong' },
 };
 
 /* ─── Types ──────────────────────────────────────────────────────── */
@@ -48,7 +56,7 @@ function formatDate(dateStr: string) {
 
 /* ─── Sub-components ─────────────────────────────────────────────── */
 function StatusBadge({ status }: { status: string }) {
-  const cfg = ORDER_STATUS[status] ?? { label: status, color: 'text-slate-600', bg: 'bg-slate-50 border-slate-200', icon: null };
+  const cfg = ORDER_STATUS[status] ?? { label: status, color: 'text-muted', bg: 'bg-surface-soft border-line', icon: null };
   return (
     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border capitalize ${cfg.bg} ${cfg.color}`}>
       {cfg.icon}
@@ -58,9 +66,9 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 function PaymentDot({ status }: { status: string }) {
-  const cfg = PAYMENT_STATUS[status] ?? { label: status, dot: 'bg-slate-400' };
+  const cfg = PAYMENT_STATUS[status] ?? { label: status, dot: 'bg-line-strong' };
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
+    <span className="inline-flex items-center gap-1.5 text-xs text-muted">
       <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`} />
       {cfg.label}
     </span>
@@ -74,19 +82,19 @@ function OrderCard({ order }: { order: OrderListItem }) {
   return (
     <Link
       href={`/orders/${order.id}`}
-      className="group block bg-white rounded-2xl border border-slate-200 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden"
+      className="group block bg-white rounded-2xl border border-line hover:border-line-strong hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden"
     >
       {/* Top accent bar — thin gradient line */}
-      <div className="h-0.5 w-full bg-gradient-to-r from-red-500 via-rose-400 to-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="h-0.5 w-full bg-gradient-to-r from-primary via-primary-strong to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       <div className="p-5 sm:p-6">
         {/* Row 1 – order number + status */}
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-0.5">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-muted/70 mb-0.5">
               Order
             </p>
-            <h2 className="text-base sm:text-lg font-bold text-slate-800 font-mono tracking-tight">
+            <h2 className="text-base sm:text-lg font-bold text-ink font-mono tracking-tight">
               #{order.order_number}
             </h2>
           </div>
@@ -100,15 +108,15 @@ function OrderCard({ order }: { order: OrderListItem }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-4">
           {/* Date */}
           <div>
-            <p className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 mb-0.5">Date</p>
-            <p className="text-sm font-medium text-slate-700">{date}</p>
-            <p className="text-xs text-slate-400">{time}</p>
+            <p className="text-[10px] uppercase tracking-widest font-semibold text-muted/70 mb-0.5">Date</p>
+            <p className="text-sm font-medium text-muted">{date}</p>
+            <p className="text-xs text-muted/70">{time}</p>
           </div>
 
           {/* Items */}
           <div>
-            <p className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 mb-0.5">Items</p>
-            <p className="text-sm font-medium text-slate-700">
+            <p className="text-[10px] uppercase tracking-widest font-semibold text-muted/70 mb-0.5">Items</p>
+            <p className="text-sm font-medium text-muted">
               {itemCount} {itemCount === 1 ? 'item' : 'items'}
             </p>
             <PaymentDot status={order.payment_status} />
@@ -116,8 +124,8 @@ function OrderCard({ order }: { order: OrderListItem }) {
 
           {/* Total – spans full width on xs, right-aligned on sm+ */}
           <div className="col-span-2 sm:col-span-1 sm:text-right">
-            <p className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 mb-0.5">Total</p>
-            <p className="text-lg font-extrabold text-slate-900 tabular-nums">
+            <p className="text-[10px] uppercase tracking-widest font-semibold text-muted/70 mb-0.5">Total</p>
+            <p className="text-lg font-extrabold text-ink tabular-nums">
               {formatCedis(order.total_amount)}
             </p>
           </div>
@@ -187,7 +195,7 @@ function OrdersShell({
   return (
     <main className="min-h-screen bg-[#F8F7F4]">
       {/* ── Hero / header strip ── */}
-      <div className="border-b border-slate-200 bg-white">
+      <div className="border-b border-line bg-white">
         <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
           <div className="flex items-center gap-3 mb-1">
             <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-brand-soft text-brand shrink-0">
@@ -195,10 +203,10 @@ function OrdersShell({
             </div>
             <p className="text-xs font-bold uppercase tracking-widest text-brand">My Account</p>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
             Order History
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-muted mt-1">
             All your purchases in one place.
           </p>
 
@@ -212,12 +220,12 @@ function OrdersShell({
               ].map(({ label, value }) => (
                 <div
                   key={label}
-                  className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 sm:px-4"
+                  className="bg-surface-soft border border-line rounded-xl px-3 py-3 sm:px-4"
                 >
-                  <p className="text-[10px] sm:text-[11px] uppercase tracking-widest font-semibold text-slate-400 mb-0.5 leading-tight">
+                  <p className="text-[10px] sm:text-[11px] uppercase tracking-widest font-semibold text-muted/70 mb-0.5 leading-tight">
                     {label}
                   </p>
-                  <p className="text-base sm:text-lg font-extrabold text-slate-800 tabular-nums truncate">
+                  <p className="text-base sm:text-lg font-extrabold text-ink tabular-nums truncate">
                     {value}
                   </p>
                 </div>
@@ -231,21 +239,21 @@ function OrdersShell({
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
         {safeOrders.length === 0 ? (
           /* Empty state */
-          <div className="bg-white rounded-2xl border border-slate-200 p-10 sm:p-14 text-center">
-            <div className="mx-auto w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mb-5 text-3xl">
-              <Package className="w-8 h-8 text-slate-400" />
+          <div className="bg-white rounded-2xl border border-line p-10 sm:p-14 text-center">
+            <div className="mx-auto w-16 h-16 rounded-2xl bg-card flex items-center justify-center mb-5 text-3xl">
+              <Package className="w-8 h-8 text-muted/70" />
             </div>
-            <h2 className="text-xl font-bold text-slate-900 mb-2">
+            <h2 className="text-xl font-bold text-ink mb-2">
               {setupRequired ? 'Orders are almost ready' : 'No orders yet'}
             </h2>
-            <p className="text-sm text-slate-500 mb-8 max-w-sm mx-auto leading-relaxed">
+            <p className="text-sm text-muted mb-8 max-w-sm mx-auto leading-relaxed">
               {setupRequired
                 ? 'The store database is being set up, so order history is not available yet. Please check back shortly.'
                 : "Looks like you haven't placed any orders. Discover products you'll love."}
             </p>
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-slate-900 hover:bg-slate-700 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-ink hover:bg-accent transition-colors"
             >
               <ShoppingBag className="w-4 h-4" />
               Browse Products

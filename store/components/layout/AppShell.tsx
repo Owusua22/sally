@@ -36,7 +36,9 @@ export function AppShell({ children }: AppShellProps) {
           <DemoModeBanner />
           <Navbar />
 
-          <main className="min-h-[60vh] pb-16 md:pb-0">{children}</main>
+          <main id="main-content" className="min-h-[60vh] pb-24 md:pb-0">
+            {children}
+          </main>
 
           <Footer />
           <CartSidebar />

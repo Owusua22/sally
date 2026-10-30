@@ -16,7 +16,7 @@ import { breadcrumbSchema, contactPageSchema } from '@/lib/seo/jsonld';
 export const metadata: Metadata = {
   title: 'Contact us',
   description:
-    'Talk to the Glow-Up team about orders, delivery, products or returns. Call, WhatsApp or send a message.',
+    'Talk to the GlowMom team about orders, delivery, products or returns. Call, WhatsApp or send a message.',
 };
 
 export default function ContactPage() {
@@ -67,7 +67,7 @@ export default function ContactPage() {
         <h1 className="mt-2 text-[24px] font-extrabold tracking-tight text-ink sm:text-[28px]">
           We&apos;re here to help
         </h1>
-        <p className="mt-1 max-w-2xl text-[12.5px] leading-relaxed text-gray-600">
+        <p className="mt-1 max-w-2xl text-[12.5px] leading-relaxed text-muted">
           Questions about an order, delivery timelines, product recommendations or returns?
           Reach us on WhatsApp for the fastest reply, or send a message below.
         </p>
@@ -117,7 +117,7 @@ export default function ContactPage() {
 
           <div className="panel p-5">
             <h2 className="text-[13px] font-extrabold text-ink">Delivery & payment</h2>
-            <ul className="mt-2 space-y-2 text-[12px] text-gray-600">
+            <ul className="mt-2 space-y-2 text-[12px] text-muted">
               <li className="flex items-center gap-2">
                 <Truck className="h-4 w-4 shrink-0 text-brand" />
                 Nationwide delivery in 1–4 business days

@@ -77,6 +77,10 @@ export interface Product {
   images: string[];
   thumbnail: string | null;
   sku?: string | null;
+  /** Buying cost — admin reporting only, not shown to shoppers. */
+  cost_price?: number | null;
+  /** Who the product is for, e.g. "mum-to-be", "newborn". Admin form only. */
+  who_for?: string | null;
   weight_grams?: number | null;
   rating?: number;
   reviews_count?: number;

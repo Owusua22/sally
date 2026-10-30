@@ -8,8 +8,8 @@ import { site } from '@/lib/site';
 
 export function StoreSetupNotice() {
   return (
-    <div className="border-b border-amber-200 bg-amber-50">
-      <div className="container-page flex flex-wrap items-center gap-x-3 gap-y-1 py-2 text-[12px] text-amber-900">
+    <div className="border-b border-warning/30 bg-warning-soft">
+      <div className="container-page flex flex-wrap items-center gap-x-3 gap-y-1 py-2 text-[12px] text-ink">
         <Sparkles className="h-3.5 w-3.5 shrink-0" />
         <p className="flex-1 leading-snug">
           <span className="font-bold">We&apos;re stocking the shelves.</span> Our new catalogue is
@@ -26,7 +26,7 @@ export function StoreSetupNotice() {
         </p>
         <Link
           href="/admin/setup"
-          className="rounded-md bg-amber-900 px-2 py-1 text-[11px] font-bold text-white hover:bg-amber-950"
+          className="rounded-md bg-warning px-2 py-1 text-[11px] font-bold text-white hover:bg-accent-deep"
         >
           Admin setup
         </Link>
