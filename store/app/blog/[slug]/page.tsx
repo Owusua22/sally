@@ -72,10 +72,10 @@ export default async function BlogPostPage({ params }: Props) {
         </Link>
       </div>
 
-      <article className="container-page max-w-3xl py-8">
+      <article className="container-page is-reading section-y">
         <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-brand">
           <span>{post.category ?? 'Journal'}</span>
-          <span className="text-gray-300">•</span>
+          <span className="text-line-strong">•</span>
           <span className="inline-flex items-center gap-1 text-muted">
             <Clock className="h-3 w-3" /> {post.read_minutes} min read
           </span>
@@ -87,9 +87,9 @@ export default async function BlogPostPage({ params }: Props) {
 
         <div className="mt-4 flex flex-wrap items-center gap-3 text-[12.5px] text-muted">
           <span className="font-semibold text-ink">{post.author_name}</span>
-          <span className="h-1 w-1 rounded-full bg-gray-300" />
+          <span className="h-1 w-1 rounded-full bg-line-strong" />
           <span>{formatDate(post.published_at ?? post.created_at)}</span>
-          <span className="h-1 w-1 rounded-full bg-gray-300" />
+          <span className="h-1 w-1 rounded-full bg-line-strong" />
           <span className="inline-flex items-center gap-1">
             <Share2 className="h-3 w-3" /> Share
           </span>
@@ -117,7 +117,7 @@ export default async function BlogPostPage({ params }: Props) {
               <Link
                 key={type}
                 href={`/products?skin=${type}`}
-                className="rounded-full border border-line bg-surface-soft px-2.5 py-1 text-[11px] font-bold text-gray-600 hover:border-brand/60 hover:text-brand"
+                className="rounded-full border border-line bg-surface-soft px-2.5 py-1 text-[11px] font-bold text-muted hover:border-brand/60 hover:text-brand"
               >
                 {skinTypeLabel(type)}
               </Link>
@@ -126,7 +126,7 @@ export default async function BlogPostPage({ params }: Props) {
         ) : null}
 
         <div
-          className="blog-body mt-8 text-[15px] leading-[1.8] text-gray-700 [&_blockquote]:my-5 [&_code]:text-brand [&_h2]:mt-9 [&_h2]:mb-3 [&_h2]:text-[22px] [&_h2]:font-black [&_h2]:text-ink [&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-[17px] [&_h3]:font-extrabold [&_h3]:text-ink [&_li]:mb-1.5 [&_li]:ml-5 [&_ol]:my-4 [&_ol]:list-decimal [&_p]:my-4 [&_strong]:text-ink [&_ul]:my-4 [&_ul]:list-disc"
+          className="blog-body mt-8 text-[15px] leading-[1.8] text-ink/80 [&_blockquote]:my-5 [&_code]:text-brand [&_h2]:mt-9 [&_h2]:mb-3 [&_h2]:text-[22px] [&_h2]:font-black [&_h2]:text-ink [&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-[17px] [&_h3]:font-extrabold [&_h3]:text-ink [&_li]:mb-1.5 [&_li]:ml-5 [&_ol]:my-4 [&_ol]:list-decimal [&_p]:my-4 [&_strong]:text-ink [&_ul]:my-4 [&_ul]:list-disc"
           dangerouslySetInnerHTML={{ __html: renderBlogHtml(post.content) }}
         />
 
@@ -136,7 +136,7 @@ export default async function BlogPostPage({ params }: Props) {
               <Link
                 key={tag}
                 href={`/blog?tag=${encodeURIComponent(tag)}`}
-                className="rounded-full bg-surface-soft px-2.5 py-1 text-[11px] font-semibold text-gray-600 hover:text-brand"
+                className="rounded-full bg-surface-soft px-2.5 py-1 text-[11px] font-semibold text-muted hover:text-brand"
               >
                 #{tag}
               </Link>
@@ -146,7 +146,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         <div className="mt-10 rounded-2xl border border-line bg-surface-soft p-6">
           <h2 className="text-[17px] font-extrabold text-ink">Shop the routine</h2>
-          <p className="mt-1 text-[13px] text-gray-600">
+          <p className="mt-1 text-[13px] text-muted">
             Every product mentioned here is in stock and shipped nationwide across Ghana.
           </p>
           <Link
@@ -159,7 +159,7 @@ export default async function BlogPostPage({ params }: Props) {
       </article>
 
       {related.length > 0 ? (
-        <section className="border-t border-line bg-surface-soft py-10">
+        <section className="section-y border-t border-line bg-surface-soft">
           <div className="container-page">
             <h2 className="text-[20px] font-black text-ink">Keep reading</h2>
             <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -58,7 +58,7 @@ export default function AccountPage() {
     .toUpperCase();
 
   return (
-    <div className="container-page py-6 sm:py-8">
+    <div className="container-page section-y">
       <h1 className="text-[22px] font-extrabold tracking-tight text-ink sm:text-[26px]">
         My account
       </h1>
@@ -107,7 +107,7 @@ export default function AccountPage() {
             <button
               type="button"
               onClick={handleSignOut}
-              className="inline-flex h-10 items-center gap-1.5 rounded-md border border-line px-4 text-[12.5px] font-bold text-gray-700 hover:border-red-300 hover:text-red-600"
+              className="inline-flex h-10 items-center gap-1.5 rounded-md border border-line px-4 text-[12.5px] font-bold text-ink/80 hover:border-danger/50 hover:text-danger"
             >
               <LogOut className="h-4 w-4" /> Sign out
             </button>

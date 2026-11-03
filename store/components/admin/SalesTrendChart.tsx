@@ -63,15 +63,15 @@ export default function SalesTrendChart({ data }: SalesTrendChartProps) {
       <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
         <defs>
           <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#1a73e8" stopOpacity={0.15} />
-            <stop offset="95%" stopColor="#1a73e8" stopOpacity={0} />
+            <stop offset="5%" stopColor="#A66B78" stopOpacity={0.15} />
+            <stop offset="95%" stopColor="#A66B78" stopOpacity={0} />
           </linearGradient>
           <linearGradient id="colorOrders" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#10b981" stopOpacity={0.15} />
-            <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+            <stop offset="5%" stopColor="#2F7A5A" stopOpacity={0.15} />
+            <stop offset="95%" stopColor="#2F7A5A" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#FBE7E1" vertical={false} />
         <XAxis
           dataKey="date"
           tick={{ fontSize: 11, fill: '#9ca3af' }}
@@ -100,29 +100,29 @@ export default function SalesTrendChart({ data }: SalesTrendChartProps) {
         <Legend
           iconType="circle"
           iconSize={8}
-          wrapperStyle={{ fontSize: '12px', paddingTop: '12px', color: '#6b7280' }}
+          wrapperStyle={{ fontSize: '12px', paddingTop: '12px', color: '#8A5561' }}
         />
         <Area
           yAxisId="revenue"
           type="monotone"
           dataKey="revenue"
           name="revenue"
-          stroke="#1a73e8"
+          stroke="#A66B78"
           strokeWidth={2.5}
           fill="url(#colorRevenue)"
           dot={false}
-          activeDot={{ r: 5, strokeWidth: 0, fill: '#1a73e8' }}
+          activeDot={{ r: 5, strokeWidth: 0, fill: '#A66B78' }}
         />
         <Area
           yAxisId="orders"
           type="monotone"
           dataKey="orders"
           name="orders"
-          stroke="#10b981"
+          stroke="#2F7A5A"
           strokeWidth={2.5}
           fill="url(#colorOrders)"
           dot={false}
-          activeDot={{ r: 5, strokeWidth: 0, fill: '#10b981' }}
+          activeDot={{ r: 5, strokeWidth: 0, fill: '#2F7A5A' }}
         />
       </AreaChart>
     </ResponsiveContainer>

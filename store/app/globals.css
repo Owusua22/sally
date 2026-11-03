@@ -1,33 +1,145 @@
-/* app/globals.css */
+/* app/globals.css
+   GlowMom design system — every colour, radius and elevation token lives here.
+
+   Brand palette (fixed, do not change without asking):
+     Main background   #FFF8F5
+     Navigation        #FBDCE2
+     Primary buttons   #FF9FB2
+     Product cards     #FBDCE2
+     Headings          #49383D
+     Body text         #49383D
+     Accent elements   #A66B78
+*/
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
 :root {
-  --brand: #e11b22;
-  --brand-dark: #b01118;
-  --brand-soft: #fdecee;
-  --ink: #14161a;
-  --muted: #6b7280;
-  --line: #ececef;
+  /* ── The seven brand colours ─────────────────────────────── */
+  --blush: #fff8f5; /* main background                  */
+  --nav: #fbdce2; /* navigation + soft surfaces       */
+  --primary: #ff9fb2; /* primary buttons                  */
+  --card: #fbdce2; /* product cards                     */
+  --ink: #49383d; /* headings + body text               */
+  --accent: #a66b78; /* accent elements                   */
+
+  /* ── Contrast-safe shades derived from the palette ──────── */
+  --primary-strong: #ff8ba5; /* button hover                     */
+  --primary-soft: #ffe6ec; /* tinted primary background        */
+  --accent-deep: #8a5561; /* accent text on light backgrounds */
+  --accent-soft: #f6e7ea; /* tinted accent background         */
   --surface: #ffffff;
-  --surface-soft: #f7f7f8;
-  --gold: #f5a623;
+  --surface-soft: #fff2ee;
+  --line: #f2dad4;
+  --line-strong: #e8c6c1;
+  --muted: #7c646a; /* muted body copy, 5.1:1 on blush    */
+
+  /* ── Feedback colours, tuned to sit inside the palette ──── */
+  --success: #2f7a5a;
+  --success-soft: #e6f4ec;
+  --warning: #a86a12;
+  --warning-soft: #fdf1de;
+  --danger: #b3261e;
+  --danger-soft: #fdeceb;
+
+  /* ── Shape ───────────────────────────────────────────────── */
+  --radius-card: 18px;
+  --radius-panel: 24px;
+  --shadow-card: 0 1px 2px rgba(73, 56, 61, 0.04);
+  --shadow-lift: 0 14px 34px rgba(73, 56, 61, 0.1);
+  --shadow-pop: 0 22px 55px rgba(166, 107, 120, 0.22);
 }
 
 @theme inline {
-  --color-brand: var(--brand);
-  --color-brand-dark: var(--brand-dark);
-  --color-brand-soft: var(--brand-soft);
+  --color-blush: var(--blush);
+  --color-nav: var(--nav);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-soft: var(--primary-soft);
+  --color-card: var(--card);
   --color-ink: var(--ink);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
   --color-surface: var(--surface);
   --color-surface-soft: var(--surface-soft);
-  --color-gold: var(--gold);
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-muted: var(--muted);
+  --color-paper: var(--blush);
+
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  /* Legacy aliases kept so existing components re-skin automatically. */
+  --color-brand: var(--primary);
+  --color-brand-dark: var(--accent);
+  --color-brand-soft: var(--card);
+  --color-gold: var(--accent);
+
+  /* One family for the whole storefront: Outfit.
+     `--font-display` is deliberately the same family — headings earn their
+     hierarchy from size and weight, not from a second typeface. Swap these two
+     lines (and the imports in app/layout.tsx) to change the site's voice. */
+  --font-sans: "Outfit Variable", "Outfit", ui-sans-serif, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Outfit Variable", "Outfit", ui-sans-serif, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --radius-4xl: 28px;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Contrast guards.
+   The brand pink (#FF9FB2) and the card pink (#FBDCE2) are light, so any
+   element painted with them must carry the deep-ink text colour — even when a
+   utility class such as `text-white` is present. These rules are unlayered on
+   purpose so they win over Tailwind's utility layer.
+   ───────────────────────────────────────────────────────────── */
+.bg-brand,
+.bg-primary,
+.bg-card,
+.bg-nav,
+.bg-primary-soft,
+.bg-brand-soft,
+.bg-blush,
+.hover\:bg-brand:hover,
+.hover\:bg-primary:hover,
+.hover\:bg-card:hover,
+.hover\:bg-nav:hover,
+.hover\:bg-brand-soft:hover {
+  color: var(--ink);
+}
+
+/* Deep accent and ink surfaces are dark — they keep light text. */
+.bg-accent,
+.bg-brand-dark,
+.bg-ink,
+.hover\:bg-accent:hover,
+.hover\:bg-brand-dark:hover,
+.hover\:bg-ink:hover {
+  color: var(--blush);
+}
+
+/* Pink is unreadable at body size on light backgrounds, so text-level brand
+   and gold utilities fall back to the deeper accent shade. */
+.text-brand,
+.text-gold,
+.hover\:text-brand:hover,
+.hover\:text-gold:hover {
+  color: var(--accent-deep);
+}
+
+.text-ink,
+.text-accent {
+  color: var(--ink);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
 * {
   border-color: var(--line);
 }
@@ -35,27 +147,335 @@
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: var(--surface);
+  background: var(--blush);
   color: var(--ink);
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--brand);
-  color: #fff;
+  background: var(--primary);
+  color: var(--ink);
 }
 
-/* ── Layout helpers ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Admin palette.
+
+   The dashboard was written with Tailwind's default scales (slate, gray, red,
+   blue, emerald, amber …). Instead of rewriting ~1,000 utility classes across
+   40 files, `.admin-theme` re-points those scales at the brand palette: every
+   utility still resolves through `var(--color-*)` at the point of use, so
+   redefining the variables inside this scope re-skins the whole dashboard.
+
+   Neutrals → warm paper tones · blue/indigo → primary pink
+   red → danger · amber/orange → warning · green/emerald → success
+   ───────────────────────────────────────────────────────────── */
+.admin-theme {
+  /* neutrals — slate / gray / zinc / neutral / stone */
+  --color-slate-50: #fff8f5;
+  --color-slate-100: #fff2ee;
+  --color-slate-200: #fbe7e1;
+  --color-slate-300: #f2dad4;
+  --color-slate-400: #dfb9b2;
+  --color-slate-500: #a66b78;
+  --color-slate-600: #8a5561;
+  --color-slate-700: #6e4450;
+  --color-slate-800: #5a3a43;
+  --color-slate-900: #49383d;
+  --color-slate-950: #33272b;
+
+  --color-gray-50: var(--color-slate-50);
+  --color-gray-100: var(--color-slate-100);
+  --color-gray-200: var(--color-slate-200);
+  --color-gray-300: var(--color-slate-300);
+  --color-gray-400: var(--color-slate-400);
+  --color-gray-500: var(--color-slate-500);
+  --color-gray-600: var(--color-slate-600);
+  --color-gray-700: var(--color-slate-700);
+  --color-gray-800: var(--color-slate-800);
+  --color-gray-900: var(--color-slate-900);
+  --color-gray-950: var(--color-slate-950);
+
+  --color-zinc-50: var(--color-slate-50);
+  --color-zinc-100: var(--color-slate-100);
+  --color-zinc-200: var(--color-slate-200);
+  --color-zinc-300: var(--color-slate-300);
+  --color-zinc-400: var(--color-slate-400);
+  --color-zinc-500: var(--color-slate-500);
+  --color-zinc-600: var(--color-slate-600);
+  --color-zinc-700: var(--color-slate-700);
+  --color-zinc-800: var(--color-slate-800);
+  --color-zinc-900: var(--color-slate-900);
+  --color-zinc-950: var(--color-slate-950);
+
+  --color-neutral-50: var(--color-slate-50);
+  --color-neutral-100: var(--color-slate-100);
+  --color-neutral-200: var(--color-slate-200);
+  --color-neutral-300: var(--color-slate-300);
+  --color-neutral-400: var(--color-slate-400);
+  --color-neutral-500: var(--color-slate-500);
+  --color-neutral-600: var(--color-slate-600);
+  --color-neutral-700: var(--color-slate-700);
+  --color-neutral-800: var(--color-slate-800);
+  --color-neutral-900: var(--color-slate-900);
+  --color-neutral-950: var(--color-slate-950);
+
+  --color-stone-50: var(--color-slate-50);
+  --color-stone-100: var(--color-slate-100);
+  --color-stone-200: var(--color-slate-200);
+  --color-stone-300: var(--color-slate-300);
+  --color-stone-400: var(--color-slate-400);
+  --color-stone-500: var(--color-slate-500);
+  --color-stone-600: var(--color-slate-600);
+  --color-stone-700: var(--color-slate-700);
+  --color-stone-800: var(--color-slate-800);
+  --color-stone-900: var(--color-slate-900);
+  --color-stone-950: var(--color-slate-950);
+
+  /* danger — red */
+  --color-red-50: #fdeceb;
+  --color-red-100: #f9dad7;
+  --color-red-200: #f2b4ae;
+  --color-red-300: #e88c84;
+  --color-red-400: #d9695f;
+  --color-red-500: #c4483f;
+  --color-red-600: #b3261e;
+  --color-red-700: #98201a;
+  --color-red-800: #7e1a15;
+  --color-red-900: #621410;
+  --color-red-950: #3f0c08;
+
+  /* warning — amber / orange / yellow */
+  --color-amber-50: #fdf1de;
+  --color-amber-100: #fae3c4;
+  --color-amber-200: #f5cb90;
+  --color-amber-300: #edb05c;
+  --color-amber-400: #dda33c;
+  --color-amber-500: #c98a17;
+  --color-amber-600: #a86a12;
+  --color-amber-700: #87540e;
+  --color-amber-800: #6b430b;
+  --color-amber-900: #563509;
+  --color-amber-950: #3b2406;
+
+  --color-orange-50: var(--color-amber-50);
+  --color-orange-100: var(--color-amber-100);
+  --color-orange-200: var(--color-amber-200);
+  --color-orange-300: var(--color-amber-300);
+  --color-orange-400: var(--color-amber-400);
+  --color-orange-500: var(--color-amber-500);
+  --color-orange-600: var(--color-amber-600);
+  --color-orange-700: var(--color-amber-700);
+  --color-orange-800: var(--color-amber-800);
+  --color-orange-900: var(--color-amber-900);
+  --color-orange-950: var(--color-amber-950);
+
+  --color-yellow-50: var(--color-amber-50);
+  --color-yellow-100: var(--color-amber-100);
+  --color-yellow-200: var(--color-amber-200);
+  --color-yellow-300: var(--color-amber-300);
+  --color-yellow-400: var(--color-amber-400);
+  --color-yellow-500: var(--color-amber-500);
+  --color-yellow-600: var(--color-amber-600);
+  --color-yellow-700: var(--color-amber-700);
+  --color-yellow-800: var(--color-amber-800);
+  --color-yellow-900: var(--color-amber-900);
+  --color-yellow-950: var(--color-amber-950);
+
+  /* success — emerald / green / lime / teal */
+  --color-emerald-50: #e6f4ec;
+  --color-emerald-100: #cbe8d8;
+  --color-emerald-200: #a2d4b9;
+  --color-emerald-300: #7fc2a1;
+  --color-emerald-400: #4f9e77;
+  --color-emerald-500: #3b8b64;
+  --color-emerald-600: #2f7a5a;
+  --color-emerald-700: #256348;
+  --color-emerald-800: #1f4f3a;
+  --color-emerald-900: #1b4130;
+  --color-emerald-950: #12291f;
+
+  --color-green-50: var(--color-emerald-50);
+  --color-green-100: var(--color-emerald-100);
+  --color-green-200: var(--color-emerald-200);
+  --color-green-300: var(--color-emerald-300);
+  --color-green-400: var(--color-emerald-400);
+  --color-green-500: var(--color-emerald-500);
+  --color-green-600: var(--color-emerald-600);
+  --color-green-700: var(--color-emerald-700);
+  --color-green-800: var(--color-emerald-800);
+  --color-green-900: var(--color-emerald-900);
+  --color-green-950: var(--color-emerald-950);
+
+  --color-lime-50: var(--color-emerald-50);
+  --color-lime-100: var(--color-emerald-100);
+  --color-lime-200: var(--color-emerald-200);
+  --color-lime-300: var(--color-emerald-300);
+  --color-lime-400: var(--color-emerald-400);
+  --color-lime-500: var(--color-emerald-500);
+  --color-lime-600: var(--color-emerald-600);
+  --color-lime-700: var(--color-emerald-700);
+  --color-lime-800: var(--color-emerald-800);
+  --color-lime-900: var(--color-emerald-900);
+  --color-lime-950: var(--color-emerald-950);
+
+  --color-teal-50: var(--color-emerald-50);
+  --color-teal-100: var(--color-emerald-100);
+  --color-teal-200: var(--color-emerald-200);
+  --color-teal-300: var(--color-emerald-300);
+  --color-teal-400: var(--color-emerald-400);
+  --color-teal-500: var(--color-emerald-500);
+  --color-teal-600: var(--color-emerald-600);
+  --color-teal-700: var(--color-emerald-700);
+  --color-teal-800: var(--color-emerald-800);
+  --color-teal-900: var(--color-emerald-900);
+  --color-teal-950: var(--color-emerald-950);
+
+  /* primary action — blue / indigo / sky / cyan */
+  --color-blue-50: #fff6f8;
+  --color-blue-100: #ffedf0;
+  --color-blue-200: #ffd9e1;
+  --color-blue-300: #ffb7c7;
+  --color-blue-400: #ff9fb2;
+  --color-blue-500: #e8738d;
+  --color-blue-600: #a66b78;
+  --color-blue-700: #8a5561;
+  --color-blue-800: #6e4450;
+  --color-blue-900: #5a3a43;
+  --color-blue-950: #33272b;
+
+  --color-indigo-50: var(--color-blue-50);
+  --color-indigo-100: var(--color-blue-100);
+  --color-indigo-200: var(--color-blue-200);
+  --color-indigo-300: var(--color-blue-300);
+  --color-indigo-400: var(--color-blue-400);
+  --color-indigo-500: var(--color-blue-500);
+  --color-indigo-600: var(--color-blue-600);
+  --color-indigo-700: var(--color-blue-700);
+  --color-indigo-800: var(--color-blue-800);
+  --color-indigo-900: var(--color-blue-900);
+  --color-indigo-950: var(--color-blue-950);
+
+  --color-sky-50: var(--color-blue-50);
+  --color-sky-100: var(--color-blue-100);
+  --color-sky-200: var(--color-blue-200);
+  --color-sky-300: var(--color-blue-300);
+  --color-sky-400: var(--color-blue-400);
+  --color-sky-500: var(--color-blue-500);
+  --color-sky-600: var(--color-blue-600);
+  --color-sky-700: var(--color-blue-700);
+  --color-sky-800: var(--color-blue-800);
+  --color-sky-900: var(--color-blue-900);
+  --color-sky-950: var(--color-blue-950);
+
+  --color-cyan-50: var(--color-blue-50);
+  --color-cyan-100: var(--color-blue-100);
+  --color-cyan-200: var(--color-blue-200);
+  --color-cyan-300: var(--color-blue-300);
+  --color-cyan-400: var(--color-blue-400);
+  --color-cyan-500: var(--color-blue-500);
+  --color-cyan-600: var(--color-blue-600);
+  --color-cyan-700: var(--color-blue-700);
+  --color-cyan-800: var(--color-blue-800);
+  --color-cyan-900: var(--color-blue-900);
+  --color-cyan-950: var(--color-blue-950);
+
+  /* brand pink — violet / purple / fuchsia / pink / rose */
+  --color-pink-50: #fff6f8;
+  --color-pink-100: #ffedf0;
+  --color-pink-200: #ffd3dd;
+  --color-pink-300: #ffb7c7;
+  --color-pink-400: #ff9fb2;
+  --color-pink-500: #ff8ba5;
+  --color-pink-600: #e8738d;
+  --color-pink-700: #c25a72;
+  --color-pink-800: #9e4759;
+  --color-pink-900: #7e3b48;
+  --color-pink-950: #4a222b;
+
+  --color-rose-50: var(--color-pink-50);
+  --color-rose-100: var(--color-pink-100);
+  --color-rose-200: var(--color-pink-200);
+  --color-rose-300: var(--color-pink-300);
+  --color-rose-400: var(--color-pink-400);
+  --color-rose-500: var(--color-pink-500);
+  --color-rose-600: var(--color-pink-600);
+  --color-rose-700: var(--color-pink-700);
+  --color-rose-800: var(--color-pink-800);
+  --color-rose-900: var(--color-pink-900);
+  --color-rose-950: var(--color-pink-950);
+
+  --color-violet-50: var(--color-pink-50);
+  --color-violet-100: var(--color-pink-100);
+  --color-violet-200: var(--color-pink-200);
+  --color-violet-300: var(--color-pink-300);
+  --color-violet-400: var(--color-pink-400);
+  --color-violet-500: var(--color-pink-500);
+  --color-violet-600: var(--color-pink-600);
+  --color-violet-700: var(--color-pink-700);
+  --color-violet-800: var(--color-pink-800);
+  --color-violet-900: var(--color-pink-900);
+  --color-violet-950: var(--color-pink-950);
+
+  --color-purple-50: var(--color-pink-50);
+  --color-purple-100: var(--color-pink-100);
+  --color-purple-200: var(--color-pink-200);
+  --color-purple-300: var(--color-pink-300);
+  --color-purple-400: var(--color-pink-400);
+  --color-purple-500: var(--color-pink-500);
+  --color-purple-600: var(--color-pink-600);
+  --color-purple-700: var(--color-pink-700);
+  --color-purple-800: var(--color-pink-800);
+  --color-purple-900: var(--color-pink-900);
+  --color-purple-950: var(--color-pink-950);
+
+  --color-fuchsia-50: var(--color-pink-50);
+  --color-fuchsia-100: var(--color-pink-100);
+  --color-fuchsia-200: var(--color-pink-200);
+  --color-fuchsia-300: var(--color-pink-300);
+  --color-fuchsia-400: var(--color-pink-400);
+  --color-fuchsia-500: var(--color-pink-500);
+  --color-fuchsia-600: var(--color-pink-600);
+  --color-fuchsia-700: var(--color-pink-700);
+  --color-fuchsia-800: var(--color-pink-800);
+  --color-fuchsia-900: var(--color-pink-900);
+  --color-fuchsia-950: var(--color-pink-950);
+}
+
+/* Admin surfaces read softer than the storefront: card-white on warm paper. */
+.admin-theme {
+  background-color: var(--blush);
+  color: var(--ink);
+}
+
+/* ── Layout helpers ───────────────────────────────────────── */
 .container-page {
   width: 100%;
-  max-width: 1280px;
-  margin-inline: auto;
-  padding-inline: 14px;
+  padding-inline: 16px;
 }
 
 @media (min-width: 640px) {
@@ -66,7 +486,39 @@ body {
 
 @media (min-width: 1024px) {
   .container-page {
-    padding-inline: 32px;
+    padding-inline: 40px;
+  }
+}
+
+/* Fluid by default: content runs the full width of the viewport with one set of
+   gutters, so a full-bleed rail (hot sellers) starts at exactly the same x as
+   every grid, heading and card above it. Add `is-narrow`/`is-reading` only for
+   pages that are mostly prose, where a centred measure reads better. */
+.container-page.is-narrow {
+  max-width: 1024px;
+  margin-inline: auto;
+}
+
+.container-page.is-reading {
+  max-width: 768px;
+  margin-inline: auto;
+}
+
+/* One vertical rhythm for every section. Sections sit directly on top of each
+   other, so `padding-block` on all of them yields the same gap everywhere. */
+.section-y {
+  padding-block: 28px;
+}
+
+@media (min-width: 640px) {
+  .section-y {
+    padding-block: 36px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-y {
+    padding-block: 44px;
   }
 }
 
@@ -79,129 +531,329 @@ body {
   display: none;
 }
 
-/* ── Product card ───────────────────────────────────────────── */
+/* ── Eyebrow / kicker ─────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+@media (min-width: 640px) {
+  .eyebrow {
+    font-size: 11.5px;
+  }
+}
+
+/* ── Surfaces ─────────────────────────────────────────────── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-card);
+}
+
+.panel-soft {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1;
+  padding: 12px 20px;
+  white-space: nowrap;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--ink);
+  box-shadow: 0 8px 20px rgba(255, 159, 178, 0.4);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(255, 159, 178, 0.5);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
+}
+
+.btn-dark {
+  background: var(--ink);
+  color: var(--blush);
+}
+
+.btn-dark:hover:not(:disabled) {
+  background: #5d474d;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: var(--surface);
+  border-color: var(--primary);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-soft);
+}
+
+.btn-soft {
+  background: var(--nav);
+  color: var(--ink);
+}
+
+.btn-soft:hover:not(:disabled) {
+  background: var(--primary);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-lg {
+  padding: 15px 26px;
+  font-size: 14px;
+}
+
+.btn-sm {
+  padding: 9px 14px;
+  font-size: 12px;
+}
+
+/* Legacy class used by older components. */
+.btn-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--primary);
+  color: var(--ink);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 12px 20px;
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.btn-brand:hover {
+  background: var(--primary-strong);
+  box-shadow: 0 10px 24px rgba(255, 159, 178, 0.45);
+}
+
+/* ── Form fields ──────────────────────────────────────────── */
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.field-input {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    background-color 0.16s ease;
+}
+
+.field-input::placeholder {
+  color: #b7a4a8;
+}
+
+.field-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-soft);
+}
+
+.field-input[aria-invalid="true"] {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 4px var(--danger-soft);
+}
+
+.field-error {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--danger);
+}
+
+/* ── Chips & badges ───────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.chip:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.chip-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--blush);
+}
+
+.chip-active:hover {
+  background: var(--ink);
+  color: var(--blush);
+}
+
+/* ── Product card ─────────────────────────────────────────── */
 .product-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   overflow: hidden;
-  transition: box-shadow 0.2s ease, transform 0.2s ease,
-    border-color 0.2s ease;
+  transition:
+    box-shadow 0.22s ease,
+    transform 0.22s ease,
+    border-color 0.22s ease;
 }
 
 .product-card:hover {
-  border-color: #f3c6c8;
-  box-shadow: 0 10px 28px rgba(17, 17, 17, 0.09);
-  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-3px);
 }
 
 .product-card__media {
   position: relative;
   aspect-ratio: 1 / 1;
-  background: var(--surface-soft);
+  background: var(--surface);
   overflow: hidden;
 }
 
 .product-card__media img {
-  transition: transform 0.4s ease;
+  transition: transform 0.45s ease;
 }
 
 .product-card:hover .product-card__media img {
-  transform: scale(1.045);
+  transform: scale(1.05);
 }
 
-/* ── Section headings (ishtari style) ───────────────────────── */
+/* ── Section headings ─────────────────────────────────────── */
 .section-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 16px;
+  margin-bottom: 18px;
 }
 
 .section-title {
-  font-size: 20px;
-  line-height: 1.2;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   color: var(--ink);
 }
 
 @media (min-width: 768px) {
   .section-title {
-    font-size: 24px;
+    font-size: 30px;
   }
 }
 
 .section-subtitle {
-  margin-top: 3px;
-  font-size: 12px;
+  margin-top: 5px;
+  font-size: 13px;
   color: var(--muted);
 }
 
 .section-link {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 12.5px;
+  gap: 5px;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--brand);
+  color: var(--accent-deep);
   white-space: nowrap;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
 }
 
 .section-link:hover {
-  color: var(--brand-dark);
-  text-decoration: underline;
+  border-bottom-color: var(--primary);
 }
 
-/* ── Buttons ────────────────────────────────────────────────── */
-.btn-brand {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--brand);
-  color: #fff;
-  font-weight: 700;
-  border-radius: 8px;
-  transition: background 0.18s ease, transform 0.18s ease,
-    box-shadow 0.18s ease;
-}
-
-.btn-brand:hover {
-  background: var(--brand-dark);
-  box-shadow: 0 8px 20px rgba(225, 27, 34, 0.24);
-}
-
-.btn-brand:active {
-  transform: scale(0.98);
-}
-
-/* ── Content sections ────────────────────────────────────────── */
-.panel {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-
-/* ── Rich text ──────────────────────────────────────────────── */
+/* ── Rich text ────────────────────────────────────────────── */
 .prose-soft p {
   margin-bottom: 0.75rem;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .prose-soft p:last-child {
   margin-bottom: 0;
 }
 
-/* ── Animations ─────────────────────────────────────────────── */
+/* ── Animations ───────────────────────────────────────────── */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -210,27 +862,39 @@ body {
 }
 
 .fade-up {
-  animation: fadeUp 0.5s ease both;
+  animation: fadeUp 0.55s ease both;
 }
 
-@keyframes marquee {
-  from {
-    transform: translateX(0);
+@keyframes floatSoft {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  to {
-    transform: translateX(-50%);
+  50% {
+    transform: translateY(-10px);
   }
 }
 
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 26s linear infinite;
+.float-soft {
+  animation: floatSoft 6s ease-in-out infinite;
 }
 
-/* react-toastify tweaks */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* react-toastify, matched to the palette */
 .Toastify__toast {
-  border-radius: 10px;
+  border-radius: 14px;
   font-size: 13px;
   font-weight: 600;
+  font-family: var(--font-sans);
+  box-shadow: var(--shadow-lift);
 }

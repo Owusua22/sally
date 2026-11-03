@@ -57,13 +57,13 @@ export function ProductGrid({
           placeholder="Search products..."
           defaultValue={currentSearch}
           onChange={(e) => updateParams({ search: e.target.value || undefined })}
-          className="flex-1 min-w-48 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+          className="flex-1 min-w-48 px-4 py-2 border border-line-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
         />
 
         <select
           value={currentCategory || ''}
           onChange={(e) => updateParams({ category: e.target.value || undefined })}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+          className="px-4 py-2 border border-line-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
         >
           <option value="">All Categories</option>
           {categories.map((c) => (
@@ -74,7 +74,7 @@ export function ProductGrid({
         <select
           value={currentSort || 'newest'}
           onChange={(e) => updateParams({ sort: e.target.value })}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+          className="px-4 py-2 border border-line-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
         >
           <option value="newest">Newest</option>
           <option value="price-asc">Price: Low to High</option>
@@ -84,7 +84,7 @@ export function ProductGrid({
 
       {/* Grid */}
       {products.length === 0 ? (
-        <div className="text-center py-16 text-gray-500">
+        <div className="text-center py-16 text-muted">
           <p className="text-lg font-medium">No products found</p>
           <p className="text-sm mt-1">Try adjusting your search or filters</p>
         </div>
@@ -102,7 +102,7 @@ export function ProductGrid({
           <button
             disabled={page <= 1}
             onClick={() => updateParams({ page: String(page - 1) })}
-            className="px-4 py-2 border rounded-lg disabled:opacity-50 hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 border rounded-lg disabled:opacity-50 hover:bg-surface-soft transition-colors"
           >
             Previous
           </button>
@@ -111,7 +111,7 @@ export function ProductGrid({
               key={p}
               onClick={() => updateParams({ page: String(p) })}
               className={`px-4 py-2 border rounded-lg transition-colors ${
-                p === page ? 'bg-red-600 text-white border-red-600' : 'hover:bg-gray-50'
+                p === page ? 'bg-danger text-white border-red-600' : 'hover:bg-surface-soft'
               }`}
             >
               {p}
@@ -120,7 +120,7 @@ export function ProductGrid({
           <button
             disabled={page >= totalPages}
             onClick={() => updateParams({ page: String(page + 1) })}
-            className="px-4 py-2 border rounded-lg disabled:opacity-50 hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 border rounded-lg disabled:opacity-50 hover:bg-surface-soft transition-colors"
           >
             Next
           </button>

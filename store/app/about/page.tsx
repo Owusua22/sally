@@ -25,28 +25,28 @@ export default function AboutPage() {
       />
       <section className="relative overflow-hidden">
         {/* Decorative blobs */}
-        <div className="absolute top-0 -left-40 w-96 h-96 bg-red-100/40 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 -right-40 w-96 h-96 bg-red-100/40 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 -left-40 w-96 h-96 bg-danger-soft/40 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 -right-40 w-96 h-96 bg-danger-soft/40 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+        <div className="container-page is-narrow section-y relative">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 border border-red-100/60 mb-6">
-              <Sparkles className="w-3.5 h-3.5 text-red-600" />
-              <span className="text-xs font-semibold text-red-700 uppercase tracking-wide">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-danger-soft border border-danger/25/60 mb-6">
+              <Sparkles className="w-3.5 h-3.5 text-danger" />
+              <span className="text-xs font-semibold text-danger uppercase tracking-wide">
                 About Us
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-ink">
               Healthy Skin,
               <br />
-              <span className="bg-gradient-to-r from-red-600 via-red-700 to-rose-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary via-accent to-accent-deep bg-clip-text text-transparent">
                 Everyday Confidence
               </span>
             </h1>
 
-            <p className="mt-6 text-lg text-gray-600 leading-relaxed">
+            <p className="mt-6 text-lg text-muted leading-relaxed">
               We are a Ghanaian skin care store built on one belief: everyone deserves
               products that are authentic, effective and affordable. From shea body
               lotions to vitamin C serums, baby care and daily sun protection, every item
@@ -56,11 +56,11 @@ export default function AboutPage() {
 
           {/* Story section */}
           <div className="mt-16 grid lg:grid-cols-2 gap-10 items-center">
-            <div className="bg-white rounded-3xl shadow-xl shadow-red-100/30 border border-gray-100 p-8 sm:p-10">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Story</h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
+            <div className="bg-white rounded-3xl shadow-xl shadow-primary/30/30 border border-line p-8 sm:p-10">
+              <h2 className="text-2xl font-bold text-ink mb-4">Our Story</h2>
+              <div className="space-y-4 text-muted leading-relaxed">
                 <p>
-                  Glow-Up started with a simple frustration: finding genuine skin care in
+                  GlowMom started with a simple frustration: finding genuine skin care in
                   Ghana was harder than it should be. Products were either overpriced,
                   expired or impossible to verify. So we built a store that only sells
                   what we would use ourselves.
@@ -105,13 +105,13 @@ export default function AboutPage() {
               ].map(({ icon: Icon, title, desc }) => (
                 <div
                   key={title}
-                  className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm hover:shadow-lg hover:shadow-red-100/20 transition-all"
+                  className="bg-white rounded-2xl border border-line p-6 shadow-sm hover:shadow-lg hover:shadow-primary/30/20 transition-all"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-red-600" />
+                  <div className="w-12 h-12 rounded-xl bg-danger-soft flex items-center justify-center mb-4">
+                    <Icon className="w-6 h-6 text-danger" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-                  <p className="text-sm text-gray-600">{desc}</p>
+                  <h3 className="font-semibold text-ink mb-2">{title}</h3>
+                  <p className="text-sm text-muted">{desc}</p>
                 </div>
               ))}
             </div>
@@ -119,7 +119,7 @@ export default function AboutPage() {
 
           {/* Bottom statement */}
           <div className="mt-16 text-center max-w-3xl mx-auto">
-            <p className="text-base sm:text-lg text-gray-600">
+            <p className="text-base sm:text-lg text-muted">
               We&apos;re more than a store — we&apos;re your skin care partner, committed to
               honest products, fair prices and service that feels personal.
             </p>

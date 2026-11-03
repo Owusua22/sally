@@ -2,9 +2,9 @@
 // Single source of truth for brand-level, location and contact content.
 
 export const site = {
-  name: 'Glow-Up',
-  nameFull: 'Glow-Up Skincare & Mother Care',
-  shortName: 'Glow-Up',
+  name: 'GlowMom',
+  nameFull: 'GlowMom Skincare & Mother Care',
+  shortName: 'GlowMom',
   tagline: 'Authentic skincare and Mothercare for every budget',
   headline:
     "100% Authentic Skincare, Body Care & Mothercare in East Doboro — Beside St. George's Height",
@@ -14,7 +14,7 @@ export const site = {
   phoneDisplay: '054 945 5367',
   whatsapp: '233549455367',
   whatsappDisplay: '054 945 5367',
-  email: 'hello@glowupskincare.com',
+  email: 'hello@glowmom.com.gh',
   address: 'East Doboro, beside St. George’s Height, Nsawam, Eastern Region, Ghana',
   areaServed: 'Ghana',
   town: 'East Doboro',
@@ -36,7 +36,7 @@ export const site = {
   /** MTN MoMo Pay Till / merchant number used for manual verification. */
   momo: {
     network: 'MTN Mobile Money',
-    name: 'Glow-Up Skincare & Mother Care',
+    name: 'GlowMom Skincare & Mother Care',
     number: '054 945 5367',
     till: '054 945 5367',
     /** Set the real Pay Till / merchant ID here once MTN issues it. */
@@ -62,7 +62,15 @@ export const site = {
     sameDayCutoff: '2:00 PM',
   },
   /** Canonical origin used for metadata, JSON-LD and auth redirects. */
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://glowupskincare.com',
+  /** Canonical origin used for metadata, JSON-LD and auth redirects. */
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://glowmom.com.gh',
+  /** Social profiles — emitted as `sameAs` in the organisation JSON-LD. */
+  socials: [
+    'https://www.instagram.com/',
+    'https://www.facebook.com/',
+    'https://www.tiktok.com/',
+  ],
+  foundedYear: 2021,
 } as const;
 
 /** Every address variant people actually search for. */

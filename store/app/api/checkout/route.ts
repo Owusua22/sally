@@ -154,7 +154,6 @@ export async function POST(request: NextRequest) {
       quantity: number;
       unit_price: number;
       /** Cost price at the moment of sale — powers the COGS in /admin/accounting */
-      unit_cost: number;
       total_price: number;
       selected_size: string | null;
       selected_color: string | null;
@@ -201,7 +200,6 @@ export async function POST(request: NextRequest) {
         product_image: product.thumbnail,
         quantity: item.quantity,
         unit_price: product.price,
-        unit_cost: Number(product.cost_price ?? 0),
         total_price: itemTotal,
         selected_size: item.selected_size || null,
         selected_color: item.selected_color || null,

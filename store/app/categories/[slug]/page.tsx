@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${category.name} — shop in Ghana`,
     description:
       category.description ??
-      `Shop authentic ${category.name.toLowerCase()} at Glow-Up. Fast delivery across Ghana.`,
+      `Shop authentic ${category.name.toLowerCase()} at GlowMom. Fast delivery across Ghana.`,
     openGraph: {
       title: category.name,
       description: category.description ?? undefined,

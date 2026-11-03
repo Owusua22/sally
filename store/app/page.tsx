@@ -1,17 +1,53 @@
-// app/page.tsx
+// app/page.tsx — GlowMom homepage
+import type { Metadata } from 'next';
+
 import { HeroBanner } from '@/components/home/HeroBanner';
 import { CategoryStrip } from '@/components/home/CategoryStrip';
 import { ProductSection } from '@/components/home/ProductSection';
 import { ProductRail } from '@/components/home/ProductRail';
-import { DealBanner, PromoBands, ValueStrip } from '@/components/home/PromoBands';
+import {
+  DealBanner,
+  PromoBands,
+  ShopByStage,
+  ValueStrip,
+} from '@/components/home/PromoBands';
+import {
+  NewsletterBand,
+  PromiseBand,
+  Testimonials,
+} from '@/components/home/HomeSections';
 import { getHomeData } from '@/lib/data/store';
 import { StoreSetupNotice } from '@/components/layout/StoreSetupNotice';
 import { isSupabaseConfigured } from '@/lib/supabase/config';
 import { checkDatabaseHealth } from '@/lib/supabase/health';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { breadcrumbSchema, itemListSchema } from '@/lib/seo/jsonld';
+import {
+  breadcrumbSchema,
+  faqSchema,
+  itemListSchema,
+  localBusinessSchema,
+} from '@/lib/seo/jsonld';
+import { site } from '@/lib/site';
+import { HOME_FAQS } from '@/lib/seo/content';
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: `${site.nameFull} — Skincare, Body Care & Mother Care in Nsawam`,
+  description: site.description,
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: `${site.nameFull} — Skincare, Body Care & Mother Care in Nsawam`,
+    description: site.description,
+    url: '/',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${site.nameFull} — Skincare, Body Care & Mother Care in Nsawam`,
+    description: site.description,
+  },
+};
 
 export default async function HomePage() {
   const { banners, categories, hotArrivals, topPicks, hotSellers, showrooms } =
@@ -28,22 +64,33 @@ export default async function HomePage() {
       <JsonLd
         id="home"
         data={[
+          localBusinessSchema(),
           itemListSchema(topPicks, {
             name: 'Our top picks',
             url: '/products?sort=popular',
-            description: 'Bestselling skincare, hair care and baby care at Glow-Up.',
+            description: `Bestselling skincare, hair care and baby care at ${site.name}.`,
           }),
+          faqSchema(HOME_FAQS),
           breadcrumbSchema([{ name: 'Home', href: '/' }]),
         ]}
       />
+
       {awaitingCatalogue ? <StoreSetupNotice /> : null}
+
+      {/* The hero is artwork only, so the page's single h1 carries the
+          storefront's name and what it sells. */}
+      <h1 className="sr-only">
+        {site.nameFull} — skincare, body care, hair care and mother &amp; baby
+        essentials in Nsawam
+      </h1>
+
       <HeroBanner banners={banners} />
-      <CategoryStrip categories={categories} />
       <ValueStrip />
+      <CategoryStrip categories={categories} />
+      <ShopByStage />
 
       <ProductSection
-        title="Hot arrivals!"
-        subtitle="Fresh stock, loved by our customers"
+        title="Hot arrivals"
         href="/products?sort=newest"
         hrefLabel="View more"
         products={hotArrivals.slice(0, 10)}
@@ -54,73 +101,32 @@ export default async function HomePage() {
 
       <ProductSection
         title="Mega deals"
-        subtitle="More shopping, less spending"
         href="/products?deals=1"
         hrefLabel="All deals"
         products={deals.slice(0, 8)}
+        columns="four"
       />
 
       <DealBanner />
 
       <ProductSection
         title="Our top picks"
-        subtitle="Tried, loved and highly rated"
         href="/products?sort=popular"
         hrefLabel="View more"
         products={topPicks.slice(0, 8)}
+        tone="soft"
+        columns="four"
       />
 
       <ProductRail
         title="Hot sellers"
-        subtitle="The items everyone is buying"
         href="/products?sort=popular"
         products={hotSellers.slice(0, 10)}
       />
 
-      <section className="container-page pt-8 sm:pt-10">
-        <div className="grid gap-3 rounded-xl border border-line bg-white p-5 sm:grid-cols-3 sm:p-6">
-          {[
-            {
-              name: 'Ama D.',
-              location: 'East Legon, Accra',
-              quote:
-                'The shea body lotion is everything. My skin stayed soft through harmattan and delivery took one day.',
-              stars: 5,
-            },
-            {
-              name: 'Kwame A.',
-              location: 'Kumasi',
-              quote:
-                'Ordered diapers and baby lotion on Friday, received them Saturday morning. Genuine products, fair prices.',
-              stars: 5,
-            },
-            {
-              name: 'Nana A.',
-              location: 'Takoradi',
-              quote:
-                'The vitamin C serum cleared my dark spots in three weeks. Customer support on WhatsApp was super helpful.',
-              stars: 5,
-            },
-          ].map((review) => (
-            <figure key={review.name} className="rounded-lg bg-surface-soft p-4">
-              <div className="mb-2 flex gap-0.5 text-amber-500" aria-label={`${review.stars} star review`}>
-                {Array.from({ length: review.stars }).map((_, index) => (
-                  <span key={index} aria-hidden="true">
-                    ★
-                  </span>
-                ))}
-              </div>
-              <blockquote className="text-[12.5px] leading-relaxed text-gray-700">
-                “{review.quote}”
-              </blockquote>
-              <figcaption className="mt-3 text-[11px] font-bold text-ink">
-                {review.name}
-                <span className="ml-1 font-medium text-muted">· {review.location}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
+      <PromiseBand />
+      <Testimonials />
+      <NewsletterBand />
     </>
   );
 }

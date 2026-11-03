@@ -1,6 +1,5 @@
 // components/icons.tsx
 import {
-  type LucideIcon,
   type LucideProps,
   ShoppingBag,
   Search,

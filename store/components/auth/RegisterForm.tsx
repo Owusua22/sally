@@ -8,6 +8,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useAuthModal } from '@/stores/authModalStore';
 import { describeAuthError } from '@/lib/auth-errors';
 import { toast } from 'react-toastify';
+import { Loader2, Sparkles } from 'lucide-react';
 
 // Simple eye icons (inline SVG) for accessibility
 const EyeIcon = ({ className = 'w-5 h-5' }: { className?: string }) => (
@@ -118,13 +119,18 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
     <div className="space-y-4">
       {onSwitchToLogin ? (
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900">Create your account</h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-card text-accent-deep">
+            <Sparkles className="h-6 w-6" />
+          </span>
+          <h2 className="mt-3 font-display text-[24px] font-bold text-ink">
+            Create your account
+          </h2>
+          <p className="mt-1.5 text-[13px] text-muted">
             Already have an account?{' '}
             <button
               type="button"
               onClick={onSwitchToLogin}
-              className="font-medium text-red-600 hover:text-red-500"
+              className="font-bold text-accent-deep underline underline-offset-2"
             >
               Sign in
             </button>
@@ -135,7 +141,7 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
       {formError ? (
         <p
           role="alert"
-          className="rounded-lg border border-red-200 bg-red-50 px-3.5 py-2.5 text-[12.5px] leading-relaxed text-red-800"
+          className="rounded-2xl border border-danger/30 bg-danger-soft px-4 py-3 text-[12.5px] leading-relaxed text-danger"
         >
           {formError}
         </p>
@@ -144,7 +150,7 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         {/* Full Name */}
         <div>
-          <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="full_name" className="field-label">
             Full Name
           </label>
           <input
@@ -152,17 +158,17 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
             id="full_name"
             type="text"
             autoComplete="name"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="field-input"
             placeholder="Jane Doe"
           />
           {errors.full_name && (
-            <p className="mt-1 text-sm text-red-600">{errors.full_name.message}</p>
+            <p className="field-error">{errors.full_name.message}</p>
           )}
         </div>
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="field-label">
             Email
           </label>
           <input
@@ -170,17 +176,17 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
             id="email"
             type="email"
             autoComplete="email"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="field-input"
             placeholder="you@example.com"
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+            <p className="field-error">{errors.email.message}</p>
           )}
         </div>
 
         {/* Contact number */}
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="phone" className="field-label">
             Contact number
           </label>
           <input
@@ -191,13 +197,13 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
             autoComplete="tel"
             required
             aria-describedby="phone-hint"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="field-input"
             placeholder="054 945 5367"
           />
           {errors.phone ? (
-            <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
+            <p className="field-error">{errors.phone.message}</p>
           ) : (
-            <p id="phone-hint" className="mt-1 text-xs text-gray-500">
+            <p id="phone-hint" className="mt-1.5 text-[11.5px] text-muted">
               We&apos;ll call or WhatsApp you about delivery.
             </p>
           )}
@@ -205,7 +211,7 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
 
         {/* Password */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="password" className="field-label">
             Password
           </label>
           <div className="relative">
@@ -214,7 +220,7 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
               id="password"
               type={showPassword ? 'text' : 'password'}
               autoComplete="new-password"
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="field-input pr-11"
               placeholder="Create a strong password"
             />
             <button
@@ -222,22 +228,22 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
               aria-label={showPassword ? 'Hide password' : 'Show password'}
               aria-pressed={showPassword}
               onClick={() => setShowPassword((v) => !v)}
-              className="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
+              className="absolute inset-y-0 right-2 flex items-center text-muted hover:text-ink/80"
             >
               {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
             </button>
           </div>
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+            <p className="field-error">{errors.password.message}</p>
           )}
-          <p className="mt-1 text-xs text-gray-500">
-            Must be at least 8 characters, include an uppercase letter and a number.
+          <p className="mt-1.5 text-[11.5px] text-muted">
+            At least 8 characters, with an uppercase letter and a number.
           </p>
         </div>
 
         {/* Confirm Password */}
         <div>
-          <label htmlFor="confirm_password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="confirm_password" className="field-label">
             Confirm Password
           </label>
           <div className="relative">
@@ -246,7 +252,7 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
               id="confirm_password"
               type={showConfirmPassword ? 'text' : 'password'}
               autoComplete="new-password"
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="field-input pr-11"
               placeholder="Re-enter your password"
             />
             <button
@@ -254,22 +260,29 @@ export function RegisterForm({ onSuccess, onSwitchToLogin }: RegisterFormProps) 
               aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
               aria-pressed={showConfirmPassword}
               onClick={() => setShowConfirmPassword((v) => !v)}
-              className="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
+              className="absolute inset-y-0 right-2 flex items-center text-muted hover:text-ink/80"
             >
               {showConfirmPassword ? <EyeSlashIcon /> : <EyeIcon />}
             </button>
           </div>
           {errors.confirm_password && (
-            <p className="mt-1 text-sm text-red-600">{errors.confirm_password.message}</p>
+            <p className="field-error">{errors.confirm_password.message}</p>
           )}
         </div>
 
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full py-3 px-4 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 disabled:opacity-50 transition-colors"
+          className="btn btn-primary btn-lg btn-block"
         >
-          {isLoading ? 'Creating account...' : 'Create account'}
+          {isLoading ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Creating account…
+            </>
+          ) : (
+            'Create account'
+          )}
         </button>
       </form>
 

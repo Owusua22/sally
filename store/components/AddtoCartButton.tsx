@@ -1,9 +1,14 @@
-// src/components/cart/AddToCartButton.tsx
+// components/AddtoCartButton.tsx
+// Add-to-basket button used on product pages and showroom grids.
+// Guests are sent to the sign-in / create-account dialog first — the cart API
+// only accepts authenticated requests.
+
 'use client';
 
 import { useState } from 'react';
-import { ShoppingCart, Loader2, Check } from 'lucide-react';
-import { useCart, type CartItem } from '@/hooks/useCart';
+import { ShoppingCart, Loader2, Check, Lock } from 'lucide-react';
+import { useGuardedCart } from '@/hooks/useGuardedCart';
+import type { CartItem } from '@/hooks/useCart';
 
 interface AddToCartButtonProps {
   product: CartItem['product'];
@@ -20,48 +25,56 @@ export function AddToCartButton({
   selectedColor = null,
   className = '',
 }: AddToCartButtonProps) {
-  const { addToCart } = useCart();
+  const { add } = useGuardedCart();
   const [status, setStatus] = useState<'idle' | 'loading' | 'done'>('idle');
 
   const handleClick = async () => {
     if (status !== 'idle') return;
     setStatus('loading');
 
-    // ✅ Pass size and color (matches new addToCart signature)
-    await addToCart(product.id, quantity, selectedSize, selectedColor);
+    const result = await add(product.id, quantity, selectedSize, selectedColor);
 
-    setStatus('done');
-    setTimeout(() => setStatus('idle'), 1500);
+    if (result === 'added') {
+      setStatus('done');
+      setTimeout(() => setStatus('idle'), 1600);
+      return;
+    }
+
+    setStatus('idle');
   };
 
   const isOutOfStock = product.stock_quantity < 1;
 
   return (
     <button
+      type="button"
       onClick={handleClick}
       disabled={isOutOfStock || status === 'loading'}
-      className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium transition-all
-        ${isOutOfStock
-          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-          : status === 'done'
-          ? 'bg-green-600 text-white'
-          : 'bg-red-600 text-white hover:bg-red-700 active:scale-95'
-        } ${className}`}
+      className={`btn ${isOutOfStock ? 'btn-outline opacity-60' : 'btn-primary'} ${className}`}
+      aria-label={
+        isOutOfStock
+          ? `${product.name} is out of stock`
+          : `Add ${product.name} to basket`
+      }
     >
       {status === 'loading' ? (
-        <Loader2 className="w-4 h-4 animate-spin" />
+        <Loader2 className="h-4 w-4 animate-spin" />
       ) : status === 'done' ? (
-        <Check className="w-4 h-4" />
+        <Check className="h-4 w-4" />
+      ) : isOutOfStock ? (
+        <Lock className="h-4 w-4" />
       ) : (
-        <ShoppingCart className="w-4 h-4" />
+        <ShoppingCart className="h-4 w-4" />
       )}
       {isOutOfStock
-        ? 'Out of Stock'
+        ? 'Out of stock'
         : status === 'loading'
-        ? 'Adding…'
-        : status === 'done'
-        ? 'Added!'
-        : 'Add to Cart'}
+          ? 'Adding…'
+          : status === 'done'
+            ? 'Added to basket'
+            : 'Add to basket'}
     </button>
   );
 }
+
+export default AddToCartButton;

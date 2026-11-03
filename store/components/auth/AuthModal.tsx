@@ -5,6 +5,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { X } from 'lucide-react';
 
@@ -130,19 +131,19 @@ export function AuthModal() {
         <div
           ref={panelRef}
           tabIndex={-1}
-          className="relative my-6 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl outline-none sm:p-8"
+          className="relative my-6 w-full max-w-md rounded-[28px] border border-line bg-surface p-6 shadow-2xl outline-none sm:p-8"
         >
           <button
             type="button"
             onClick={closeAuth}
-            className="absolute right-3 top-3 rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700"
+            className="absolute right-3 top-3 rounded-full p-2 text-muted transition-colors hover:bg-card hover:text-ink"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
           </button>
 
           {copy ? (
-            <div className="mb-5 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 pr-10 text-[12.5px] text-emerald-900">
+            <div className="mb-5 rounded-lg border border-success/30 bg-success-soft px-4 py-3 pr-10 text-[12.5px] text-ink">
               <p className="font-bold">{copy.title}</p>
               {copy.body ? <p className="mt-1 leading-relaxed">{copy.body}</p> : null}
               {email ? <p className="mt-1 font-semibold">{email}</p> : null}
@@ -162,15 +163,15 @@ export function AuthModal() {
             />
           )}
 
-          <p className="mt-5 text-center text-[11px] leading-relaxed text-gray-400">
+          <p className="mt-6 text-center text-[11px] leading-relaxed text-muted">
             By continuing you agree to our{' '}
-            <a href="/terms" className="underline hover:text-gray-600">
+            <Link href="/terms" className="font-semibold text-accent-deep underline underline-offset-2">
               terms
-            </a>{' '}
+            </Link>{' '}
             and{' '}
-            <a href="/privacy" className="underline hover:text-gray-600">
+            <Link href="/privacy" className="font-semibold text-accent-deep underline underline-offset-2">
               privacy policy
-            </a>
+            </Link>
             .
           </p>
         </div>

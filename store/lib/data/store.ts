@@ -390,14 +390,34 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   }
 }
 
-export async function getRelatedProducts(product: Product, limit = 4): Promise<Product[]> {
-  const sameCategory = await getProducts({
-    categoryId: product.category_id ?? undefined,
-    excludeId: product.id,
-    limit,
-  });
+export async function getRelatedProducts(
+  product: Product,
+  limit = 4,
+): Promise<Product[]> {
+  // "You may also like" stays on the same shelf as the product being viewed.
+  const categoryId = product.category_id ?? product.category?.id ?? null;
 
-  if (sameCategory.length > 0) return sameCategory;
+  if (categoryId) {
+    const sameCategory = await getProducts({
+      categoryId,
+      excludeId: product.id,
+      limit,
+    });
+
+    if (sameCategory.length > 0) return sameCategory;
+  }
+
+  // Nothing else on that shelf: keep it relevant with the same brand, and only
+  // then fall back to the wider catalogue.
+  if (product.brand) {
+    const sameBrand = await getProducts({
+      brandSlug: brandSlug(product.brand),
+      excludeId: product.id,
+      limit,
+    });
+
+    if (sameBrand.length > 0) return sameBrand;
+  }
 
   return getProducts({ excludeId: product.id, limit });
 }

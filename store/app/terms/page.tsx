@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="container-page max-w-3xl py-8">
+    <div className="container-page is-reading section-y">
       <h1 className="text-[24px] font-extrabold tracking-tight text-ink">Terms of service</h1>
-      <div className="prose-soft mt-4 space-y-4 text-[13px] leading-relaxed text-gray-600">
+      <div className="prose-soft mt-4 space-y-4 text-[13px] leading-relaxed text-muted">
         <p>
           Welcome to {site.nameFull}. By placing an order on this website you agree to the
           terms below.

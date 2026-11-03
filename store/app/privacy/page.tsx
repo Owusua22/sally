@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="container-page max-w-3xl py-8">
+    <div className="container-page is-reading section-y">
       <h1 className="text-[24px] font-extrabold tracking-tight text-ink">Privacy policy</h1>
-      <div className="prose-soft mt-4 space-y-4 text-[13px] leading-relaxed text-gray-600">
+      <div className="prose-soft mt-4 space-y-4 text-[13px] leading-relaxed text-muted">
         <p>
           {site.nameFull} respects your privacy. This policy explains what we collect and
           how we use it.

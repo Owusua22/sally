@@ -130,7 +130,7 @@ export const demoPurchases: PurchaseRow[] = [
     note: null,
     purchased_at: demoTodays(),
     product: { name: 'Cocoa Glow Body Lotion 500ml' },
-    supplier: { name: 'Glow-Up Imports' },
+    supplier: { name: 'GlowMom Imports' },
   },
   {
     id: 'demo-purchase-3',
@@ -251,7 +251,7 @@ function demoOverview(): AccountingOverview {
       },
       {
         id: 'demo-supplier-2',
-        name: 'Glow-Up Imports',
+        name: 'GlowMom Imports',
         contact_person: 'Kofi Mensah',
         phone: '0555551234',
         email: null,

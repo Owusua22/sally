@@ -18,7 +18,7 @@ export function DemoModeBanner() {
   return (
     <div className="bg-ink text-white">
       <div className="container-page flex items-center gap-2 py-1.5 text-[11px]">
-        <Database className="h-3.5 w-3.5 shrink-0 text-amber-300" />
+        <Database className="h-3.5 w-3.5 shrink-0 text-primary" />
         <p className="flex-1 leading-snug">
           <span className="font-bold">Demo mode:</span> no Supabase keys found, so the
           store is running on the bundled skincare catalogue. Add your{' '}

@@ -310,3 +310,112 @@ export function aboutPageSchema() {
 export function productRating(product: Product) {
   return metaNumber(product.metadata, 'rating', product.rating ?? 0);
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Local business — the physical shop, which is what most of our
+   local searches ("skincare shop Nsawam") are actually asking for.
+   ───────────────────────────────────────────────────────────── */
+export function localBusinessSchema() {
+  return clean({
+    '@context': 'https://schema.org',
+    '@type': ['OnlineStore', 'Store', 'HealthAndBeautyBusiness'],
+    '@id': `${site.url}/#store`,
+    name: site.nameFull,
+    alternateName: site.name,
+    description: site.description,
+    url: site.url,
+    telephone: `+${site.whatsapp}`,
+    email: site.email,
+    currenciesAccepted: CURRENCY,
+    paymentAccepted: 'Cash on delivery, MTN Mobile Money, Telecel Cash, Visa, Mastercard',
+    foundingDate: String(site.foundedYear),
+    slogan: site.tagline,
+    areaServed: { '@type': 'Country', name: site.areaServed },
+    priceRange: '₵₵',
+    image: `${site.url}/opengraph-image`,
+    logo: `${site.url}/icon`,
+    sameAs: site.socials,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: `${site.town}, beside ${site.landmark}`,
+      addressLocality: site.town,
+      addressRegion: site.region,
+      addressCountry: 'GH',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 5.8119,
+      longitude: -0.4677,
+    },
+    hasMap: site.mapLink,
+    publicAccess: true,
+    isAccessibleForFree: false,
+    openingHoursSpecification: site.hours.map((day) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: day.day,
+      opens: day.openTime,
+      closes: day.closeTime,
+    })),
+    makesOffer: {
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'ProductCollection',
+        name: 'Skincare, body care, haircare, mothercare and baby essentials',
+      },
+    },
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: `+${site.whatsapp}`,
+        contactType: 'customer service',
+        areaServed: 'GH',
+        availableLanguage: ['en'],
+      },
+    ],
+    potentialAction: {
+      '@type': 'OrderAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${site.url}/products`,
+        actionPlatform: [
+          'https://schema.org/DesktopWebPlatform',
+          'https://schema.org/MobileWebPlatform',
+        ],
+      },
+      deliveryMethod: ['https://schema.org/ParcelService', 'https://schema.org/OnSitePickup'],
+    },
+  });
+}
+
+export interface Faq {
+  question: string;
+  answer: string;
+}
+
+export function faqSchema(faqs: Faq[]) {
+  return clean({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${site.url}#faq`,
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  });
+}
+
+/** `HowTo`-style guidance emitted on product pages. */
+export function howToSchema(input: { name: string; steps: string[]; url: string }) {
+  return clean({
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: input.name,
+    url: absolute(input.url),
+    step: input.steps.map((text, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      text,
+    })),
+  });
+}

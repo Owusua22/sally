@@ -38,7 +38,7 @@ export default async function ProductsPage() {
     products = demoProducts.map((product) => ({
       id: product.id,
       name: product.name,
-      brand: product.brand ?? 'Glow-Up',
+      brand: product.brand ?? 'GlowMom',
       thumbnail: product.thumbnail,
       price: product.price,
       compare_at_price: product.compare_at_price,

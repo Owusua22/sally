@@ -173,7 +173,7 @@ export default function AdminDashboardShell({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-950">
+    <div className="admin-theme min-h-screen bg-slate-50 text-slate-950">
       {/*
         Keying the mobile chrome by pathname resets its local sidebar state
         on navigation without using setState inside an effect.
